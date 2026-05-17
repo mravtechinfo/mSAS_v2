@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found · Mobile Security Auditor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e17;
+            color: #e0e4ec;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container { max-width: 600px; width: 100%; text-align: center; }
+        .code { font-size: 96px; font-weight: 800; background: linear-gradient(135deg, #38bdf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 0.5rem; }
+        h1 { font-size: 24px; font-weight: 600; margin-bottom: 0.75rem; }
+        p { color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 2rem; }
+        .redirecting { color: #38bdf8; font-size: 14px; margin-bottom: 2rem; display: none; }
+        .redirecting.show { display: block; }
+        .links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .links a {
+            padding: 12px 28px; border-radius: 12px; font-weight: 600; font-size: 15px;
+            text-decoration: none; transition: all 0.2s ease;
+        }
+        .links a.primary { background: linear-gradient(135deg, #38bdf8, #818cf8); color: #fff; }
+        .links a.secondary { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+        .links a:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+        .info { margin-top: 2rem; color: #475569; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="code">404</div>
+        <h1>Page not found</h1>
+        <p>The page you're looking for doesn't exist or may have moved.<br>Let's get you back on track.</p>
+        <div class="redirecting show" id="redirectMsg">⟳ Redirecting to the correct tool…</div>
+        <div class="links">
+            <a href="/" class="primary">← Back to Home</a>
+            <a href="/apk-auditor/index.html" class="secondary">📱 APK Auditor</a>
+            <a href="/ipa-auditor/index.html" class="secondary">🍎 IPA Auditor</a>
+        </div>
+        <div class="info">Mobile Security Auditor · 100% client-side analysis</div>
+    </div>
+
+    <script>
+    (function() {
+        var path = window.location.pathname.toLowerCase();
+
+        // If the URL suggests an APK or IPA tool page, auto-redirect
+        if (path.indexOf('/apk-auditor') !== -1 || path.indexOf('/apk') !== -1) {
+            document.getElementById('redirectMsg').textContent = '⟳ Redirecting to APK Auditor…';
+            setTimeout(function() { window.location.href = '/apk-auditor/index.html'; }, 1500);
+        } else if (path.indexOf('/ipa-auditor') !== -1 || path.indexOf('/ipa') !== -1) {
+            document.getElementById('redirectMsg').textContent = '⟳ Redirecting to IPA Auditor…';
+            setTimeout(function() { window.location.href = '/ipa-auditor/index.html'; }, 1500);
+        } else {
+            document.getElementById('redirectMsg').classList.remove('show');
+        }
+    })();
+    </script>
+</body>
+</html>

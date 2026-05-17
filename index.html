@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Security Auditor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e17;
+            color: #e0e4ec;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background-image: 
+                radial-gradient(ellipse at 20% 50%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 8px 32px rgba(56, 189, 248, 0.2);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #e0e4ec, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #38bdf8, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            color: #64748b;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: linear-gradient(145deg, #111827, #0f1729);
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 20px 20px 0 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-card.apk::before { background: linear-gradient(90deg, #38bdf8, #818cf8); }
+        .tool-card.ipa::before { background: linear-gradient(90deg, #f472b6, #a78bfa); }
+
+        .tool-card:hover {
+            border-color: #334155;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .tool-card:hover::before { opacity: 1; }
+
+        .tool-card .icon-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .tool-card.apk .icon-wrapper {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(129, 140, 248, 0.15));
+        }
+
+        .tool-card.ipa .icon-wrapper {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(167, 139, 250, 0.15));
+        }
+
+        .tool-card h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .tool-card.apk h2 { color: #38bdf8; }
+        .tool-card.ipa h2 { color: #f472b6; }
+
+        .tool-card p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-card .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tool-card .features span {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid #2a3a4e;
+        }
+
+        .tool-card .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .tool-card.apk .cta {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: #fff;
+        }
+
+        .tool-card.ipa .cta {
+            background: linear-gradient(135deg, #f472b6, #a78bfa);
+            color: #fff;
+        }
+
+        .tool-card .cta:hover { transform: scale(1.02); }
+
+        .tool-card .cta .arrow { transition: transform 0.2s ease; }
+        .tool-card:hover .cta .arrow { transform: translateX(4px); }
+
+        .info-bar {
+            text-align: center;
+            padding: 1.5rem;
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+        }
+
+        .info-bar p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .info-bar a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .info-bar a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            header h1 { font-size: 28px; }
+            .tools-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .tool-card { padding: 1.75rem; }
+            .tool-card h2 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">🛡</div>
+                <span class="logo-text">Mobile Auditor</span>
+            </div>
+            <h1>Mobile Security Analysis Suite</h1>
+            <p>Comprehensive static analysis for Android APKs and iOS IPA files. Upload, scan, and identify security vulnerabilities in your mobile applications.</p>
+        </header>
+
+        <div class="tools-grid">
+            <a href="apk-auditor/index.html" class="tool-card apk">
+                <div class="icon-wrapper">📱</div>
+                <h2>APK Auditor</h2>
+                <p>Analyze Android APK files for security vulnerabilities, misconfigurations, and privacy issues. Detects 150+ security patterns including crypto flaws, insecure storage, and code execution risks.</p>
+                <div class="features">
+                    <span>150+ Rules</span>
+                    <span>DEX Analysis</span>
+                    <span>Manifest Audit</span>
+                    <span>Certificate Check</span>
+                    <span>MASVS Mapping</span>
+                    <span>OWASP Coverage</span>
+                </div>
+                <div class="cta">
+                    Launch APK Auditor <span class="arrow">→</span>
+                </div>
+            </a>
+
+            <a href="ipa-auditor/index.html" class="tool-card ipa">
+                <div class="icon-wrapper">🍎</div>
+                <h2>IPA Auditor</h2>
+                <p>Analyze iOS IPA files for security vulnerabilities, privacy compliance issues, and insecure configurations. Detects 80+ patterns including plist misconfigurations and binary analysis.</p>
+                <div class="features">
+                    <span>80+ Rules</span>
+                    <span>Plist Analysis</span>
+                    <span>Binary Scan</span>
+                    <span>Privacy Checks</span>
+                    <span>Entitlements</span>
+                    <span>Framework Audit</span>
+                </div>
+                <div class="cta">
+                    Launch IPA Auditor <span class="arrow">→</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="info-bar">
+            <p>
+                🛡️ 100% client-side analysis · No data uploaded to servers ·
+                <a href="https://github.com/mravtechinfo/apkauditor" target="_blank">APKAuditor</a> ·
+                <a href="https://github.com/mravtechinfo/ipaauditor" target="_blank">IPAAuditor</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

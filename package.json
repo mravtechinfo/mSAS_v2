@@ -1,0 +1,44 @@
+{
+  "name": "mobile-security-auditor",
+  "version": "1.0.0",
+  "description": "Unified mobile security analysis suite — static analysis for Android APKs (APKAuditor) and iOS IPA files (IPAAuditor). 100% client-side, no data uploaded.",
+  "keywords": [
+    "android-security",
+    "ios-security",
+    "apk-analyzer",
+    "ipa-analyzer",
+    "mobile-security",
+    "static-analysis",
+    "owasp-masvs",
+    "vulnerability-scanner",
+    "dex-parser",
+    "macho-analyzer"
+  ],
+  "homepage": "https://github.com/mravtechinfo/mobile-security-auditor",
+  "license": "CC-BY-NC-ND-4.0",
+  "author": {
+    "name": "mravtechinfo",
+    "url": "https://github.com/mravtechinfo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mravtechinfo/mobile-security-auditor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mravtechinfo/mobile-security-auditor/issues"
+  },
+  "private": false,
+  "files": [
+    "index.html",
+    "apk-auditor/",
+    "ipa-auditor/"
+  ],
+  "scripts": {
+    "start": "python3 server.py",
+    "start:basic": "python3 -m http.server 8080",
+    "dev": "npx live-server . --port=8080 --no-browser --ignore=node_modules"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
