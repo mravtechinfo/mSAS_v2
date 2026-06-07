@@ -1,0 +1,373 @@
+/* ============================================================
+   mSAS v2 — Shared CSS Variables & Component Styles
+   
+   Import this BEFORE auditor-specific stylesheets.
+   Defines design tokens used by all three auditors.
+   ============================================================ */
+
+/* ---------- Design Tokens ---------- */
+:root {
+  /* Neutral palette */
+  --msas-bg:          #0a0e17;
+  --msas-bg-card:     #111827;
+  --msas-bg-hover:    #1a2236;
+  --msas-bg-input:    #0d1117;
+  --msas-border:      #1e2d4a;
+  --msas-border-light:#2a3f5f;
+  --msas-text:        #e2e8f0;
+  --msas-text-dim:    #8892a4;
+  --msas-text-muted:  #5a6478;
+  --msas-text-inverse:#0a0e17;
+
+  /* Severity colors (accessible contrast ratios) */
+  --msas-critical:    #ef4444;
+  --msas-critical-bg: rgba(239, 68, 68, 0.12);
+  --msas-critical-border: rgba(239, 68, 68, 0.3);
+  --msas-high:        #f97316;
+  --msas-high-bg:     rgba(249, 115, 22, 0.12);
+  --msas-high-border: rgba(249, 115, 22, 0.3);
+  --msas-medium:      #eab308;
+  --msas-medium-bg:   rgba(234, 179, 8, 0.12);
+  --msas-medium-border: rgba(234, 179, 8, 0.3);
+  --msas-low:         #22c55e;
+  --msas-low-bg:      rgba(34, 197, 94, 0.12);
+  --msas-low-border:  rgba(34, 197, 94, 0.3);
+  --msas-info:        #3b82f6;
+  --msas-info-bg:     rgba(59, 130, 246, 0.12);
+  --msas-info-border: rgba(59, 130, 246, 0.3);
+
+  /* Accent */
+  --msas-accent:      #6366f1;
+  --msas-accent-hover:#818cf8;
+  --msas-accent-dim:  rgba(99, 102, 241, 0.15);
+
+  /* Typography */
+  --msas-font:        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --msas-font-mono:   'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  --msas-radius:      8px;
+  --msas-radius-sm:   4px;
+  --msas-radius-lg:   12px;
+
+  /* Shadows */
+  --msas-shadow-sm:   0 1px 2px rgba(0,0,0,0.3);
+  --msas-shadow:      0 4px 12px rgba(0,0,0,0.4);
+  --msas-shadow-lg:   0 8px 30px rgba(0,0,0,0.5);
+
+  /* Transitions */
+  --msas-transition:  200ms ease;
+
+  /* Layout */
+  --msas-header-h:    56px;
+  --msas-max-width:   1280px;
+}
+
+/* ---------- Base Resets ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--msas-font);
+  background: var(--msas-bg);
+  color: var(--msas-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Severity Badges ---------- */
+.msas-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.msas-badge-critical { background: var(--msas-critical-bg); color: var(--msas-critical); border: 1px solid var(--msas-critical-border); }
+.msas-badge-high     { background: var(--msas-high-bg);     color: var(--msas-high);     border: 1px solid var(--msas-high-border); }
+.msas-badge-medium   { background: var(--msas-medium-bg);   color: var(--msas-medium);   border: 1px solid var(--msas-medium-border); }
+.msas-badge-low      { background: var(--msas-low-bg);      color: var(--msas-low);      border: 1px solid var(--msas-low-border); }
+.msas-badge-info     { background: var(--msas-info-bg);     color: var(--msas-info);     border: 1px solid var(--msas-info-border); }
+
+/* ---------- Finding Cards ---------- */
+.msas-card {
+  background: var(--msas-bg-card);
+  border: 1px solid var(--msas-border);
+  border-radius: var(--msas-radius);
+  padding: 16px 20px;
+  transition: border-color var(--msas-transition), box-shadow var(--msas-transition);
+}
+
+.msas-card:hover {
+  border-color: var(--msas-border-light);
+  box-shadow: var(--msas-shadow-sm);
+}
+
+.msas-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.msas-card-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--msas-text);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.msas-card-desc {
+  font-size: 0.8125rem;
+  color: var(--msas-text-dim);
+  margin: 4px 0 0 0;
+  line-height: 1.5;
+}
+
+.msas-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: var(--msas-text-muted);
+}
+
+.msas-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* ---------- Progress Bar ---------- */
+.msas-progress {
+  width: 100%;
+  height: 8px;
+  background: var(--msas-bg);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.msas-progress-bar {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 400ms ease;
+  background: var(--msas-accent);
+}
+
+.msas-progress-bar.critical { background: var(--msas-critical); }
+.msas-progress-bar.high     { background: var(--msas-high); }
+.msas-progress-bar.medium   { background: var(--msas-medium); }
+.msas-progress-bar.low      { background: var(--msas-low); }
+.msas-progress-bar.info     { background: var(--msas-info); }
+
+/* ---------- Buttons ---------- */
+.msas-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--msas-radius);
+  font-family: var(--msas-font);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--msas-border);
+  background: var(--msas-bg-card);
+  color: var(--msas-text);
+  transition: all var(--msas-transition);
+  text-decoration: none;
+}
+
+.msas-btn:hover {
+  background: var(--msas-bg-hover);
+  border-color: var(--msas-border-light);
+}
+
+.msas-btn-primary {
+  background: var(--msas-accent);
+  color: white;
+  border-color: var(--msas-accent);
+}
+
+.msas-btn-primary:hover {
+  background: var(--msas-accent-hover);
+  border-color: var(--msas-accent-hover);
+}
+
+.msas-btn-sm {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+}
+
+/* ---------- Inputs ---------- */
+.msas-input {
+  background: var(--msas-bg-input);
+  border: 1px solid var(--msas-border);
+  border-radius: var(--msas-radius);
+  color: var(--msas-text);
+  padding: 8px 12px;
+  font-family: var(--msas-font);
+  font-size: 0.8125rem;
+  transition: border-color var(--msas-transition);
+}
+
+.msas-input:focus {
+  outline: none;
+  border-color: var(--msas-accent);
+  box-shadow: 0 0 0 2px var(--msas-accent-dim);
+}
+
+/* ---------- Table ---------- */
+.msas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.msas-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: var(--msas-text-dim);
+  border-bottom: 1px solid var(--msas-border);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.msas-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--msas-border);
+  color: var(--msas-text);
+}
+
+.msas-table tr:hover td {
+  background: var(--msas-bg-hover);
+}
+
+/* ---------- Stats Grid ---------- */
+.msas-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.msas-stat-card {
+  background: var(--msas-bg-card);
+  border: 1px solid var(--msas-border);
+  border-radius: var(--msas-radius);
+  padding: 16px;
+  text-align: center;
+}
+
+.msas-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--msas-text);
+}
+
+.msas-stat-label {
+  font-size: 0.75rem;
+  color: var(--msas-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+/* ---------- Tabs ---------- */
+.msas-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--msas-border);
+  margin-bottom: 16px;
+}
+
+.msas-tab {
+  padding: 10px 20px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--msas-text-dim);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--msas-transition);
+  background: none;
+  font-family: var(--msas-font);
+}
+
+.msas-tab:hover {
+  color: var(--msas-text);
+}
+
+.msas-tab.active {
+  color: var(--msas-accent);
+  border-bottom-color: var(--msas-accent);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--msas-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--msas-border);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--msas-border-light);
+}
+
+/* ---------- Utility ---------- */
+.msas-flex { display: flex; }
+.msas-flex-col { flex-direction: column; }
+.msas-flex-center { align-items: center; justify-content: center; }
+.msas-gap-sm { gap: 8px; }
+.msas-gap { gap: 16px; }
+.msas-mt-sm { margin-top: 8px; }
+.msas-mt { margin-top: 16px; }
+.msas-mb-sm { margin-bottom: 8px; }
+.msas-mb { margin-bottom: 16px; }
+.msas-text-center { text-align: center; }
+.msas-text-muted { color: var(--msas-text-muted); }
+.msas-w-full { width: 100%; }
+.msas-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- Animations ---------- */
+@keyframes msas-fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.msas-fade-in {
+  animation: msas-fadeIn 250ms ease forwards;
+}
+
+@keyframes msas-spin {
+  to { transform: rotate(360deg); }
+}
+
+.msas-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--msas-border);
+  border-top-color: var(--msas-accent);
+  border-radius: 50%;
+  animation: msas-spin 600ms linear infinite;
+}

@@ -1,289 +1,1070 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Security Auditor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="dark light">
+    <title>mSAS — Mobile Security Analysis Suite for APK, IPA &amp; ADB</title>
+    <meta name="description" content="mSAS — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based, zero uploads. Detect vulnerabilities, misconfigurations, and privacy issues.">
+    <meta name="author" content="mravtechinfo">
+    <meta name="theme-color" content="#FCFCFD" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#07080B" media="(prefers-color-scheme: dark)">
+    <meta name="application-name" content="mSAS">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; worker-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+
+    <meta property="og:title" content="mSAS — Mobile Security Analysis Suite">
+    <meta property="og:description" content="mSAS — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="mSAS">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="mSAS — Mobile Security Analysis Suite">
+    <meta name="twitter:description" content="mSAS — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based.">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="mask-icon" href="/mask-icon.svg" color="#3B82F6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+
     <style>
+        /* ===== DESIGN SYSTEM ===== */
+        :root,
+        [data-theme="dark"] {
+            --bg-primary: #07080B;
+            --bg-secondary: #0C0E13;
+            --bg-tertiary: #11141B;
+            --bg-card: #0E1117;
+            --bg-elevated: #161A22;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-default: rgba(255, 255, 255, 0.10);
+            --border-hover: rgba(255, 255, 255, 0.22);
+            --text-primary: #F6F8FA;
+            --text-secondary: #9CA3AF;
+            --text-muted: #6B7280;
+            --accent-primary: #3B82F6;
+            --accent-secondary: #2563EB;
+            --accent-glow: rgba(59, 130, 246, 0.30);
+            --accent-subtle: rgba(59, 130, 246, 0.10);
+            --cyan: #38BDF8;
+            --green: #10D689;
+            --red: #F43F5E;
+            --orange: #FB923C;
+            --code-bg: #050709;
+            --focus: #3B82F6;
+            --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.30);
+            --shadow-elev: 0 16px 40px rgba(0,0,0,0.55);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 20px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #EEF1F6;
+            --bg-secondary: #DFE4EC;
+            --bg-tertiary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-elevated: #FFFFFF;
+            --border-subtle: rgba(17, 24, 39, 0.08);
+            --border-default: rgba(17, 24, 39, 0.14);
+            --border-hover: rgba(17, 24, 39, 0.28);
+            --text-primary: #0B0E14;
+            --text-secondary: #3F4757;
+            --text-muted: #6B7280;
+            --accent-primary: #2563EB;
+            --accent-secondary: #1D4ED8;
+            --accent-glow: rgba(37, 99, 235, 0.24);
+            --accent-subtle: rgba(37, 99, 235, 0.10);
+            --cyan: #0E7CB1;
+            --green: #047857;
+            --red: #BE123C;
+            --orange: #B45309;
+            --code-bg: #E5E9F0;
+            --focus: #2563EB;
+            --shadow-card: 0 1px 2px rgba(17,24,39,0.06), 0 8px 24px rgba(17,24,39,0.08);
+            --shadow-elev: 0 16px 40px rgba(17,24,39,0.14);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        html { font-size: 15px; scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            html { scroll-behavior: auto; }
+        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0e17;
-            color: #e0e4ec;
+            font-family: 'Inter', ui-sans-serif, -apple-system, system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            background-image: 
-                radial-gradient(ellipse at 20% 50%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 50%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            letter-spacing: -0.005em;
+            position: relative;
         }
-
-        .container {
-            max-width: 1100px;
-            width: 100%;
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            pointer-events: none; z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.18 0 0 0 0 0.13 0 0 0 0 0.07 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.06;
+            mix-blend-mode: multiply;
         }
+        [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: 0.04; }
+        .site-header, .hero, .tools-section, footer, .toast-container { position: relative; z-index: 2; }
+        .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+        .skip-link { position: absolute; left: -9999px; top: 8px; padding: 8px 12px; background: var(--accent-primary); color: white; border-radius: 6px; z-index: 1000; }
+        .skip-link:focus { left: 12px; }
+        :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+        button { font: inherit; color: inherit; }
+        a { color: inherit; }
 
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
+        .theme-light, .theme-dark { display: none; }
+        [data-theme="light"] .theme-dark  { display: block; }
+        [data-theme="dark"]  .theme-light { display: block; }
+
+        /* ===== HEADER ===== */
+        .site-header {
+            position: sticky; top: 0; z-index: 100;
+            padding: 14px 20px;
+            background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--border-subtle);
         }
-
+        .site-header-inner {
+            max-width: 1280px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        }
         .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1.5rem;
+            display: inline-flex; align-items: center; gap: 10px;
+            text-decoration: none; color: var(--text-primary);
         }
-
         .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-            color: #fff;
-            box-shadow: 0 8px 32px rgba(56, 189, 248, 0.2);
+            width: 28px; height: 28px; flex-shrink: 0;
+            color: var(--text-primary); transition: transform 0.2s ease;
+        }
+        .logo:hover .logo-icon { transform: scale(1.06); }
+        .logo-text {
+            display: inline-flex; align-items: baseline; gap: 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px; font-weight: 700;
+            letter-spacing: -0.4px; line-height: 1;
+        }
+        .logo-prefix { color: var(--text-primary); }
+        .logo-suffix { color: var(--text-secondary); font-weight: 500; margin-left: 5px; }
+
+        .nav-links { display: flex; align-items: center; gap: 6px; }
+        .nav-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 12px; font-size: 13px; font-weight: 500;
+            color: var(--text-secondary); background: transparent; border: 1px solid transparent;
+            border-radius: 8px; cursor: pointer; text-decoration: none;
+            transition: all 0.15s ease;
+        }
+        .nav-link:hover { color: var(--text-primary); background: var(--accent-subtle); border-color: var(--border-subtle); }
+        .nav-link.icon { padding: 8px; }
+        .nav-link.nav-sibling {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 13px; font-weight: 500;
+            padding: 6px 12px; border: 1px solid var(--border-default);
+            border-radius: 999px; color: var(--text-secondary);
+            background: var(--bg-card);
+        }
+        .nav-link.nav-sibling:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-primary);
+            background: var(--accent-subtle);
+        }
+        .nav-link.nav-sibling svg { color: var(--accent-primary); }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative; z-index: 2;
+            min-height: 90vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 80px 24px 60px;
+            overflow: hidden;
+        }
+        .mesh-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+        .mesh-grid {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 30%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 30%, transparent 75%);
+        }
+        [data-theme="light"] .mesh-grid {
+            background-image:
+                linear-gradient(rgba(17,24,39,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(17,24,39,0.04) 1px, transparent 1px);
+        }
+        .mesh-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.45; }
+        .mesh-orb-1 { width: 560px; height: 560px; top: -180px; left: -120px; background: radial-gradient(circle, #38BDF8 0%, transparent 70%); }
+        .mesh-orb-2 { width: 480px; height: 480px; top: 30%; right: -160px; background: radial-gradient(circle, #38BDF8 0%, transparent 70%); opacity: 0.30; }
+        .mesh-orb-3 { width: 380px; height: 380px; bottom: -120px; left: 30%; background: radial-gradient(circle, #A78BFA 0%, transparent 70%); opacity: 0.20; }
+        .cursor-spot {
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.10) 0%, transparent 60%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            z-index: 1;
+            filter: blur(40px);
+            mix-blend-mode: screen;
+        }
+        [data-theme="light"] .cursor-spot {
+            background: radial-gradient(circle, rgba(2, 132, 199, 0.10) 0%, transparent 60%);
+            mix-blend-mode: multiply;
+        }
+        .hero:hover .cursor-spot { opacity: 1; }
+        [data-theme="light"] .mesh-orb { opacity: 0.18; filter: blur(100px); }
+        [data-theme="light"] .mesh-orb-1 { background: radial-gradient(circle, #60A5FA 0%, transparent 70%); }
+        [data-theme="light"] .mesh-orb-2 { background: radial-gradient(circle, #60A5FA 0%, transparent 70%); }
+        [data-theme="light"] .mesh-orb-3 { background: radial-gradient(circle, #C4B5FD 0%, transparent 70%); }
+
+        .hero-inner {
+            position: relative;
+            max-width: 880px; width: 100%;
+            text-align: center;
         }
 
-        .logo-text {
+        .hero-inner > * { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+        .hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
+        .hero-inner > *:nth-child(2) { animation-delay: 0.12s; }
+        .hero-inner > *:nth-child(3) { animation-delay: 0.18s; }
+        .hero-inner > *:nth-child(4) { animation-delay: 0.24s; }
+        .hero-inner > *:nth-child(5) { animation-delay: 0.30s; }
+        .hero-inner > *:nth-child(6) { animation-delay: 0.36s; }
+        .tools-section { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.42s backwards; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-inner > *, .tools-section { animation: none; }
+        }
+
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px; font-weight: 600;
+            letter-spacing: 0.4px;
+            color: var(--text-secondary);
+            padding: 6px 12px 6px 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-default);
+            border-radius: 100px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-card);
+        }
+        .hero-tag-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 8px var(--accent-glow);
+            animation: tagPulse 2s ease-in-out infinite;
+        }
+        @keyframes tagPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 800;
+            letter-spacing: -2.4px;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        .hero-title-accent {
+            background: linear-gradient(120deg, var(--accent-primary) 0%, var(--cyan) 25%, #A78BFA 50%, var(--cyan) 75%, var(--accent-primary) 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGradient 8s ease-in-out infinite;
+        }
+        @keyframes titleGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50%      { background-position: 100% 50%; }
+        }
+        .hero-subtitle {
+            font-size: clamp(15px, 1.4vw, 17px);
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 36px;
+            line-height: 1.6;
+        }
+        .hero-subtitle code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88em;
+            padding: 1px 6px;
+            background: var(--accent-subtle);
+            color: var(--accent-primary);
+            border-radius: 4px;
+        }
+
+        .hero-cta {
+            display: flex; align-items: center; justify-content: center;
+            gap: 16px; margin-bottom: 28px; flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 22px; font-size: 14.5px; font-weight: 600;
+            border-radius: var(--radius-md); cursor: pointer; text-decoration: none;
+            border: 1px solid transparent; transition: all 0.15s ease;
+            line-height: 1.2;
+        }
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            box-shadow: var(--shadow-card);
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-elev); }
+        .btn-ghost {
+            background: var(--bg-elevated);
+            border-color: var(--border-default);
+            color: var(--text-secondary);
+            box-shadow: var(--shadow-card);
+        }
+        .btn-ghost:hover { border-color: var(--border-hover); color: var(--text-primary); transform: translateY(-1px); }
+        .btn-pink {
+            background: linear-gradient(135deg, #f472b6, #a78bfa);
+            color: #fff;
+            box-shadow: var(--shadow-card);
+        }
+        .btn-pink:hover { transform: translateY(-1px); box-shadow: var(--shadow-elev); }
+
+        .hero-checks { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+        .hero-check { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-muted); }
+        .hero-check-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent-primary); }
+
+        .hero-feats-row {
+            position: relative; z-index: 2;
+            max-width: 960px; width: 100%;
+            margin: 80px auto 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 32px;
+        }
+        .hero-feat { display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; }
+        .hero-feat-key {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px; font-weight: 500;
+            letter-spacing: 0.5px;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+        }
+        .hero-feat-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== TOOLS SECTION ===== */
+        .tools-section {
+            position: relative; z-index: 2;
+            max-width: 1100px; width: 100%;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+        .tools-section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .tools-section-header h2 {
             font-size: 28px;
             font-weight: 700;
-            background: linear-gradient(135deg, #e0e4ec, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.8px;
+            margin-bottom: 10px;
         }
-
-        header h1 {
-            font-size: 42px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #38bdf8, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-
-        header p {
-            color: #64748b;
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
+        .tools-section-header p {
+            color: var(--text-secondary);
+            font-size: 15px;
         }
 
         .tools-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
         }
 
         .tool-card {
-            background: linear-gradient(145deg, #111827, #0f1729);
-            border: 1px solid #1e293b;
-            border-radius: 20px;
-            padding: 2.5rem;
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
             text-decoration: none;
             color: inherit;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-card);
         }
-
         .tool-card::before {
             content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            border-radius: 20px 20px 0 0;
+            position: absolute; inset: -1px;
+            border-radius: var(--radius-xl);
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: none;
         }
-
-        .tool-card.apk::before { background: linear-gradient(90deg, #38bdf8, #818cf8); }
-        .tool-card.ipa::before { background: linear-gradient(90deg, #f472b6, #a78bfa); }
-
+        .tool-card.apk::before {
+            background: conic-gradient(from 0deg, transparent 0%, var(--accent-primary) 15%, var(--cyan) 30%, transparent 45%, transparent 100%);
+        }
+        .tool-card.ipa::before {
+            background: conic-gradient(from 0deg, transparent 0%, #f472b6 15%, #a78bfa 30%, transparent 45%, transparent 100%);
+        }
+        .tool-card.adb::before {
+            background: conic-gradient(from 0deg, transparent 0%, #10D689 15%, #38BDF8 30%, transparent 45%, transparent 100%);
+        }
+        .tool-card::after {
+            content: '';
+            position: absolute; inset: 1px;
+            border-radius: calc(var(--radius-xl) - 1px);
+            background: var(--bg-card);
+            z-index: 0;
+            pointer-events: none;
+        }
         .tool-card:hover {
-            border-color: #334155;
             transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
-
         .tool-card:hover::before { opacity: 1; }
 
-        .tool-card .icon-wrapper {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
+        .tool-card > * { position: relative; z-index: 1; }
+
+        .tool-card-topbar {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .tool-card-traffic { display: inline-flex; gap: 6px; }
+        .tool-card-traffic i {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--border-default); display: inline-block;
+        }
+        .tool-card-traffic i:nth-child(1) { background: #FF5F57; }
+        .tool-card-traffic i:nth-child(2) { background: #FEBC2E; }
+        .tool-card-traffic i:nth-child(3) { background: #28C840; }
+        [data-theme="dark"] .tool-card-traffic i { opacity: 0.75; }
+        .tool-card-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11.5px; color: var(--text-muted); flex: 1;
+        }
+
+        .tool-card-body {
+            padding: 28px 24px 24px;
+            flex: 1;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 1.5rem;
-            position: relative;
+            flex-direction: column;
+            background:
+                radial-gradient(ellipse at center top, var(--accent-subtle) 0%, transparent 60%),
+                var(--bg-card);
         }
 
-        .tool-card.apk .icon-wrapper {
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(129, 140, 248, 0.15));
+        .tool-card-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
         }
-
-        .tool-card.ipa .icon-wrapper {
+        .tool-card.apk .tool-card-icon {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(56, 189, 248, 0.15));
+        }
+        .tool-card.ipa .tool-card-icon {
             background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(167, 139, 250, 0.15));
         }
-
-        .tool-card h2 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
+        .tool-card.adb .tool-card-icon {
+            background: linear-gradient(135deg, rgba(16, 214, 137, 0.15), rgba(56, 189, 248, 0.15));
         }
 
-        .tool-card.apk h2 { color: #38bdf8; }
-        .tool-card.ipa h2 { color: #f472b6; }
+        .tool-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.4px;
+        }
+        .tool-card.apk h3 { color: var(--accent-primary); }
+        .tool-card.ipa h3 { color: #f472b6; }
+        .tool-card.adb h3 { color: #10D689; }
 
         .tool-card p {
-            color: #64748b;
-            font-size: 15px;
+            color: var(--text-secondary);
+            font-size: 14px;
             line-height: 1.7;
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
+            flex: 1;
         }
 
-        .tool-card .features {
+        .tool-feats {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
+            gap: 6px;
+            margin-bottom: 24px;
         }
-
-        .tool-card .features span {
-            background: #1e293b;
-            color: #94a3b8;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+        .tool-feat {
+            padding: 4px 10px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-default);
+            border-radius: 100px;
+            font-size: 11px;
             font-weight: 500;
-            border: 1px solid #2a3a4e;
+            color: var(--text-secondary);
         }
 
-        .tool-card .cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 28px;
-            border-radius: 12px;
+        .tool-card-cta {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
             transition: all 0.2s ease;
+            border: none; cursor: pointer;
+            width: fit-content;
         }
-
-        .tool-card.apk .cta {
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
+        .tool-card.apk .tool-card-cta {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             color: #fff;
         }
-
-        .tool-card.ipa .cta {
+        .tool-card.ipa .tool-card-cta {
             background: linear-gradient(135deg, #f472b6, #a78bfa);
             color: #fff;
         }
+        .tool-card.adb .tool-card-cta {
+            background: linear-gradient(135deg, #10D689, #38BDF8);
+            color: #fff;
+        }
+        .tool-card-cta .arrow { transition: transform 0.2s ease; }
+        .tool-card:hover .tool-card-cta .arrow { transform: translateX(4px); }
 
-        .tool-card .cta:hover { transform: scale(1.02); }
+        /* ===== FOOTER ===== */
+        .site-footer {
+            padding: 32px 16px;
+            border-top: 1px solid var(--border-subtle);
+            background: var(--bg-secondary);
+            position: relative; z-index: 2;
+        }
+        .site-footer-inner {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 16px; font-size: 13px; color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+        .site-footer a { color: var(--accent-primary); text-decoration: none; }
+        .site-footer a:hover { text-decoration: underline; }
+        .footer-divider { color: var(--text-muted); }
 
-        .tool-card .cta .arrow { transition: transform 0.2s ease; }
-        .tool-card:hover .cta .arrow { transform: translateX(4px); }
-
-        .info-bar {
-            text-align: center;
-            padding: 1.5rem;
-            background: #111827;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
+        /* ===== HAMBURGER ===== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            width: 36px; height: 36px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+            touch-action: manipulation;
+        }
+        .hamburger:hover { background: var(--accent-subtle); border-color: var(--border-default); }
+        .hamburger-line {
+            display: block;
+            width: 18px; height: 2px;
+            background: var(--text-secondary);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hamburger.open .hamburger-line:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+        .hamburger.open .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.open .hamburger-line:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
         }
 
-        .info-bar p {
-            color: #64748b;
+        .hamburger-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 99;
+            pointer-events: none;
+        }
+        .hamburger-menu.open {
+            display: block;
+            pointer-events: auto;
+        }
+        .hamburger-menu::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .hamburger-menu.open::before {
+            opacity: 1;
+        }
+        .hamburger-menu-inner {
+            position: absolute;
+            top: 62px; right: 12px;
+            width: 260px;
+            max-width: calc(100vw - 24px);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-elev);
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            transform: translateY(-8px);
+            opacity: 0;
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .hamburger-menu.open .hamburger-menu-inner {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .hamburger-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
             font-size: 14px;
-        }
-
-        .info-bar a {
-            color: #38bdf8;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
             text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.12s ease;
+            width: 100%;
+            text-align: left;
+        }
+        .hamburger-link:hover {
+            color: var(--text-primary);
+            background: var(--accent-subtle);
+        }
+        .hamburger-link svg { flex-shrink: 0; }
+        .hamburger-divider {
+            height: 1px;
+            background: var(--border-subtle);
+            margin: 4px 8px;
+        }
+        .theme-dark-h, .theme-light-h { display: none; }
+        [data-theme="light"] .theme-dark-h  { display: block; }
+        [data-theme="dark"]  .theme-light-h { display: block; }
+
+        /* ===== TOASTS ===== */
+        .toast-container {
+            position: fixed; bottom: 20px; right: 20px;
+            z-index: 1100;
+            display: flex; flex-direction: column; gap: 8px;
+            max-width: calc(100vw - 40px);
         }
 
-        .info-bar a:hover { text-decoration: underline; }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1060px) {
+            .tools-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 860px) {
+            .hero { min-height: auto; padding: 60px 20px 40px; }
+            .hero-feats-row { grid-template-columns: repeat(2, 1fr); gap: 20px 16px; }
+            .tools-grid { grid-template-columns: 1fr; gap: 20px; }
+            .tools-section { padding: 0 20px 60px; }
+        }
+        @media (max-width: 540px) {
+            .hero { padding: 40px 16px 32px; }
+            .hero-title { font-size: clamp(32px, 8vw, 40px); }
+            .hero-feats-row { grid-template-columns: 1fr; gap: 16px; }
+            
+            .site-header { padding: 10px 12px; }
+            .site-header-inner { gap: 6px; }
+            .logo-icon { width: 24px; height: 24px; }
+            .logo-text { font-size: 13px; }
+            .nav-links {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                gap: 4px;
+                flex-shrink: 1;
+                min-width: 0;
+            }
+            .nav-links::-webkit-scrollbar { display: none; }
+            .nav-link,
+            .nav-link.nav-sibling {
+                white-space: nowrap;
+                font-size: 12px;
+                padding: 5px 10px;
+                gap: 4px;
+                flex-shrink: 0;
+            }
+            .nav-link.icon { padding: 6px; }
+            .nav-link.nav-sibling svg { width: 12px; height: 12px; }
+            
+            .tool-card-body { padding: 20px 16px 16px; }
+            .tool-card-icon { width: 40px; height: 40px; font-size: 20px; margin-bottom: 12px; }
+            .tool-card h3 { font-size: 18px; }
+            .tool-card p { font-size: 13px; }
+            .tools-section { padding: 0 16px 40px; }
+            .hero-cta { flex-direction: column; gap: 10px; }
+            .hero-cta .btn { width: 100%; justify-content: center; }
+            .site-footer-inner { flex-direction: column; text-align: center; gap: 8px; font-size: 12px; }
+        }
 
-        @media (max-width: 768px) {
-            body { padding: 1rem; }
-            header h1 { font-size: 28px; }
-            .tools-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .tool-card { padding: 1.75rem; }
-            .tool-card h2 { font-size: 22px; }
+        /* Show hamburger, hide nav-links on <400px */
+        @media (max-width: 400px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .hamburger-menu-inner { top: 56px; }
+            .tool-tabs { top: 52px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <div class="logo-icon">🛡</div>
-                <span class="logo-text">Mobile Auditor</span>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" role="banner">
+        <div class="site-header-inner">
+            <a href="/" class="logo" aria-label="mSAS home">
+                <div class="logo-icon" aria-hidden="true">
+                    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="3" width="30" height="30" rx="8.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+                        <circle cx="18" cy="18" r="9" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+                        <path d="M13 19l4-4 4 4" stroke="var(--accent-primary)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-prefix">mSAS</span>
+                    <span class="logo-suffix">— Analysis Suite</span>
+                </div>
+            </a>
+            <nav class="nav-links" aria-label="Main">
+                <a href="/apk-auditor/index.html" class="nav-link nav-sibling" title="Android APK static analyzer">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    APK Auditor
+                </a>
+                <a href="/ipa-auditor/index.html" class="nav-link nav-sibling" title="iOS IPA static analyzer">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    IPA Auditor
+                </a>
+                <a href="/adb-auditor/index.html" class="nav-link nav-sibling" title="ADB Android device auditor">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    ADB Auditor
+                </a>
+                <button class="nav-link icon" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+                    <svg class="theme-dark" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="theme-light" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+                <a href="https://github.com/mravtechinfo/mobile-pentest-suite" class="nav-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub repo">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+            </nav>
+
+            <!-- Hamburger toggle for <400px -->
+            <button class="hamburger" id="hamburgerToggle" type="button" aria-label="Open menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Hamburger dropdown panel -->
+        <div class="hamburger-menu" id="hamburgerMenu" role="dialog" aria-modal="true" aria-label="Navigation">
+            <div class="hamburger-menu-inner">
+                <a href="/apk-auditor/index.html" class="hamburger-link">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    APK Auditor
+                </a>
+                <a href="/ipa-auditor/index.html" class="hamburger-link">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    IPA Auditor
+                </a>
+                <a href="/adb-auditor/index.html" class="hamburger-link">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    ADB Auditor
+                </a>
+                <div class="hamburger-divider"></div>
+                <button class="hamburger-link hamburger-theme" id="hamburgerThemeToggle" type="button">
+                    <svg class="theme-dark-h" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="theme-light-h" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <span>Toggle Theme</span>
+                </button>
+                <a href="https://github.com/mravtechinfo/mobile-pentest-suite" class="hamburger-link" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
             </div>
-            <h1>Mobile Security Analysis Suite</h1>
-            <p>Comprehensive static analysis for Android APKs and iOS IPA files. Upload, scan, and identify security vulnerabilities in your mobile applications.</p>
-        </header>
-
-        <div class="tools-grid">
-            <a href="apk-auditor/index.html" class="tool-card apk">
-                <div class="icon-wrapper">📱</div>
-                <h2>APK Auditor</h2>
-                <p>Analyze Android APK files for security vulnerabilities, misconfigurations, and privacy issues. Detects 150+ security patterns including crypto flaws, insecure storage, and code execution risks.</p>
-                <div class="features">
-                    <span>150+ Rules</span>
-                    <span>DEX Analysis</span>
-                    <span>Manifest Audit</span>
-                    <span>Certificate Check</span>
-                    <span>MASVS Mapping</span>
-                    <span>OWASP Coverage</span>
-                </div>
-                <div class="cta">
-                    Launch APK Auditor <span class="arrow">→</span>
-                </div>
-            </a>
-
-            <a href="ipa-auditor/index.html" class="tool-card ipa">
-                <div class="icon-wrapper">🍎</div>
-                <h2>IPA Auditor</h2>
-                <p>Analyze iOS IPA files for security vulnerabilities, privacy compliance issues, and insecure configurations. Detects 80+ patterns including plist misconfigurations and binary analysis.</p>
-                <div class="features">
-                    <span>80+ Rules</span>
-                    <span>Plist Analysis</span>
-                    <span>Binary Scan</span>
-                    <span>Privacy Checks</span>
-                    <span>Entitlements</span>
-                    <span>Framework Audit</span>
-                </div>
-                <div class="cta">
-                    Launch IPA Auditor <span class="arrow">→</span>
-                </div>
-            </a>
         </div>
+    </header>
 
-        <div class="info-bar">
-            <p>
-                🛡️ 100% client-side analysis · No data uploaded to servers ·
-                <a href="https://github.com/mravtechinfo/apkauditor" target="_blank">APKAuditor</a> ·
-                <a href="https://github.com/mravtechinfo/ipaauditor" target="_blank">IPAAuditor</a>
-            </p>
+    <main id="main">
+        <section class="hero">
+            <div class="mesh-bg" aria-hidden="true">
+                <div class="mesh-orb mesh-orb-1"></div>
+                <div class="mesh-orb mesh-orb-2"></div>
+                <div class="mesh-orb mesh-orb-3"></div>
+                <div class="mesh-grid"></div>
+                <div class="cursor-spot" id="cursorSpot"></div>
+            </div>
+
+            <div class="hero-inner">
+                <span class="hero-tag">
+                    <span class="hero-tag-dot"></span>
+                    Unified security analysis · Android + iOS
+                </span>
+
+                <h1 class="hero-title">
+                    mSAS<br>
+                    <span class="hero-title-accent">Mobile Security Analysis Suite</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Comprehensive static analysis for <code>.apk</code> and <code>.ipa</code> files.
+                    Real DEX &amp; Mach-O parsing, manifest analysis, certificate inspection,
+                    entropy-aware secrets detection. All running in your browser.
+                </p>
+
+                <div class="hero-cta">
+                    <a href="/apk-auditor/index.html" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                        Analyze APK
+                    </a>
+                    <a href="/ipa-auditor/index.html" class="btn btn-pink">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                        Analyze IPA
+                    </a>
+                </div>
+
+                <div class="hero-checks">
+                    <span class="hero-check"><span class="hero-check-dot"></span>100% client-side</span>
+                    <span class="hero-check"><span class="hero-check-dot"></span>No upload, no telemetry</span>
+                    <span class="hero-check"><span class="hero-check-dot"></span>Browser-based, no install</span>
+                    <span class="hero-check"><span class="hero-check-dot"></span>SARIF / JSON / CSV / PDF export</span>
+                    <span class="hero-check"><span class="hero-check-dot"></span>ADB WebUSB device auditing</span>
+                </div>
+            </div>
+
+            <div class="hero-feats-row">
+                <div class="hero-feat"><span class="hero-feat-key">APK</span><span class="hero-feat-val">DEX · AXML · Cert · Secrets</span></div>
+                <div class="hero-feat"><span class="hero-feat-key">IPA</span><span class="hero-feat-val">Mach-O · Plist · Entitlements · ATS</span></div>
+                <div class="hero-feat"><span class="hero-feat-key">Rules</span><span class="hero-feat-val">230+ · OWASP · MASVS · CWE</span></div>
+                <div class="hero-feat"><span class="hero-feat-key">Export</span><span class="hero-feat-val">SARIF 2.1 · JSON · CSV · PDF</span></div>
+                <div class="hero-feat"><span class="hero-feat-key">ADB</span><span class="hero-feat-val">WebUSB · Shell · Files · Security</span></div>
+            </div>
+        </section>
+
+        <section class="tools-section">
+            <div class="tools-section-header">
+                <h2>Choose Your <span style="color: var(--accent-primary);">Platform</span></h2>
+                <p>Pick the tool that matches your target platform — static analysis or live device auditing — and start in seconds.</p>
+            </div>
+
+            <div class="tools-grid">
+                <a href="/apk-auditor/index.html" class="tool-card apk">
+                    <div class="tool-card-topbar">
+                        <span class="tool-card-traffic"><i></i><i></i><i></i></span>
+                        <span class="tool-card-path mono">~/tools/apk-auditor</span>
+                    </div>
+                    <div class="tool-card-body">
+                        <div class="tool-card-icon">📱</div>
+                        <h3>APK Auditor</h3>
+                        <p>Deep static analysis for Android applications. Scans DEX bytecode, AndroidManifest.xml, signing certificates, and identifies 150+ security patterns including cryptography flaws, insecure storage, and code execution risks.</p>
+                        <div class="tool-feats">
+                            <span class="tool-feat">150+ Rules</span>
+                            <span class="tool-feat">DEX Bytecode</span>
+                            <span class="tool-feat">Manifest Audit</span>
+                            <span class="tool-feat">Certificate Check</span>
+                            <span class="tool-feat">Native Libs</span>
+                            <span class="tool-feat">Entropy Scanner</span>
+                            <span class="tool-feat">MASVS Mapping</span>
+                            <span class="tool-feat">OWASP Coverage</span>
+                            <span class="tool-feat">SARIF Export</span>
+                        </div>
+                        <div class="tool-card-cta">
+                            Launch APK Auditor <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/ipa-auditor/index.html" class="tool-card ipa">
+                    <div class="tool-card-topbar">
+                        <span class="tool-card-traffic"><i></i><i></i><i></i></span>
+                        <span class="tool-card-path mono">~/tools/ipa-auditor</span>
+                    </div>
+                    <div class="tool-card-body">
+                        <div class="tool-card-icon">🍎</div>
+                        <h3>IPA Auditor</h3>
+                        <p>Deep static analysis for iOS applications. Inspects Mach-O binaries, Info.plist, provisioning profiles, entitlements, ATS configuration, and detects 80+ security issues across privacy, data storage, and network security domains.</p>
+                        <div class="tool-feats">
+                            <span class="tool-feat">80+ Rules</span>
+                            <span class="tool-feat">Mach-O Binary</span>
+                            <span class="tool-feat">Plist Analysis</span>
+                            <span class="tool-feat">Provisioning</span>
+                            <span class="tool-feat">Entitlements</span>
+                            <span class="tool-feat">ATS Audit</span>
+                            <span class="tool-feat">Privacy Checks</span>
+                            <span class="tool-feat">Framework Scan</span>
+                            <span class="tool-feat">SARIF Export</span>
+                        </div>
+                        <div class="tool-card-cta">
+                            Launch IPA Auditor <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/adb-auditor/index.html" class="tool-card adb">
+                    <div class="tool-card-topbar">
+                        <span class="tool-card-traffic"><i></i><i></i><i></i></span>
+                        <span class="tool-card-path mono">~/tools/adb-auditor</span>
+                    </div>
+                    <div class="tool-card-body">
+                        <div class="tool-card-icon">🤖</div>
+                        <h3>ADB Auditor</h3>
+                        <p>Browser-based Android device security auditing over WebUSB. Connect live devices, browse filesystems with root support, run shell commands, analyze app storage and permissions, capture screenshots, and run OWASP MASTG-aligned security scans in real time.</p>
+                        <div class="tool-feats">
+                            <span class="tool-feat">WebUSB + ADB</span>
+                            <span class="tool-feat">App Analysis</span>
+                            <span class="tool-feat">File Browser</span>
+                            <span class="tool-feat">Shell Access</span>
+                            <span class="tool-feat">Root Mode</span>
+                            <span class="tool-feat">Screenshot</span>
+                            <span class="tool-feat">Security Audit</span>
+                            <span class="tool-feat">Logcat Viewer</span>
+                            <span class="tool-feat">SARIF Export</span>
+                        </div>
+                        <div class="tool-card-cta">
+                            Launch ADB Auditor <span class="arrow">→</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <div class="footer-brand">
+                <span>mSAS — Mobile Security Analysis Suite</span>
+                <span class="footer-divider">·</span>
+                <a href="https://github.com/mravtechinfo/mobile-pentest-suite" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <span class="footer-divider">·</span>
+                <a href="/downloads/" rel="nofollow">Download ZIP</a>
+                <span class="footer-divider">·</span>
+                <a href="/about/">About</a>
+                <span class="footer-divider">·</span>
+                <a href="/robots.txt" rel="noindex">robots.txt</a>
+            </div>
+            <div class="footer-copyright">
+                by <a href="https://github.com/mravtechinfo" target="_blank" rel="noopener noreferrer">mravtechinfo</a>
+            </div>
         </div>
-    </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'light' || saved === 'dark') {
+                document.documentElement.setAttribute('data-theme', saved);
+            }
+            themeToggle.addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+            });
+        }
+
+        // Cursor spotlight
+        const spot = document.getElementById('cursorSpot');
+        if (spot) {
+            document.addEventListener('mousemove', (e) => {
+                spot.style.left = e.clientX + 'px';
+                spot.style.top = e.clientY + 'px';
+            });
+        }
+
+        // Hamburger menu
+        const hamToggle = document.getElementById('hamburgerToggle');
+        const hamMenu = document.getElementById('hamburgerMenu');
+        const hamTheme = document.getElementById('hamburgerThemeToggle');
+        if (hamToggle && hamMenu) {
+            function openHam() {
+                hamToggle.classList.add('open');
+                hamToggle.setAttribute('aria-expanded', 'true');
+                hamToggle.setAttribute('aria-label', 'Close menu');
+                hamMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeHam() {
+                hamToggle.classList.remove('open');
+                hamToggle.setAttribute('aria-expanded', 'false');
+                hamToggle.setAttribute('aria-label', 'Open menu');
+                hamMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+            hamToggle.addEventListener('click', () => {
+                if (hamMenu.classList.contains('open')) {
+                    closeHam();
+                } else {
+                    openHam();
+                }
+            });
+            // Close on backdrop click
+            hamMenu.addEventListener('click', (e) => {
+                if (e.target === hamMenu) closeHam();
+            });
+            // Close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && hamMenu.classList.contains('open')) {
+                    closeHam();
+                }
+            });
+            // Close on link click (inside menu)
+            hamMenu.querySelectorAll('.hamburger-link').forEach(link => {
+                link.addEventListener('click', closeHam);
+            });
+        }
+        // Hamburger theme toggle (syncs with the main toggle)
+        if (hamTheme) {
+            hamTheme.addEventListener('click', () => {
+                themeToggle.click();
+                // Update the menu theme icons (handled by CSS class display)
+            });
+        }
+    </script>
 </body>
 </html>

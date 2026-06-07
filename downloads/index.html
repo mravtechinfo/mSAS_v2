@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>Downloads — mSAS | Mobile Security Analysis Suite</title>
+    <meta name="description" content="Download the mSAS suite — APK Auditor, IPA Auditor, and ADB Auditor. 100% client-side security tools for mobile analysis.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; worker-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="mask-icon" href="../mask-icon.svg" color="#3B82F6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root,[data-theme="dark"]{--void:#07080B;--depth-1:#0C0E13;--depth-2:#0E1117;--depth-3:#11141B;--depth-4:#161A22;--depth-5:#1A1F2B;--lum-100:#F6F8FA;--lum-90:#E4E7ED;--lum-70:#9CA3AF;--lum-50:#6B7280;--lum-30:#3F4757;--lum-10:#1A1F2B;--pulse:#3B82F6;--pulse-glow:rgba(59,130,246,0.30);--pulse-subtle:rgba(59,130,246,0.10);--synth:#38BDF8;--vital:#10D689;--alert:#F43F5E;--warm:#FB923C;--border-subtle:rgba(255,255,255,0.06);--border-default:rgba(255,255,255,0.10);--border-hover:rgba(255,255,255,0.22);--shadow-card:0 1px 2px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.30);--shadow-elev:0 16px 40px rgba(0,0,0,0.55);--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px;--ease-out-expo:cubic-bezier(0.22,1,0.36,1)}
+        [data-theme="light"]{--void:#EEF1F6;--depth-1:#DFE4EC;--depth-2:#F7F8FB;--depth-3:#F7F8FB;--depth-4:#F4F6F9;--depth-5:#E6EAF1;--lum-100:#0B0E14;--lum-90:#0B0E14;--lum-70:#3F4757;--lum-50:#6B7280;--lum-30:#9CA3AF;--lum-10:#DFE4EC;--pulse:#2563EB;--pulse-glow:rgba(37,99,235,0.24);--pulse-subtle:rgba(37,99,235,0.10);--synth:#0E7CB1;--vital:#047857;--alert:#BE123C;--warm:#C2410C;--border-subtle:rgba(17,24,39,0.06);--border-default:rgba(17,24,39,0.12);--border-hover:rgba(17,24,39,0.24);--shadow-card:0 1px 2px rgba(17,24,39,0.06),0 8px 24px rgba(17,24,39,0.08);--shadow-elev:0 16px 40px rgba(17,24,39,0.14)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{font-size:15px;scroll-behavior:smooth}
+        body{font-family:'Inter',ui-sans-serif,-apple-system,system-ui,sans-serif;background:var(--void);color:var(--lum-90);min-height:100vh;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+        .site-header{position:sticky;top:0;z-index:100;padding:14px 20px;background:color-mix(in srgb,var(--void) 92%,transparent);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border-subtle)}
+        .site-header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+        .logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--lum-90);font-weight:700;font-size:15px}
+        .logo:hover{color:var(--pulse)}
+        .nav-links{display:flex;align-items:center;gap:8px}
+        .nav-link{padding:8px 12px;font-size:13px;font-weight:500;color:var(--lum-50);background:transparent;border:1px solid transparent;border-radius:8px;cursor:pointer;text-decoration:none;transition:all .15s ease}
+        .nav-link:hover{color:var(--lum-90);background:var(--pulse-subtle);border-color:var(--border-subtle)}
+        .container{max-width:720px;margin:0 auto;padding:60px 20px}
+        .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:var(--depth-3);border:1px solid var(--border-default);border-radius:100px;font-size:12px;font-weight:600;color:var(--lum-50);margin-bottom:20px}
+        .badge-dot{width:6px;height:6px;border-radius:50%;background:var(--pulse);box-shadow:0 0 8px var(--pulse-glow)}
+        h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1.2px;margin-bottom:12px;line-height:1.15}
+        h1 span{background:linear-gradient(135deg,var(--pulse),var(--synth));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .subtitle{font-size:15px;color:var(--lum-50);margin-bottom:40px;line-height:1.6}
+        .card{background:var(--depth-2);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px;box-shadow:var(--shadow-card)}
+        .card-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+        .card-title{font-size:18px;font-weight:700}
+        .card-title small{font-weight:400;font-size:13px;color:var(--lum-50)}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;font-size:14px;font-weight:600;border-radius:var(--radius-md);cursor:pointer;text-decoration:none;border:1px solid transparent;transition:all .15s ease;line-height:1.2}
+        .btn-primary{background:var(--pulse);color:#fff;box-shadow:var(--shadow-card)}
+        .btn-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow-elev)}
+        .btn-ghost{background:var(--depth-4);border-color:var(--border-default);color:var(--lum-70)}
+        .btn-ghost:hover{border-color:var(--border-hover);color:var(--lum-90);transform:translateY(-1px)}
+        .btn-success{background:var(--vital);color:#fff;box-shadow:var(--shadow-card)}
+        .btn-success:hover{transform:translateY(-1px)}
+        .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+        .meta-item{padding:10px 14px;background:var(--depth-3);border-radius:var(--radius-sm)}
+        .meta-label{font-size:11px;color:var(--lum-50);text-transform:uppercase;letter-spacing:0.5px;font-weight:600}
+        .meta-value{font-size:13px;color:var(--lum-90);margin-top:2px;font-family:'JetBrains Mono',monospace;word-break:break-all}
+        .checksum-box{background:var(--depth-3);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--lum-50);word-break:break-all;margin-top:12px;position:relative}
+        .checksum-box .copy-btn{position:absolute;top:8px;right:8px;padding:4px 8px;font-size:11px;background:var(--depth-4);border:1px solid var(--border-subtle);border-radius:4px;color:var(--lum-50);cursor:pointer;font-family:'Inter',sans-serif}
+        .checksum-box .copy-btn:hover{color:var(--lum-90);border-color:var(--border-default)}
+        .features{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+        .feature{padding:4px 10px;background:var(--pulse-subtle);border:1px solid rgba(59,130,246,0.15);border-radius:100px;font-size:11px;font-weight:500;color:var(--pulse)}
+        .howto-step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border-subtle)}
+        .howto-step:last-child{border-bottom:none}
+        .step-num{width:28px;height:28px;border-radius:50%;background:var(--pulse-subtle);color:var(--pulse);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+        .step-content{flex:1}
+        .step-content strong{color:var(--lum-90)}
+        .step-content p{font-size:13px;color:var(--lum-50);margin-top:2px}
+        .step-content code{font-family:'JetBrains Mono',monospace;font-size:12.5px;padding:2px 6px;background:var(--depth-3);border-radius:4px;color:var(--pulse)}
+        .site-footer{padding:32px 16px;border-top:1px solid var(--border-subtle);background:var(--depth-1);text-align:center;font-size:13px;color:var(--lum-50)}
+        .site-footer a{color:var(--pulse);text-decoration:none}
+        .site-footer a:hover{text-decoration:underline}
+        .theme-toggle{background:none;border:none;color:var(--lum-50);cursor:pointer;padding:6px;border-radius:6px;font-size:18px;line-height:1}
+        .theme-toggle:hover{color:var(--lum-90)}
+
+        /* Hamburger menu */
+        .hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:36px;height:36px;background:transparent;border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;padding:8px;transition:all .15s ease;flex-shrink:0;touch-action:manipulation}
+        .hamburger:hover{background:var(--pulse-subtle);border-color:var(--border-default)}
+        .hamburger-line{display:block;width:18px;height:2px;background:var(--lum-50);border-radius:2px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+        .hamburger.open .hamburger-line:nth-child(1){transform:translateY(6px) rotate(45deg)}
+        .hamburger.open .hamburger-line:nth-child(2){opacity:0;transform:scaleX(0)}
+        .hamburger.open .hamburger-line:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+        .hamburger-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:99;pointer-events:none}
+        .hamburger-menu.open{display:block;pointer-events:auto}
+        .hamburger-menu::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;transition:opacity .3s ease}
+        .hamburger-menu.open::before{opacity:1}
+        .hamburger-menu-inner{position:absolute;top:58px;right:12px;width:220px;max-width:calc(100vw - 24px);background:var(--depth-4);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-elev);padding:8px;display:flex;flex-direction:column;gap:2px;transform:translateY(-8px);opacity:0;transition:all .2s cubic-bezier(.22,1,.36,1)}
+        .hamburger-menu.open .hamburger-menu-inner{transform:translateY(0);opacity:1}
+        .hamburger-link{display:flex;align-items:center;gap:10px;padding:11px 12px;font-size:14px;font-weight:500;color:var(--lum-70);background:transparent;border:none;border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;transition:all .12s ease;width:100%;text-align:left}
+        .hamburger-link:hover{color:var(--lum-90);background:var(--pulse-subtle)}
+        .hamburger-link svg{flex-shrink:0}
+        .hamburger-divider{height:1px;background:var(--border-subtle);margin:4px 8px}
+
+        @media(max-width:540px){.container{padding:40px 16px}.meta-grid{grid-template-columns:1fr}.card{padding:20px}}
+        @media(max-width:400px){.nav-links{display:none}.hamburger{display:flex}.hamburger-menu-inner{top:56px}}
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header-inner">
+            <a href="../" class="logo">← mSAS</a>
+            <nav class="nav-links">
+                <a href="../apk-auditor/" class="nav-link">APK</a>
+                <a href="../ipa-auditor/" class="nav-link">IPA</a>
+                <a href="../adb-auditor/" class="nav-link">ADB</a>
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">🌙</button>
+            </nav>
+
+            <button class="hamburger" id="hamburgerToggle" type="button" aria-label="Open menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <div class="hamburger-menu" id="hamburgerMenu" role="dialog" aria-modal="true" aria-label="Navigation">
+            <div class="hamburger-menu-inner">
+                <a href="../" class="hamburger-link">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                    Dashboard
+                </a>
+                <a href="../apk-auditor/" class="hamburger-link">APK</a>
+                <a href="../ipa-auditor/" class="hamburger-link">IPA</a>
+                <a href="../adb-auditor/" class="hamburger-link">ADB</a>
+                <div class="hamburger-divider"></div>
+                <button class="hamburger-link hamburger-theme" id="hamburgerThemeToggle" type="button">
+                    <span id="hamThemeIcon">🌙</span>
+                    <span>Toggle Theme</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="badge"><span class="badge-dot"></span> v0.1.0 — Harmony</div>
+            <h1>Download <span>mSAS</span></h1>
+            <p class="subtitle">Get the complete mSAS suite for offline use. APK Auditor, IPA Auditor, and ADB Auditor — all in one package. 100% client-side, no installation required.</p>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">msas-v0.1.0.zip <small>offline bundle</small></div>
+                    <a id="downloadBtn" class="btn" href="#" style="pointer-events:none;opacity:0.6"            download="msas-v0.1.0.zip">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span id="dlBtnText">Downloading...</span>
+                    </a>
+                </div>
+
+                <div class="meta-grid">
+                    <div class="meta-item"><div class="meta-label">Size</div><div class="meta-value">5.4 MB</div></div>
+                    <div class="meta-item"><div class="meta-label">Format</div><div class="meta-value">ZIP archive</div></div>
+                    <div class="meta-item"><div class="meta-label">Version</div><div class="meta-value">v0.1.0 "Harmony"</div></div>
+                    <div class="meta-item"><div class="meta-label">License</div><div class="meta-value">CC BY-NC-ND 4.0</div></div>
+                </div>
+
+                <div class="features">
+                    <span class="feature">APK Auditor</span>
+                    <span class="feature">IPA Auditor</span>
+                    <span class="feature">ADB Auditor</span>
+                    <span class="feature">Landing page</span>
+                    <span class="feature">Dark/Light mode</span>
+                    <span class="feature">No install</span>
+                </div>
+
+                <div class="checksum-box" id="checksumBox">
+                    SHA-256: <span id="checksumValue">d46c57db11d27ca30d65c3733820260553b3bf4e8d79057fc351fc64d3185923</span>
+                    <button class="copy-btn" id="copyChecksum">Copy</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title" style="margin-bottom:16px">📋 How to use</div>
+                <div class="howto-step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <strong>Download &amp; unzip</strong>
+                        <p>Extract the archive anywhere on your computer.</p>
+                    </div>
+                </div>
+                <div class="howto-step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <strong>Serve locally</strong>
+                        <p>Open a terminal in the <code>mobile_application_testing_framework</code> folder and run:</p>
+                        <p style="margin-top:6px"><code>python3 -m http.server 8000</code></p>
+                    </div>
+                </div>
+                <div class="howto-step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <strong>Open in browser</strong>
+                        <p>Go to <code>http://localhost:8000</code> — that's it. All tools work entirely offline.</p>
+                    </div>
+                </div>
+                <div class="howto-step">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <strong>Verify integrity (optional)</strong>
+                        <p>On Linux/Mac: <code>shasum -a 256 msas-v0.1.0.zip</code> and compare with the checksum above.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title" style="margin-bottom:8px">🌐 Use online instead</div>
+                <p style="font-size:14px;color:var(--lum-50);margin-bottom:16px">No download needed — all tools run in your browser already:</p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <a href="../apk-auditor/" class="btn btn-ghost">APK Auditor →</a>
+                    <a href="../ipa-auditor/" class="btn btn-ghost">IPA Auditor →</a>
+                    <a href="../adb-auditor/" class="btn btn-ghost">ADB Auditor →</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>by <a href="https://github.com/mravtechinfo" target="_blank" rel="noopener noreferrer">mravtechinfo</a> · <a href="https://msas-au8.pages.dev" target="_blank" rel="noopener noreferrer">Live site</a> · <a href="../about/">About</a></p>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const toggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') html.setAttribute('data-theme', saved);
+        toggle.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+        toggle.addEventListener('click', () => {
+            const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            toggle.textContent = next === 'light' ? '☀️' : '🌙';
+        });
+
+        // Download button — detect if zip exists
+        const dlBtn = document.getElementById('downloadBtn');
+        const dlText = document.getElementById('dlBtnText');
+        fetch('msas-v0.1.0.zip', { method: 'HEAD' }).then(r => {
+            if (r.ok) {
+                dlBtn.style.pointerEvents = 'auto';
+                dlBtn.style.opacity = '1';
+                dlBtn.style.background = '';
+                dlBtn.href = 'msas-v0.1.0.zip';
+                dlBtn.setAttribute('download', 'msas-v0.1.0.zip');
+                dlText.textContent = 'Download ZIP';
+                dlBtn.classList.remove('btn-primary');
+                dlBtn.classList.add('btn-success');
+            } else {
+                dlText.textContent = 'Not available';
+            }
+        }).catch(() => { dlText.textContent = 'Offline preview'; });
+
+        // Copy checksum
+        document.getElementById('copyChecksum').addEventListener('click', () => {
+            const val = document.getElementById('checksumValue').textContent;
+            navigator.clipboard.writeText(val).then(() => {
+                const btn = document.getElementById('copyChecksum');
+                btn.textContent = 'Copied!';
+                setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+            });
+        });
+
+        // Hamburger menu
+        const hamToggle = document.getElementById('hamburgerToggle');
+        const hamMenu = document.getElementById('hamburgerMenu');
+        const hamTheme = document.getElementById('hamburgerThemeToggle');
+        const hamThemeIcon = document.getElementById('hamThemeIcon');
+        if (hamToggle && hamMenu) {
+            function openHam() {
+                hamToggle.classList.add('open');
+                hamToggle.setAttribute('aria-expanded', 'true');
+                hamToggle.setAttribute('aria-label', 'Close menu');
+                hamMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                if (hamThemeIcon) hamThemeIcon.textContent = toggle.textContent;
+            }
+            function closeHam() {
+                hamToggle.classList.remove('open');
+                hamToggle.setAttribute('aria-expanded', 'false');
+                hamToggle.setAttribute('aria-label', 'Open menu');
+                hamMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+            hamToggle.addEventListener('click', () => {
+                hamMenu.classList.contains('open') ? closeHam() : openHam();
+            });
+            hamMenu.addEventListener('click', (e) => {
+                if (e.target === hamMenu) closeHam();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && hamMenu.classList.contains('open')) closeHam();
+            });
+            hamMenu.querySelectorAll('.hamburger-link').forEach(link => {
+                link.addEventListener('click', closeHam);
+            });
+        }
+        if (hamTheme) {
+            hamTheme.addEventListener('click', () => {
+                toggle.click();
+                if (hamThemeIcon) hamThemeIcon.textContent = toggle.textContent;
+            });
+        }
+    </script>
+</body>
+</html>

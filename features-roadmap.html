@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mSAS v2 — Complete Feature Roadmap</title>
+<style>
+  :root {
+    --bg-primary: #0a0a1a;
+    --bg-secondary: #12122a;
+    --bg-card: #1a1a3e;
+    --bg-hover: #222255;
+    --text-primary: #e8e8f0;
+    --text-secondary: #a0a0c0;
+    --text-muted: #6a6a8a;
+    --accent: #e94560;
+    --accent-glow: rgba(233,69,96,0.3);
+    --blue: #4a9eff;
+    --green: #2ecc71;
+    --orange: #f39c12;
+    --purple: #9b59b6;
+    --teal: #1abc9c;
+    --border: rgba(255,255,255,0.06);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .header {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, #1a0a2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 24px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .logo {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--accent), #ff6b8a);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px; color: #fff;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  .header h1 {
+    font-size: 22px; font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header .subtitle { font-size: 13px; color: var(--text-secondary); }
+  .header-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+  .stat-badge {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 12px; background: var(--bg-card);
+    border-radius: 20px; font-size: 12px; border: 1px solid var(--border);
+  }
+  .stat-badge .num { font-weight: 700; color: var(--accent); }
+  .controls {
+    max-width: 1400px; margin: 0 auto; padding: 16px 24px;
+    display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+  }
+  .search-box {
+    flex: 1; min-width: 200px;
+    padding: 10px 16px; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text-primary); font-size: 14px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg-card);
+    color: var(--text-secondary); font-size: 12px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+  .filter-btn.active {
+    border-color: var(--accent); color: var(--accent);
+    background: rgba(233,69,96,0.1);
+  }
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 24px 40px; }
+  .phase {
+    margin: 24px 0; background: var(--bg-secondary);
+    border-radius: 12px; border: 1px solid var(--border); overflow: hidden;
+  }
+  .phase-header {
+    padding: 20px 24px; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.2s; user-select: none;
+  }
+  .phase-header:hover { background: var(--bg-hover); }
+  .phase-header-left { display: flex; align-items: center; gap: 14px; }
+  .phase-number {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px; color: #fff; flex-shrink: 0;
+  }
+  .phase-number.p0 { background: linear-gradient(135deg, var(--teal), #16a085); }
+  .phase-number.p1 { background: linear-gradient(135deg, var(--blue), #2980b9); }
+  .phase-number.p2 { background: linear-gradient(135deg, var(--purple), #8e44ad); }
+  .phase-number.p3 { background: linear-gradient(135deg, var(--orange), #e67e22); }
+  .phase-number.p4 { background: linear-gradient(135deg, var(--accent), #c0392b); }
+  .phase-number.p5 { background: linear-gradient(135deg, var(--green), #27ae60); }
+  .phase-number.p6 { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+  .phase-number.p7 { background: linear-gradient(135deg, #3498db, #2980b9); }
+  .phase-number.p8 { background: linear-gradient(135deg, #95a5a6, #7f8c8d); }
+  .phase-title { font-size: 17px; font-weight: 600; }
+  .phase-meta {
+    display: flex; gap: 12px; align-items: center;
+    font-size: 12px; color: var(--text-muted);
+  }
+  .phase-count { padding: 2px 10px; background: var(--bg-card); border-radius: 12px; }
+  .phase-arrow { font-size: 18px; color: var(--text-muted); transition: transform 0.3s; }
+  .phase.collapsed .phase-arrow { transform: rotate(-90deg); }
+  .phase.collapsed .phase-body { display: none; }
+  .phase-body { border-top: 1px solid var(--border); padding: 0; }
+  .feature-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .feature-table thead { position: sticky; top: 160px; z-index: 10; }
+  .feature-table th {
+    padding: 12px 16px; text-align: left; font-weight: 600;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-muted); background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+  }
+  .feature-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .feature-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .feature-id {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px; color: var(--accent); white-space: nowrap;
+  }
+  .feature-title { font-weight: 500; margin-bottom: 2px; }
+  .feature-desc { font-size: 12px; color: var(--text-secondary); }
+  .mastg-ref {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-family: 'SF Mono', monospace;
+    background: rgba(74,158,255,0.1); color: var(--blue);
+    margin: 1px 2px; white-space: nowrap;
+  }
+  .mastg-ref.checklist {
+    background: rgba(46,204,113,0.1); color: var(--green);
+  }
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+  }
+  .badge-critical { background: rgba(233,69,96,0.2); color: var(--accent); }
+  .badge-high { background: rgba(243,156,18,0.2); color: var(--orange); }
+  .badge-medium { background: rgba(74,158,255,0.2); color: var(--blue); }
+  .badge-low { background: rgba(149,165,166,0.2); color: #95a5a6; }
+  .badge-easy { background: rgba(46,204,113,0.2); color: var(--green); }
+  .badge-moderate { background: rgba(26,188,156,0.2); color: var(--teal); }
+  .badge-hard { background: rgba(243,156,18,0.2); color: var(--orange); }
+  .badge-complex { background: rgba(233,69,96,0.2); color: var(--accent); }
+  .state-dot { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; }
+  .state-dot::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+  }
+  .state-dot.none::before { background: #555; }
+  .state-dot.partial::before { background: var(--orange); }
+  .state-dot.yes::before { background: var(--green); }
+  .effort-bar {
+    width: 60px; height: 6px; background: var(--bg-primary);
+    border-radius: 3px; overflow: hidden;
+    display: inline-block; vertical-align: middle; margin-right: 6px;
+  }
+  .effort-bar .fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+  .summary-section {
+    margin: 32px 0; padding: 24px;
+    background: var(--bg-secondary); border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .summary-section h2 { font-size: 18px; margin-bottom: 16px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .summary-card {
+    padding: 16px; background: var(--bg-card);
+    border-radius: 8px; border: 1px solid var(--border);
+  }
+  .summary-card .label {
+    font-size: 11px; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
+  }
+  .summary-card .value { font-size: 24px; font-weight: 700; }
+  .summary-card .value.green { color: var(--green); }
+  .summary-card .value.blue { color: var(--blue); }
+  .summary-card .value.accent { color: var(--accent); }
+  .summary-card .value.orange { color: var(--orange); }
+  .legend {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    padding: 16px 24px; font-size: 12px; color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-item .swatch { width: 10px; height: 10px; border-radius: 3px; }
+  @media (max-width: 768px) {
+    .header { padding: 16px; }
+    .header h1 { font-size: 18px; }
+    .header-stats { gap: 8px; }
+    .stat-badge { font-size: 11px; padding: 4px 10px; }
+    .controls { padding: 12px 16px; }
+    .container { padding: 0 12px 24px; }
+    .phase-header { padding: 14px 16px; }
+    .phase-title { font-size: 14px; }
+    .feature-table { font-size: 12px; }
+    .feature-table th, .feature-table td { padding: 8px 10px; }
+    .feature-table td:nth-child(4), .feature-table th:nth-child(4),
+    .feature-table td:nth-child(5), .feature-table th:nth-child(5) { display: none; }
+  }
+  @media print {
+    .header { position: static; }
+    .controls { display: none; }
+    .phase.collapsed .phase-body { display: block; }
+    .phase-arrow { display: none; }
+    .feature-table thead { position: static; }
+  }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="logo">m</div>
+      <div>
+        <h1>mSAS v2 — Feature Roadmap</h1>
+        <div class="subtitle">Mobile Security Analysis Suite · OWASP MASTG-Aligned</div>
+      </div>
+    </div>
+    <div class="header-stats">
+      <span class="stat-badge"><span class="num" id="totalFeatures">0</span> Features</span>
+      <span class="stat-badge"><span class="num">9</span> Phases</span>
+      <span class="stat-badge"><span class="num">~105</span> Est. Days</span>
+      <span class="stat-badge"><span class="num">90%+</span> MASTG Coverage</span>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <input type="text" class="search-box" id="searchBox" placeholder="Search features, MASTG IDs, keywords..." oninput="filterFeatures()">
+  <div class="filter-group">
+    <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+    <button class="filter-btn" onclick="setFilter('critical', this)">🔴 Critical</button>
+    <button class="filter-btn" onclick="setFilter('high', this)">🟠 High</button>
+    <button class="filter-btn" onclick="setFilter('medium', this)">🔵 Medium</button>
+    <button class="filter-btn" onclick="setFilter('easy', this)">🟢 Quick Win</button>
+  </div>
+  <button class="filter-btn" onclick="expandAll()" style="margin-left:auto">Expand All</button>
+  <button class="filter-btn" onclick="collapseAll()">Collapse All</button>
+</div>
+
+<div class="container" id="app"></div>
+
+<script>
+const PHASES = [
+  { num: 0, title: 'Shared Foundation', subtitle: 'Core infrastructure to enable all downstream work', color: 'p0', features: [
+    { id: 'BASE-1', title: 'Shared Module System', desc: 'Extract entropy, crypto, hashing, formatting into shared/ directory. Convert from IIFE to ES module pattern with import/export.', mastg: [], state: 'none', impact: 'critical', effort: 'moderate', days: 3 },
+    { id: 'BASE-2', title: 'Declarative Rule Engine', desc: 'Pure-function rule engine that takes context + returns findings. Load rules from data-driven definitions. Enable/disable/prioritize at runtime.', mastg: [], state: 'none', impact: 'critical', effort: 'hard', days: 5 },
+    { id: 'BASE-3', title: 'Event-Driven State Store', desc: 'Lightweight Pub/Sub store so UI reacts to state changes instead of manually updating DOM.', mastg: [], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'BASE-4', title: 'Unified PDF Report Builder', desc: 'Merge 3 separate PDF generators into one shared module with consistent branding, MASTG refs, CVSS scores.', mastg: [], state: 'partial', impact: 'high', effort: 'moderate', days: 3 },
+    { id: 'BASE-5', title: 'Test Infrastructure', desc: 'Vitest for unit tests, Playwright for E2E, fixture APKs/IPAs. CI pipeline in GitHub Actions.', mastg: [], state: 'none', impact: 'critical', effort: 'moderate', days: 3 },
+    { id: 'BASE-6', title: 'Shared CSS Variables & Theme', desc: 'Consolidate 3 stylesheets into single CSS architecture with design tokens and dark theme.', mastg: [], state: 'partial', impact: 'medium', effort: 'easy', days: 1 },
+  ]},
+  { num: 1, title: 'Core MASTG — Storage & Data', subtitle: 'MASVS-STORAGE: Data storage, logging, caching', color: 'p1', features: [
+    { id: 'STO-1', title: 'SQLite Database Scanner', desc: 'Extract .db/.sqlite files from APK. Parse schema, flag unencrypted DBs with sensitive columns. Detect Realm files.', mastg: ['MSTG-STORAGE-1'], state: 'none', impact: 'critical', effort: 'moderate', days: 2 },
+    { id: 'STO-2', title: 'SharedPreferences Audit', desc: 'Scan XML for MODE_WORLD_READABLE/WRITABLE. Detect plaintext sensitive preference names.', mastg: ['MSTG-STORAGE-1'], state: 'none', impact: 'high', effort: 'easy', days: 1 },
+    { id: 'STO-3', title: 'Log Statement Scanner', desc: 'Full DEX scan for Log.d/e/i/v/w, System.out.print, System.err.print. Classify severity.', mastg: ['MSTG-STORAGE-2'], state: 'none', impact: 'high', effort: 'easy', days: 1 },
+    { id: 'STO-4', title: 'Firebase Database Detection', desc: 'Regex scan for *.firebaseio.com patterns. Check unauthenticated Firebase access.', mastg: ['MSTG-STORAGE-1'], state: 'none', impact: 'critical', effort: 'easy', days: 0.5 },
+    { id: 'STO-5', title: 'Clipboard & Pasteboard Analysis', desc: 'Android: Flag ClipboardManager usage. iOS: Detect UIPasteboard for sensitive data.', mastg: ['MSTG-STORAGE-3'], state: 'none', impact: 'medium', effort: 'easy', days: 0.5 },
+    { id: 'STO-6', title: 'Screenshot Prevention Check', desc: 'Android: Check FLAG_SECURE. iOS: Detect screenshot notification handling.', mastg: ['MSTG-STORAGE-4'], state: 'none', impact: 'medium', effort: 'easy', days: 0.5 },
+    { id: 'STO-7', title: 'Keychain / Keystore Analysis', desc: 'Android Keystore vs SharedPrefs. iOS Keychain kSecAttrAccessible levels.', mastg: ['MSTG-STORAGE-5'], state: 'partial', impact: 'critical', effort: 'moderate', days: 2 },
+    { id: 'STO-8', title: 'Push Notification Data Leakage', desc: 'Scan for sensitive data in FCM/APNs notification payload patterns.', mastg: ['MSTG-STORAGE-8'], state: 'none', impact: 'medium', effort: 'moderate', days: 1 },
+    { id: 'STO-9', title: 'Analytics SDK Data Leakage', desc: 'Detect Firebase Analytics, Mixpanel, Amplitude. Check if PII sent to analytics.', mastg: ['MSTG-STORAGE-9'], state: 'none', impact: 'medium', effort: 'moderate', days: 1.5 },
+    { id: 'STO-10', title: 'Device Access Controls', desc: 'Verify screen lock detection, device admin policies, root/jailbreak detection.', mastg: ['MSTG-STORAGE-10'], state: 'none', impact: 'medium', effort: 'moderate', days: 1 },
+    { id: 'STO-11', title: 'Cache & Temp File Analysis', desc: 'Scan for cache dir usage. Flag sensitive data in webview caches.', mastg: ['MSTG-STORAGE-6'], state: 'none', impact: 'medium', effort: 'moderate', days: 1.5 },
+    { id: 'STO-12', title: 'Backup Vulnerability Scanner', desc: 'Android allowBackup/fullBackupContent. iOS NSKeys/UIManagedDocument.', mastg: ['MSTG-STORAGE-7'], state: 'partial', impact: 'high', effort: 'easy', days: 1 },
+    { id: 'STO-13', title: 'Scoped Storage Audit', desc: 'Check legacy getExternalStorageDirectory, MANAGE_EXTERNAL_STORAGE permission.', mastg: ['MSTG-STORAGE-1'], state: 'none', impact: 'medium', effort: 'easy', days: 0.5 },
+  ]},
+  { num: 2, title: 'Core MASTG — Crypto & Authentication', subtitle: 'MASVS-CRYPTO + MASVS-AUTH', color: 'p2', features: [
+    { id: 'CRY-1', title: 'Weak Cipher Suite Detection', desc: 'Detect AES-ECB, DES, RC2, RC4, MD2-5, SHA1 in signing. Hardcoded IVs and static salts.', mastg: ['MSTG-CRYPTO-1','MSTG-CRYPTO-2'], state: 'partial', impact: 'critical', effort: 'moderate', days: 2 },
+    { id: 'CRY-2', title: 'Certificate & Signature Validation', desc: 'Verify cert chain, hostname verification, custom TrustManager, X509TrustManager overrides.', mastg: ['MSTG-CRYPTO-3'], state: 'none', impact: 'critical', effort: 'hard', days: 3 },
+    { id: 'CRY-3', title: 'Hardcoded Crypto Keys Scanner', desc: 'Detect hardcoded AES/RSA keys, Base64 keys, .jks/.bks/.p12 keystore files.', mastg: ['MSTG-CRYPTO-4'], state: 'partial', impact: 'critical', effort: 'moderate', days: 2 },
+    { id: 'CRY-4', title: 'Custom Crypto Detection', desc: 'Flag custom algorithms, MessageDigest without provider, insecure SecureRandom.', mastg: ['MSTG-CRYPTO-5'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'CRY-5', title: 'Random Number Generator Audit', desc: 'SecureRandom vs Random, predictable seeds, Math.random for security.', mastg: ['MSTG-CRYPTO-6'], state: 'none', impact: 'medium', effort: 'easy', days: 0.5 },
+    { id: 'CRY-6', title: 'Certificate Pinning Verification', desc: 'Parse network_security_config pin-set, OkHttp certificatePinner, TrustKit.', mastg: ['MSTG-NETWORK-4'], state: 'partial', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'AUTH-1', title: 'PIN / Password Policy Analysis', desc: 'Extract password policy: min length, complexity, lockout, biometric fallback.', mastg: ['MSTG-AUTH-1'], state: 'none', impact: 'high', effort: 'moderate', days: 1.5 },
+    { id: 'AUTH-2', title: 'Biometric Authentication Audit', desc: 'BiometricPrompt, FingerprintManager, LAContext policies, bypass patterns.', mastg: ['MSTG-AUTH-2'], state: 'partial', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'AUTH-3', title: 'Session Management Analysis', desc: 'Session token handling, timeout logic, JWT storage, auto-login persistence.', mastg: ['MSTG-AUTH-3','MSTG-AUTH-4'], state: 'none', impact: 'critical', effort: 'hard', days: 3 },
+    { id: 'AUTH-4', title: 'OAuth 2.0 / PKCE Verification', desc: 'Detect OAuth flows. Check PKCE, redirect URI validation, state param, implicit grant.', mastg: ['MSTG-AUTH-5'], state: 'none', impact: 'high', effort: 'hard', days: 3 },
+    { id: 'AUTH-5', title: 'Local Auth Bypass Detection', desc: 'isAuthenticated flag manipulation, root detect bypass, cert override, debug bypasses.', mastg: ['MSTG-AUTH-8'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+  ]},
+  { num: 3, title: 'Core MASTG — Network & Platform', subtitle: 'MASVS-NETWORK + MASVS-PLATFORM', color: 'p3', features: [
+    { id: 'NET-1', title: 'Cleartext Traffic Analysis', desc: 'Check usesCleartextTraffic, network_security_config cleartext entries, NSAppTransportSecurity.', mastg: ['MSTG-NETWORK-1'], state: 'partial', impact: 'high', effort: 'easy', days: 1 },
+    { id: 'NET-2', title: 'TLS Configuration Audit', desc: 'Minimum TLS 1.2+, cipher suites, SSLContext initialization patterns.', mastg: ['MSTG-NETWORK-2'], state: 'none', impact: 'critical', effort: 'moderate', days: 2 },
+    { id: 'NET-3', title: 'Custom Hostname Verifier', desc: 'ALLOW_ALL_HOSTNAME_VERIFIER, custom HostnameVerifier ignoring all hosts.', mastg: ['MSTG-NETWORK-3'], state: 'none', impact: 'critical', effort: 'moderate', days: 1.5 },
+    { id: 'NET-4', title: 'Insecure WebSocket Detection', desc: 'Detect ws:// connections, insecure Socket.IO, STOMP over plain WebSocket.', mastg: ['MSTG-NETWORK-1'], state: 'none', impact: 'high', effort: 'easy', days: 0.5 },
+    { id: 'NET-5', title: '3rd-Party Network SDK Audit', desc: 'Version-check OkHttp, Retrofit, AFNetworking, Alamofire for known CVEs.', mastg: ['MSTG-NETWORK-5'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'NET-6', title: 'iOS ATS Deep Analysis', desc: 'Parse full NSAppTransportSecurity: NSAllowsArbitraryLoads, exception domains, TLS exceptions.', mastg: ['MSTG-NETWORK-1'], state: 'partial', impact: 'high', effort: 'moderate', days: 1.5 },
+    { id: 'PLAT-1', title: 'WebView Security Audit', desc: 'setJavaScriptEnabled, file access, addJavascriptInterface, remote debugging.', mastg: ['MSTG-PLATFORM-1','MSTG-PLATFORM-2'], state: 'partial', impact: 'critical', effort: 'moderate', days: 2 },
+    { id: 'PLAT-2', title: 'Deep Link Validation', desc: 'autoVerify, URL validation logic, Android App Links / iOS Universal Links.', mastg: ['MSTG-PLATFORM-3'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'PLAT-3', title: 'Tapjacking / Overlay Detection', desc: 'FLAG_WINDOW_IS_OBSCURED, overlay permission, SYSTEM_ALERT_WINDOW.', mastg: ['MSTG-PLATFORM-9'], state: 'none', impact: 'high', effort: 'moderate', days: 1.5 },
+    { id: 'PLAT-4', title: 'PendingIntent Security', desc: 'FLAG_IMMUTABLE vs MUTABLE, PendingIntent.FLAG_UPDATE_CURRENT misuse.', mastg: ['MSTG-PLATFORM-8'], state: 'none', impact: 'high', effort: 'moderate', days: 1.5 },
+    { id: 'PLAT-5', title: 'Content Provider Security', desc: 'SQL injection in query/update/delete, URI permission grants, path traversal.', mastg: ['MSTG-PLATFORM-4'], state: 'partial', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'PLAT-6', title: 'Service & Broadcast Receiver Audit', desc: 'Exported services/receivers, implicit intent vulns, permission enforcement.', mastg: ['MSTG-PLATFORM-5'], state: 'partial', impact: 'high', effort: 'moderate', days: 1.5 },
+    { id: 'PLAT-7', title: 'iOS URL Scheme Hijacking', desc: 'CFBundleURLSchemes interception, universal link fallback issues.', mastg: ['MSTG-PLATFORM-3'], state: 'none', impact: 'high', effort: 'moderate', days: 1.5 },
+    { id: 'PLAT-8', title: 'iOS Keyboard Extension Audit', desc: 'Custom keyboard extensions, keylogging risks, secure text entry.', mastg: ['MSTG-PLATFORM-6'], state: 'none', impact: 'medium', effort: 'moderate', days: 1 },
+    { id: 'PLAT-9', title: 'iOS XPC / IPC Analysis', desc: 'XPC services, NSXPCConnection validation, mach services in launchd.', mastg: ['MSTG-PLATFORM-7'], state: 'none', impact: 'medium', effort: 'hard', days: 2 },
+    { id: 'PLAT-10', title: 'Android Backup Restoration', desc: 'BackupAgent, Auto Backup rules, insecure SharedPreferences backup.', mastg: ['MSTG-PLATFORM-5'], state: 'partial', impact: 'medium', effort: 'easy', days: 1 },
+    { id: 'PLAT-11', title: 'Task Affinity & Hijacking', desc: 'taskAffinity mismatch, allowTaskReparenting, StrandHogg vulnerability.', mastg: ['MSTG-PLATFORM-5'], state: 'none', impact: 'high', effort: 'moderate', days: 1.5 },
+  ]},
+  { num: 4, title: 'Core MASTG — Code Quality & Resilience', subtitle: 'MASVS-CODE + MASVS-RESILIENCE', color: 'p4', features: [
+    { id: 'COD-1', title: 'ProGuard/R8 Effectiveness', desc: 'Parse mapping.txt for obfuscation coverage. Verify minification/obfuscation enabled.', mastg: ['MSTG-CODE-1'], state: 'partial', impact: 'high', effort: 'easy', days: 1 },
+    { id: 'COD-2', title: 'Debug Symbols Check', desc: 'Debug symbols in release, debuggable flag, dSYM in iOS bundle.', mastg: ['MSTG-CODE-1'], state: 'partial', impact: 'medium', effort: 'easy', days: 0.5 },
+    { id: 'COD-3', title: 'Obfuscation Quality Analysis', desc: 'Class/method entropy, string encryption, control flow obfuscation. Compare known obfuscators.', mastg: ['MSTG-CODE-2'], state: 'none', impact: 'medium', effort: 'hard', days: 3 },
+    { id: 'COD-4', title: 'Deserialization Vulnerability', desc: 'readObject, ObjectInputStream, JSON.parse, NSCoding/NSKeyedUnarchiver.', mastg: ['MSTG-CODE-7'], state: 'none', impact: 'critical', effort: 'moderate', days: 2 },
+    { id: 'COD-5', title: 'Insecure Update Detection', desc: 'In-app update logic, hardcoded update URLs, missing SSL verification.', mastg: ['MSTG-CODE-8'], state: 'none', impact: 'high', effort: 'moderate', days: 1.5 },
+    { id: 'COD-6', title: 'Native Code (JNI/NDK) Scan', desc: 'JNI usage, .so buffer overflows, format strings, exec/system calls.', mastg: ['MSTG-CODE-4'], state: 'none', impact: 'critical', effort: 'hard', days: 4 },
+    { id: 'COD-7', title: 'Library CVE Scanner', desc: 'CVE database for mobile libs. Check versions of OkHttp, Retrofit, Glide, Firebase, TF Lite.', mastg: ['MSTG-CODE-5'], state: 'none', impact: 'critical', effort: 'hard', days: 5 },
+    { id: 'COD-8', title: 'Permission Over-Provisioning', desc: 'Requested permissions vs actual API usage. Flag unused dangerous perms.', mastg: ['MSTG-CODE-6'], state: 'partial', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'COD-9', title: 'Dangerous Permission Combos', desc: 'CAMERA+MIC, LOCATION+INTERNET, READ_SMS+SEND_SMS combo risk analysis.', mastg: ['MSTG-CODE-6'], state: 'none', impact: 'medium', effort: 'easy', days: 1 },
+    { id: 'COD-10', title: 'Exact Alarm & Background Check', desc: 'setExact, SCHEDULE_EXACT_ALARM, WorkManager, battery optimization.', mastg: ['MSTG-CODE-9'], state: 'none', impact: 'low', effort: 'easy', days: 0.5 },
+    { id: 'RES-1', title: 'Root Detection Bypass', desc: 'Build tags, su binary, test-keys, Magisk Hide/RootCloak detection.', mastg: ['MSTG-RESILIENCE-1'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'RES-2', title: 'Jailbreak Detection Bypass', desc: 'Cydia check, sandbox integrity, fork test, symlink test, plist mod detection.', mastg: ['MSTG-RESILIENCE-1'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'RES-3', title: 'Anti-Debugging Detection', desc: 'isDebuggerConnected, ptrace, TracerPid, PT_DENY_ATTACH patterns.', mastg: ['MSTG-RESILIENCE-2'], state: 'none', impact: 'medium', effort: 'moderate', days: 2 },
+    { id: 'RES-4', title: 'Runtime Integrity Verification', desc: 'Signature verification, APK hash, code checksum, Frida/Xposed detection.', mastg: ['MSTG-RESILIENCE-3'], state: 'none', impact: 'high', effort: 'hard', days: 3 },
+    { id: 'RES-5', title: 'RE Tool Detection', desc: 'Frida, Xposed, Magisk, Substrate, JustTrustMe, SSLUnpin, emulator detection.', mastg: ['MSTG-RESILIENCE-4'], state: 'none', impact: 'medium', effort: 'easy', days: 1 },
+    { id: 'RES-6', title: 'Memory Dumping Countermeasures', desc: 'mprotect, AndroidKeyStore, Keychain access control, encrypted mmap.', mastg: ['MSTG-RESILIENCE-5'], state: 'none', impact: 'high', effort: 'hard', days: 3 },
+    { id: 'RES-7', title: 'iOS Obfuscation & Integrity', desc: 'Stripped symbols, encrypted __TEXT, FairPlay, LLVM obfuscator patterns.', mastg: ['MSTG-RESILIENCE-6','MSTG-RESILIENCE-7'], state: 'none', impact: 'medium', effort: 'hard', days: 3 },
+    { id: 'RES-8', title: 'iOS Attribution & Pasteboard', desc: 'AppTrackingTransparency, UIPasteboard privacy, clipboard consent.', mastg: ['MSTG-STORAGE-3'], state: 'none', impact: 'medium', effort: 'easy', days: 1 },
+  ]},
+  { num: 5, title: 'AI / ML Security Module', subtitle: 'NEW from your checklist: AI-ANDROID-1 to 10 + AI-IOS-1 to 10', color: 'p5', features: [
+    { id: 'AI-1', title: 'On-Device Model Extraction', desc: 'Detect .tflite, .mlmodel, CoreML files. Flag unprotected models in assets.', mastg: ['AI-ANDROID-1','AI-IOS-1'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'AI-2', title: 'Hardcoded AI API Keys', desc: 'OpenAI, Anthropic, Gemini, Replicate, HuggingFace, Cohere, Stability AI key patterns.', mastg: ['AI-ANDROID-2','AI-IOS-2'], state: 'none', impact: 'critical', effort: 'moderate', days: 2 },
+    { id: 'AI-3', title: 'AI Prompt Data Leakage', desc: 'PII, location, device identifiers in model prompts. Class-level vars in prompt strings.', mastg: ['AI-ANDROID-3','AI-IOS-3'], state: 'none', impact: 'critical', effort: 'hard', days: 4 },
+    { id: 'AI-4', title: 'Prompt Injection Scanner', desc: 'Unsanitized input in prompts, system prompt overrides, jailbreak patterns.', mastg: ['AI-ANDROID-4','AI-IOS-4'], state: 'none', impact: 'critical', effort: 'hard', days: 4 },
+    { id: 'AI-5', title: 'AI SDK Data Collection Audit', desc: 'Firebase ML Kit, TF Lite Play Services, CoreML analytics telemetry.', mastg: ['AI-ANDROID-5','AI-IOS-5'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'AI-6', title: 'Model Integrity Verification', desc: 'TFLite/CoreML model signing, checksums, hash validation in code.', mastg: ['AI-ANDROID-6','AI-IOS-6'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'AI-7', title: 'Adversarial Input Robustness', desc: 'Input validation before inference, adversarial guardrails, confidence thresholds.', mastg: ['AI-ANDROID-7','AI-IOS-7'], state: 'none', impact: 'high', effort: 'hard', days: 3 },
+    { id: 'AI-8', title: 'Outdated AI SDK Check', desc: 'TF Lite, ML Kit, CoreML, PyTorch Mobile, ONNX Runtime version CVE check.', mastg: ['AI-ANDROID-8','AI-IOS-8'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'AI-9', title: 'AI Content Injection via WebView', desc: 'AI output rendered in WebViews without sanitization. innerHTML from model response.', mastg: ['AI-ANDROID-9','AI-IOS-9'], state: 'none', impact: 'critical', effort: 'moderate', days: 2 },
+    { id: 'AI-10', title: 'RAG / Vector DB Audit', desc: 'Chroma, Pinecone, FAISS. Exposed vector DB, context injection, embedding key exposure.', mastg: ['AI-ANDROID-10','AI-IOS-10'], state: 'none', impact: 'critical', effort: 'hard', days: 4 },
+  ]},
+  { num: 6, title: 'ADB Auditor Overhaul', subtitle: 'Live device testing: intent fuzzing, provider scanning, backup extraction', color: 'p6', features: [
+    { id: 'ADB-1', title: 'Intent Fuzzing Engine', desc: 'Generate crafted intents to test exported components. Detect crashes and info disclosure.', mastg: ['MSTG-PLATFORM-5'], state: 'none', impact: 'critical', effort: 'hard', days: 4 },
+    { id: 'ADB-2', title: 'Content Provider Extraction', desc: 'content:// URI enumeration, query exported providers, SQLi testing, path traversal.', mastg: ['MSTG-PLATFORM-4'], state: 'none', impact: 'high', effort: 'hard', days: 4 },
+    { id: 'ADB-3', title: 'Backup Data Analysis', desc: 'Pull/parse app backups. Extract SharedPrefs, databases. Flag unencrypted sensitive data.', mastg: ['MSTG-STORAGE-7'], state: 'none', impact: 'high', effort: 'moderate', days: 3 },
+    { id: 'ADB-4', title: 'WebView Debugging Check', desc: 'Detect webview debugging enabled + debuggable app state.', mastg: ['MSTG-PLATFORM-2'], state: 'partial', impact: 'medium', effort: 'easy', days: 1 },
+    { id: 'ADB-5', title: 'Permissions Bypass Testing', desc: 'Call exported activities/services via ADB. Detect confused deputy, permission re-delegation.', mastg: ['MSTG-CODE-6'], state: 'none', impact: 'high', effort: 'hard', days: 3 },
+    { id: 'ADB-6', title: 'Screen Security Testing', desc: 'screenrecord/screencap automation. FLAG_SECURE violations. Recent apps check.', mastg: ['MSTG-STORAGE-4'], state: 'partial', impact: 'medium', effort: 'easy', days: 1 },
+    { id: 'ADB-7', title: 'Logcat Leakage Scanner', desc: 'Automated logcat capture, regex scan for tokens, passwords, PII, API keys.', mastg: ['MSTG-STORAGE-2'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+  ]},
+  { num: 7, title: 'MASTG-Compliant Reporting Suite', subtitle: 'CVSS scoring, risk matrix, SARIF export, professional deliverables', color: 'p7', features: [
+    { id: 'RPT-1', title: 'CVSS 3.1 Calculator', desc: 'Full CVSS scoring engine. Parse vectors, compute base/temporal/environmental scores.', mastg: ['Risk Calculator'], state: 'none', impact: 'high', effort: 'moderate', days: 3 },
+    { id: 'RPT-2', title: 'OWASP Risk Matrix', desc: 'Likelihood x Impact heatmap. 5x5 grid with finding counts per cell.', mastg: ['Risk Calculator'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'RPT-3', title: 'Executive Report PDF', desc: 'Executive summary, risk overview, findings with MASTG refs, CVSS, remediation.', mastg: [], state: 'partial', impact: 'high', effort: 'hard', days: 4 },
+    { id: 'RPT-4', title: 'Findings Dashboard', desc: 'Aggregate across 3 auditors. Severity distribution, MASTG coverage, pass/fail rates.', mastg: [], state: 'none', impact: 'medium', effort: 'moderate', days: 3 },
+    { id: 'RPT-5', title: 'SARIF Export', desc: 'SARIF v2.1.0 format. GitHub Code Scanning, Azure DevOps integration.', mastg: [], state: 'none', impact: 'medium', effort: 'moderate', days: 2 },
+    { id: 'RPT-6', title: 'JSON / CSV / XLSX Export', desc: 'Structured export in multiple formats. Checklist template format.', mastg: [], state: 'partial', impact: 'medium', effort: 'easy', days: 1 },
+    { id: 'RPT-7', title: 'Evidence Attachment', desc: 'Attach screenshots, log snippets, code evidence to findings.', mastg: [], state: 'none', impact: 'medium', effort: 'moderate', days: 2 },
+    { id: 'RPT-8', title: 'Risk Scoring Methodology', desc: 'CVSS-based scoring with adjustable params. Custom risk frameworks.', mastg: ['Risk Calculator'], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'RPT-9', title: 'Severity Trend Analysis', desc: 'Track findings over multiple scans. Compare between versions.', mastg: [], state: 'none', impact: 'low', effort: 'moderate', days: 2 },
+  ]},
+  { num: 8, title: 'UX Polish & Quality', subtitle: 'Batch mode, PWA, rule editor, automated testing', color: 'p8', features: [
+    { id: 'UX-1', title: 'Unified Dashboard v2', desc: 'SPA with all auditors in top nav. Quick stats, real-time ADB status.', mastg: [], state: 'partial', impact: 'high', effort: 'hard', days: 4 },
+    { id: 'UX-2', title: 'Batch APK/IPA Analysis', desc: 'Process multiple files. Aggregate stats, cross-version comparison, queue management.', mastg: [], state: 'none', impact: 'high', effort: 'hard', days: 5 },
+    { id: 'UX-3', title: 'Progressive Web App', desc: 'Service Worker, offline cache, manifest.json, install prompt.', mastg: [], state: 'none', impact: 'medium', effort: 'moderate', days: 2 },
+    { id: 'UX-4', title: 'Rule Editor GUI', desc: 'Enable/disable/prioritize rules. Create custom rules. Save/load profiles.', mastg: [], state: 'none', impact: 'medium', effort: 'hard', days: 4 },
+    { id: 'UX-5', title: 'Dark/Light Theme', desc: 'Full theming with system preference detection. Persisted choice.', mastg: [], state: 'partial', impact: 'low', effort: 'easy', days: 1 },
+    { id: 'UX-6', title: 'Scan History & Sessions', desc: 'Save to IndexedDB. Browse, search, compare. Naming, tags, notes.', mastg: [], state: 'none', impact: 'medium', effort: 'moderate', days: 3 },
+    { id: 'UX-7', title: 'Advanced Filtering', desc: 'Filter by severity, MASTG category, status. Full-text search. Saved presets.', mastg: [], state: 'none', impact: 'medium', effort: 'moderate', days: 2 },
+    { id: 'UX-8', title: 'Keyboard & Accessibility', desc: 'Keyboard nav, ARIA labels, screen reader, high-contrast, reduced motion.', mastg: [], state: 'none', impact: 'low', effort: 'moderate', days: 2 },
+    { id: 'UX-9', title: 'Drag & Drop UX', desc: 'Multi-file support. Progress ETA. Auto-start analysis.', mastg: [], state: 'partial', impact: 'medium', effort: 'easy', days: 1 },
+    { id: 'UX-10', title: 'Performance Optimization', desc: 'Virtual scrolling, lazy loading, Worker pooling, bundle optimization.', mastg: [], state: 'none', impact: 'medium', effort: 'hard', days: 4 },
+    { id: 'UX-11', title: 'Unit Test Suite (Vitest)', desc: 'All MASTG rules, CVSS, engine, parsers, export. Target 80%+ coverage.', mastg: [], state: 'none', impact: 'critical', effort: 'hard', days: 5 },
+    { id: 'UX-12', title: 'Integration & E2E Tests', desc: 'Full pipeline integration + Playwright browser tests for all auditors.', mastg: [], state: 'none', impact: 'high', effort: 'hard', days: 5 },
+  ]},
+];
+
+function render() {
+  const app = document.getElementById('app');
+  let html = '';
+
+  // Phase sections
+  PHASES.forEach((phase, phaseIdx) => {
+    const effortDays = phase.features.reduce((s, f) => s + f.days, 0);
+    const featCount = phase.features.length;
+    let rows = '';
+    phase.features.forEach(f => {
+      const mastgRefs = f.mastg.map(m => `<span class="mastg-ref">${m}</span>`).join('');
+      const stateLabel = f.state === 'none' ? 'Missing' : f.state === 'partial' ? 'Partial' : 'Complete';
+      const stateClass = f.state;
+      const effortPct = f.effort === 'easy' ? 25 : f.effort === 'moderate' ? 50 : f.effort === 'hard' ? 75 : 100;
+      const effortColor = f.effort === 'easy' ? 'var(--green)' : f.effort === 'moderate' ? 'var(--orange)' : 'var(--accent)';
+      rows += `<tr data-impact="${f.impact}" data-effort="${f.effort}" data-state="${f.state}" data-search="${f.id} ${f.title} ${f.desc} ${f.mastg.join(' ')}">
+        <td><span class="feature-id">${f.id}</span></td>
+        <td><div class="feature-title">${f.title}</div><div class="feature-desc">${f.desc}</div></td>
+        <td>${mastgRefs || '<span style="color:var(--text-muted)">—</span>'}</td>
+        <td><span class="badge badge-${f.impact}">${f.impact.toUpperCase()}</span></td>
+        <td><span class="badge badge-${f.effort}">${f.effort.toUpperCase()}</span></td>
+        <td><span class="state-dot ${stateClass}">${stateLabel}</span></td>
+        <td><span class="effort-bar"><span class="fill" style="width:${effortPct}%;background:${effortColor}"></span></span>${f.days}d</td>
+      </tr>`;
+    });
+
+    html += `<div class="phase" id="phase-${phaseIdx}">
+      <div class="phase-header" onclick="togglePhase(${phaseIdx})">
+        <div class="phase-header-left">
+          <div class="phase-number ${phase.color}">${phase.num}</div>
+          <div>
+            <div class="phase-title">Phase ${phase.num}: ${phase.title}</div>
+            <div style="font-size:12px;color:var(--text-secondary);margin-top:2px">${phase.subtitle}</div>
+          </div>
+        </div>
+        <div class="phase-meta">
+          <span class="phase-count">${featCount} features</span>
+          <span class="phase-count">~${effortDays}d</span>
+          <span class="phase-arrow">▼</span>
+        </div>
+      </div>
+      <div class="phase-body">
+        <table class="feature-table">
+          <thead><tr>
+            <th style="width:80px">ID</th>
+            <th style="width:35%">Feature</th>
+            <th style="width:20%">MASTG / Checklist</th>
+            <th style="width:80px">Impact</th>
+            <th style="width:90px">Feasibility</th>
+            <th style="width:80px">Status</th>
+            <th style="width:70px">Effort</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <div class="legend">
+          <span class="legend-item"><span class="swatch" style="background:var(--accent)"></span> Critical/High</span>
+          <span class="legend-item"><span class="swatch" style="background:var(--blue)"></span> Medium</span>
+          <span class="legend-item"><span class="swatch" style="background:var(--green)"></span> Easy/Quick Win</span>
+          <span class="legend-item"><span class="swatch" style="background:#555"></span> Missing</span>
+          <span class="legend-item"><span class="swatch" style="background:var(--orange)"></span> Partial</span>
+          <span class="legend-item"><span class="swatch" style="background:var(--green)"></span> Complete</span>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  app.innerHTML = html;
+}
+
+function togglePhase(idx) {
+  document.getElementById('phase-' + idx).classList.toggle('collapsed');
+}
+function expandAll() {
+  document.querySelectorAll('.phase').forEach(el => el.classList.remove('collapsed'));
+}
+function collapseAll() {
+  document.querySelectorAll('.phase').forEach(el => el.classList.add('collapsed'));
+}
+function setFilter(filter, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+  document.querySelectorAll('.feature-table tbody tr').forEach(row => {
+    const impact = row.dataset.impact;
+    const effort = row.dataset.effort;
+    let matchesFilter = true;
+    if (filter === 'critical') matchesFilter = impact === 'critical';
+    else if (filter === 'high') matchesFilter = impact === 'critical' || impact === 'high';
+    else if (filter === 'medium') matchesFilter = ['critical','high','medium'].includes(impact);
+    else if (filter === 'easy') matchesFilter = effort === 'easy';
+    const searchText = row.dataset.search?.toLowerCase() || '';
+    row.style.display = (matchesFilter && (!searchTerm || searchText.includes(searchTerm))) ? '' : 'none';
+  });
+  document.querySelectorAll('.phase').forEach(phase => {
+    const total = phase.querySelectorAll('.feature-table tbody tr').length;
+    const hidden = phase.querySelectorAll('.feature-table tbody tr[style*="display: none"]').length;
+    phase.style.display = hidden < total ? '' : 'none';
+  });
+}
+function filterFeatures() {
+  const active = document.querySelector('.filter-btn.active');
+  if (active) setFilter(active.textContent.trim().toLowerCase(), active);
+}
+
+// Summary cards
+function countBy(fn) { let c=0; PHASES.forEach(p=>p.features.forEach(f=>{if(fn(f))c++})); return c; }
+const total = countBy(()=>true);
+const critical = countBy(f=>f.impact==='critical'||f.impact==='high');
+const easy = countBy(f=>f.effort==='easy');
+const existing = countBy(f=>f.state==='partial'||f.state==='yes');
+const newFeat = total - existing;
+
+document.getElementById('totalFeatures').textContent = total;
+
+// Add summary to top
+const summaryHTML = `
+<div class="summary-section">
+  <h2>📊 Roadmap Overview</h2>
+  <div class="summary-grid">
+    <div class="summary-card"><div class="label">Total Features</div><div class="value blue">${total}</div></div>
+    <div class="summary-card"><div class="label">Critical / High</div><div class="value accent">${critical}</div></div>
+    <div class="summary-card"><div class="label">Quick Wins (Easy)</div><div class="value green">${easy}</div></div>
+    <div class="summary-card"><div class="label">Already in v1</div><div class="value orange">${existing}</div></div>
+    <div class="summary-card"><div class="label">New for v2</div><div class="value accent">${newFeat}</div></div>
+    <div class="summary-card"><div class="label">Est. Development</div><div class="value blue">~105 days</div></div>
+  </div>
+</div>`;
+
+render();
+document.getElementById('app').innerHTML = summaryHTML + document.getElementById('app').innerHTML;
+</script>
+</body>
+</html>

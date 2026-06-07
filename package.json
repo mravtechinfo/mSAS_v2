@@ -1,7 +1,7 @@
 {
-  "name": "mobile-security-auditor",
+  "name": "msas",
   "version": "1.0.0",
-  "description": "Unified mobile security analysis suite — static analysis for Android APKs (APKAuditor) and iOS IPA files (IPAAuditor). 100% client-side, no data uploaded.",
+  "description": "🛡️ mSAS — Mobile Security Analysis Suite. Browser-based APK (DEX), IPA (Mach-O) & ADB (WebUSB) security auditing. 230+ OWASP MASVS-aligned rules. 100% client-side.",
   "keywords": [
     "android-security",
     "ios-security",
@@ -14,7 +14,7 @@
     "dex-parser",
     "macho-analyzer"
   ],
-  "homepage": "https://github.com/mravtechinfo/mobile-security-auditor",
+  "homepage": "https://msas-au8.pages.dev",
   "license": "CC-BY-NC-ND-4.0",
   "author": {
     "name": "mravtechinfo",
@@ -22,16 +22,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mravtechinfo/mobile-security-auditor.git"
+    "url": "git+https://github.com/mravtechinfo/mobile-pentest-suite.git"
   },
   "bugs": {
-    "url": "https://github.com/mravtechinfo/mobile-security-auditor/issues"
+    "url": "https://github.com/mravtechinfo/mobile-pentest-suite/issues"
   },
   "private": false,
   "files": [
     "index.html",
     "apk-auditor/",
-    "ipa-auditor/"
+    "ipa-auditor/",
+    "adb-auditor/",
+    "about/",
+    "downloads/",
+    "favicon.svg",
+    "mask-icon.svg",
+    "404.html"
   ],
   "scripts": {
     "start": "python3 server.py",

@@ -4,4 +4,3 @@ Disallow: /*/src/analyzer.worker.js
 Disallow: /*/src/core/
 Disallow: /*/lib/
 
-Sitemap: https://mobilesecurityauditor.com/sitemap.xml

@@ -1,4 +1,4 @@
-# 🛡️ Mobile Security Auditor
+# 🛡️ mSAS — Mobile Security Analysis Suite
 
 > **Unified mobile security analysis suite** — Static analysis for **Android APKs** and **iOS IPA** files.  
 > 100% client-side, nothing leaves your browser.
@@ -7,14 +7,15 @@
 
 ## 📋 Overview
 
-**Mobile Security Auditor** combines two powerful static analysis tools into a single, unified interface:
+**mSAS** combines three powerful security analysis tools into a single, unified interface:
 
-| Tool | Platform | Rules | Focus |
-|------|----------|-------|-------|
-| [**APK Auditor**](https://github.com/mravtechinfo/apkauditor) | Android | 150+ | DEX bytecode, AndroidManifest, certificates, crypto, storage, webviews |
-| [**IPA Auditor**](https://github.com/mravtechinfo/ipaauditor) | iOS | 80+ | Mach-O binaries, Info.plist, provisioning profiles, ATS, entitlements |
+| Tool | Platform | Focus |
+|------|----------|-------|
+| [**APK Auditor**](https://github.com/mravtechinfo/apkauditor) | Android | DEX bytecode, AndroidManifest, certificates, crypto, storage, webviews |
+| [**IPA Auditor**](https://github.com/mravtechinfo/ipaauditor) | iOS | Mach-O binaries, Info.plist, provisioning profiles, ATS, entitlements |
+| [**ADB Auditor**](https://msas-au8.pages.dev/adb-auditor/) | Android Device | Device security audit, ADB diagnostics, open ports, system properties |
 
-Both tools run **entirely in your browser** using Web Workers — no files are ever uploaded to any server.
+All three tools run **entirely in your browser** using Web Workers — no files are ever uploaded to any server.
 
 ---
 
@@ -29,6 +30,14 @@ Both tools run **entirely in your browser** using Web Workers — no files are e
 - **Entropy-based secret detection** — Identifies hardcoded API keys, tokens, and credentials using Shannon entropy
 - **Tracker SDK detection** — Flags known advertisement and analytics SDKs embedded in the app
 
+### 📱 ADB Auditor
+- **Device connection management** — Connect to Android devices via ADB over TCP/IP
+- **Open port scanning** — Scans for listening ports and identifies vulnerable services
+- **System property extraction** — Reads build properties, security settings, and device configuration
+- **Security policy audit** — Checks lock screen status, encryption, USB debugging, and other security policies
+- **Package audit** — Lists installed packages and identifies risky or outdated applications
+- **Network configuration review** — Inspects Wi-Fi config, proxy settings, and DNS configuration
+
 ### 🍎 IPA Auditor
 - **Mach-O binary parser** — Extracts load commands, section info, and flags from iOS binaries
 - **Property list analysis** — Parses `Info.plist`, `Entitlements.plist`, and embedded configuration files
@@ -42,13 +51,14 @@ Both tools run **entirely in your browser** using Web Workers — no files are e
 - **Report comparison**: Score + Letter Grade (A+ through F) with severity breakdown
 - **Component explorer**: Visual listing of activities, services, receivers, and providers
 - **File explorer**: Browse extracted APK/IPA contents in-tree view
+- **Dashboard navigation**: All tools accessible from a central landing page with tool switching
 
 ---
 
 ## 🚀 Quick Start
 
 ### Option 1: Open directly (no server needed)
-Open `index.html` in your browser, then click into **APK Auditor** or **IPA Auditor**.
+Open `index.html` in your browser, then click into **APK Auditor**, **IPA Auditor**, or **ADB Auditor**.
 
 ### Option 2: Serve locally
 
@@ -66,7 +76,7 @@ npx serve . -p 8080 --no-clipboard --single --cors
 ## 🏗️ Project Structure
 
 ```
-mobile-security-auditor/
+msas/
 ├── index.html                  # Central landing page
 ├── apk-auditor/                # APK Auditor (cloned from apkauditor)
 │   ├── index.html              # APK upload & analysis UI
@@ -143,8 +153,13 @@ See the [LICENSE](LICENSE) file for full terms.
 
 ## 🙏 Credits
 
-- **[mravtechinfo](https://github.com/mravtechinfo)** — Maintainer of this unified distribution
+- **[mravtechinfo](https://github.com/mravtechinfo)** — Creator of mSAS (Mobile Security Analysis Suite)
 - **OWASP** — Mobile Application Security Verification Standard (MASVS) framework
+
+---
+
+🌐 **Live Site**: [https://msas-au8.pages.dev](https://msas-au8.pages.dev)  
+📦 **Download**: Available at `/downloads/` on the live site
 
 ---
 

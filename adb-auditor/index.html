@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>ADB Auditor - Android Security Auditing</title>
+    <meta name="description" content="Browser-based Android security auditor over WebUSB and ADB. List apps, browse files with root, run shell, capture screenshots, scan for issues. 100% client-side.">
+    <meta name="keywords" content="ADB, Android Debug Bridge, Android Security, APK Analysis, Mobile Security, Penetration Testing, WebUSB, Android Forensics">
+    
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="ADB Auditor - Android Security Auditing">
+    <meta property="og:description" content="Browser-based Android security auditor over WebUSB and ADB. 100% client-side.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="img/logo.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ADB Auditor - Android Security Auditing">
+    <meta name="twitter:description" content="Browser-based Android security auditor over WebUSB and ADB. 100% client-side.">
+    <meta name="theme-color" content="#07080B" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#EEF1F6" media="(prefers-color-scheme: light)">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' blob:; worker-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="mask-icon" href="../mask-icon.svg" color="#3B82F6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../lib/styles.css?v=20260514">
+    <link rel="stylesheet" href="src/styles.css?v=20260514g">
+</head>
+<body>
+    <div class="ambient">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+    </div>
+    <div class="noise"></div>
+
+    <header class="site-header" role="banner">
+        <div class="site-header-inner">
+            <a href="#" class="logo" id="logoHome" aria-label="ADB Auditor home">
+                <div class="logo-mark" aria-hidden="true">
+                    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="3" width="30" height="30" rx="8.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+                        <rect x="9" y="10" width="17" height="2.6" rx="1.3" fill="var(--pulse)"/>
+                        <rect x="9" y="15.5" width="13" height="2.6" rx="1.3" fill="currentColor" opacity="0.42"/>
+                        <rect x="9" y="21" width="9"  height="2.6" rx="1.3" fill="currentColor" opacity="0.22"/>
+                        <circle cx="27.5" cy="11.3" r="1.9" fill="var(--pulse)"/>
+                    </svg>
+                </div>
+                <span class="logo-text"><span class="logo-prefix">ADB</span><span class="logo-suffix">Auditor</span></span>
+            </a>
+            <nav class="nav-links" aria-label="Sibling tools">
+                <a href="../" class="nav-link nav-sibling" title="Dashboard / Home">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Dashboard
+                </a>
+                <a href="../ipa-auditor/" class="nav-link nav-sibling" title="iOS IPA static analyzer">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    IPA Auditor
+                </a>
+                <a href="../apk-auditor/" class="nav-link nav-sibling" title="Android APK static analyzer">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    APK Auditor
+                </a>
+                <button class="nav-link nav-icon" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+                    <svg class="theme-dark"  viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="theme-light" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+                <a href="https://github.com/thecybersandeep/adbauditor" class="nav-link nav-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub repo" title="GitHub">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="device-bar" role="toolbar" aria-label="Device session">
+        <div class="device-bar-inner">
+            <div class="status-pill" id="statusPill">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">Disconnected</span>
+            </div>
+            <div class="device-selector">
+                <select class="device-select" id="deviceSelect" aria-label="Device">
+                    <option value="">No devices paired</option>
+                </select>
+                <div class="add-device-wrapper">
+                    <button class="btn add-device-btn" id="addDeviceBtn" title="Add Device" aria-label="Add Device">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                    <div class="add-device-menu" id="addDeviceMenu">
+                        <div class="add-menu-item" data-action="addUSB">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                            <span>USB Device</span>
+                        </div>
+                        <div class="add-menu-item" data-action="showWebSocket">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
+                            <span>WebSocket</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="connectBtn">Connect</button>
+            <button class="btn btn-danger hidden" id="disconnectBtn">Disconnect</button>
+        </div>
+    </div>
+
+    <div class="app-shell">
+        <nav class="dock" id="dock">
+            <div class="dock-item active" data-section="overview" title="Overview">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+                <span class="dock-tooltip">Overview</span>
+            </div>
+            <div class="dock-item disabled" data-section="apps" title="Applications">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                <span class="dock-tooltip">Applications</span>
+            </div>
+            <div class="dock-item disabled" data-section="files" title="Files">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                <span class="dock-tooltip">Files</span>
+            </div>
+            <div class="dock-item disabled" data-section="screenshot" title="Screenshot">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span class="dock-tooltip">Screenshot</span>
+            </div>
+            <div class="dock-divider"></div>
+            <div class="dock-item disabled" data-section="shell" title="Shell">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span class="dock-tooltip">Shell</span>
+            </div>
+            <div class="dock-item disabled" data-section="security" title="Security">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span class="dock-tooltip">Security</span>
+            </div>
+        </nav>
+
+        <main class="main" id="contentArea"></main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="modal-overlay" id="tcpModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
+                    ADB over WiFi
+                </h3>
+                <button class="modal-close" data-action="closeTCP">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc" style="color: var(--warm);">Note: ADB over WiFi is not supported in browser-only mode. Browsers cannot make direct TCP connections. Please use USB connection.</p>
+                <div class="input-group">
+                    <label class="input-label">IP Address</label>
+                    <input type="text" id="tcpIpInput" class="text-input" placeholder="192.168.1.100" autocomplete="off" spellcheck="false" disabled>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Port</label>
+                    <input type="number" id="tcpPortInput" class="text-input" value="5555" min="1" max="65535" disabled>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" data-action="closeTCP">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="claimErrorModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--warm);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    Device interface busy
+                </h3>
+                <button class="modal-close" data-action="closeClaimError">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">Another process is holding the USB interface, so the browser cannot claim it. Try these in order:</p>
+                <ol class="claim-steps">
+                    <li><strong>Close other ADB clients.</strong> If a terminal has <code>adb</code> running, kill it: <code class="mono">adb kill-server</code></li>
+                    <li><strong>Close other browser tabs</strong> that are connected to the same device (Chrome only lets one tab hold the interface).</li>
+                    <li><strong>Close Android Studio / scrcpy / Vysor</strong> or any other tool that talks to the device over USB.</li>
+                    <li><strong>Unplug and replug</strong> the device, accept the USB-debugging prompt again, then click Connect.</li>
+                </ol>
+                <details class="claim-debug"><summary>Show technical error</summary><pre id="claimErrorDetails" class="mono"></pre></details>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-action="closeClaimError">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+        <div class="loading-text" id="loadingText">Loading...</div>
+        <div class="loading-subtext" id="loadingSubtext"></div>
+        <button class="btn btn-ghost loading-cancel hidden" id="loadingCancelBtn" type="button">Cancel</button>
+    </div>
+
+    <footer class="site-footer" style="padding: 16px 24px; display: flex; justify-content: center; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 0;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b;">
+            <span>ADB Auditor</span>
+            <span style="opacity: 0.3;">·</span>
+            <a href="https://github.com/thecybersandeep/adbauditor" target="_blank" rel="noopener noreferrer" style="color: #94a3b8; text-decoration: none;">GitHub</a>
+            <span style="opacity: 0.3;">·</span>
+            <a href="../" style="color: #38bdf8; text-decoration: none;">Part of <strong>mSAS</strong></a>
+        </div>
+    </footer>
+
+    <script src="lib/jspdf.umd.min.js"></script>
+    <script src="../lib/test-result.js"></script>
+    <script src="../lib/utils.js"></script>
+    <script src="../lib/report-generator.js"></script>
+    <script src="js/adb-core.js"></script>
+    <script src="js/security-auditor.js"></script>
+    <script src="js/pdf.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
