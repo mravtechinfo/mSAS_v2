@@ -1,0 +1,58 @@
+{
+  "name": "mSAS — Mobile Security Analysis Suite",
+  "short_name": "mSAS",
+  "description": "Browser-based static analysis suite for Android APKs, iOS IPA files, and ADB device auditing. 100% client-side, zero data uploads.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "en-US",
+  "theme_color": "#0a0a1a",
+  "background_color": "#0a0a1a",
+  "categories": ["security", "developer-tools", "utilities"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop-preview.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "mSAS Dashboard showing APK analysis results"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "APK Auditor",
+      "short_name": "APK",
+      "description": "Analyze Android APK files",
+      "url": "/apk-auditor/"
+    },
+    {
+      "name": "IPA Auditor",
+      "short_name": "IPA",
+      "description": "Analyze iOS IPA files",
+      "url": "/ipa-auditor/"
+    },
+    {
+      "name": "ADB Auditor",
+      "short_name": "ADB",
+      "description": "Audit connected Android devices",
+      "url": "/adb-auditor/"
+    }
+  ]
+}
