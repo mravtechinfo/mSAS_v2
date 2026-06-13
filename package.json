@@ -42,9 +42,22 @@
   "scripts": {
     "start": "python3 server.py",
     "start:basic": "python3 -m http.server 8080",
-    "dev": "npx live-server . --port=8080 --no-browser --ignore=node_modules"
+    "dev": "npx live-server . --port=8080 --no-browser --ignore=node_modules",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug"
   },
   "engines": {
     "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@vitest/coverage-v8": "^4.1.8",
+    "glob": "^13.0.6",
+    "jsdom": "^29.1.1",
+    "vitest": "^4.1.8"
   }
 }
