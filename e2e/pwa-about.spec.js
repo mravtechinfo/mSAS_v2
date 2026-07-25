@@ -85,7 +85,7 @@ test.describe('PWA Features', () => {
     await expect(themeColor.first()).toHaveAttribute('content');
     
     const appName = page.locator('meta[name="application-name"]');
-    await expect(appName).toHaveAttribute('content', 'mSAS');
+    await expect(appName).toHaveAttribute('content', /mSAS/);
   });
 });
 

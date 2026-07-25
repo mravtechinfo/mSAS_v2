@@ -114,7 +114,7 @@ test.describe('Landing Page', () => {
 
   test('should display hero features row', async ({ page }) => {
     const feats = page.locator('.hero-feats-row .hero-feat');
-    await expect(feats).toHaveCount(5);
+    await expect(feats).toHaveCount(6);
     await expect(feats.first()).toBeVisible();
   });
 
