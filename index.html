@@ -24,7 +24,7 @@
     <meta name="twitter:description" content="mSAS — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based.">
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="mask-icon" href="/mask-icon.svg" color="#3B82F6">
+    <link rel="mask-icon" href="/mask-icon.svg" color="#10B981">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -45,16 +45,19 @@
             --text-primary: #F6F8FA;
             --text-secondary: #9CA3AF;
             --text-muted: #6B7280;
-            --accent-primary: #3B82F6;
-            --accent-secondary: #2563EB;
-            --accent-glow: rgba(59, 130, 246, 0.30);
-            --accent-subtle: rgba(59, 130, 246, 0.10);
-            --cyan: #38BDF8;
+            --accent-primary: #10B981;
+            --accent-secondary: #059669;
+            --accent-glow: rgba(16, 185, 129, 0.30);
+            --accent-subtle: rgba(16, 185, 129, 0.10);
+            --cyan: #34D399;
             --green: #10D689;
+            --emerald: #10B981;
+            --emerald-subtle: rgba(16, 185, 129, 0.10);
+            --emerald-glow: rgba(16, 185, 129, 0.30);
             --red: #F43F5E;
             --orange: #FB923C;
             --code-bg: #050709;
-            --focus: #3B82F6;
+            --focus: #10B981;
             --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.30);
             --shadow-elev: 0 16px 40px rgba(0,0,0,0.55);
             --radius-sm: 6px;
@@ -64,27 +67,30 @@
         }
 
         [data-theme="light"] {
-            --bg-primary: #EEF1F6;
-            --bg-secondary: #DFE4EC;
-            --bg-tertiary: #FFFFFF;
-            --bg-card: #FFFFFF;
-            --bg-elevated: #FFFFFF;
+            --bg-primary: #E4E8EE;
+            --bg-secondary: #D4DAE3;
+            --bg-tertiary: #EBEFF4;
+            --bg-card: #F1F4F9;
+            --bg-elevated: #F5F8FC;
             --border-subtle: rgba(17, 24, 39, 0.08);
             --border-default: rgba(17, 24, 39, 0.14);
             --border-hover: rgba(17, 24, 39, 0.28);
             --text-primary: #0B0E14;
             --text-secondary: #3F4757;
             --text-muted: #6B7280;
-            --accent-primary: #2563EB;
-            --accent-secondary: #1D4ED8;
-            --accent-glow: rgba(37, 99, 235, 0.24);
-            --accent-subtle: rgba(37, 99, 235, 0.10);
-            --cyan: #0E7CB1;
+            --accent-primary: #059669;
+            --accent-secondary: #047857;
+            --accent-glow: rgba(5, 150, 105, 0.24);
+            --accent-subtle: rgba(5, 150, 105, 0.10);
+            --cyan: #059669;
             --green: #047857;
+            --emerald: #059669;
+            --emerald-subtle: rgba(5, 150, 105, 0.10);
+            --emerald-glow: rgba(5, 150, 105, 0.24);
             --red: #BE123C;
             --orange: #B45309;
             --code-bg: #E5E9F0;
-            --focus: #2563EB;
+            --focus: #059669;
             --shadow-card: 0 1px 2px rgba(17,24,39,0.06), 0 8px 24px rgba(17,24,39,0.08);
             --shadow-elev: 0 16px 40px rgba(17,24,39,0.14);
         }
@@ -209,14 +215,14 @@
                 linear-gradient(90deg, rgba(17,24,39,0.04) 1px, transparent 1px);
         }
         .mesh-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.45; }
-        .mesh-orb-1 { width: 560px; height: 560px; top: -180px; left: -120px; background: radial-gradient(circle, #38BDF8 0%, transparent 70%); }
-        .mesh-orb-2 { width: 480px; height: 480px; top: 30%; right: -160px; background: radial-gradient(circle, #38BDF8 0%, transparent 70%); opacity: 0.30; }
-        .mesh-orb-3 { width: 380px; height: 380px; bottom: -120px; left: 30%; background: radial-gradient(circle, #A78BFA 0%, transparent 70%); opacity: 0.20; }
+        .mesh-orb-1 { width: 560px; height: 560px; top: -180px; left: -120px; background: radial-gradient(circle, #10B981 0%, transparent 70%); }
+        .mesh-orb-2 { width: 480px; height: 480px; top: 30%; right: -160px; background: radial-gradient(circle, #34D399 0%, transparent 70%); opacity: 0.30; }
+        .mesh-orb-3 { width: 380px; height: 380px; bottom: -120px; left: 30%; background: radial-gradient(circle, #059669 0%, transparent 70%); opacity: 0.20; }
         .cursor-spot {
             position: absolute;
             width: 600px; height: 600px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.10) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.10) 0%, transparent 60%);
             pointer-events: none;
             transform: translate(-50%, -50%);
             transition: opacity 0.3s ease;
@@ -226,14 +232,14 @@
             mix-blend-mode: screen;
         }
         [data-theme="light"] .cursor-spot {
-            background: radial-gradient(circle, rgba(2, 132, 199, 0.10) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(5, 150, 105, 0.10) 0%, transparent 60%);
             mix-blend-mode: multiply;
         }
         .hero:hover .cursor-spot { opacity: 1; }
         [data-theme="light"] .mesh-orb { opacity: 0.18; filter: blur(100px); }
-        [data-theme="light"] .mesh-orb-1 { background: radial-gradient(circle, #60A5FA 0%, transparent 70%); }
-        [data-theme="light"] .mesh-orb-2 { background: radial-gradient(circle, #60A5FA 0%, transparent 70%); }
-        [data-theme="light"] .mesh-orb-3 { background: radial-gradient(circle, #C4B5FD 0%, transparent 70%); }
+        [data-theme="light"] .mesh-orb-1 { background: radial-gradient(circle, #10B981 0%, transparent 70%); }
+        [data-theme="light"] .mesh-orb-2 { background: radial-gradient(circle, #34D399 0%, transparent 70%); }
+        [data-theme="light"] .mesh-orb-3 { background: radial-gradient(circle, #059669 0%, transparent 70%); }
 
         .hero-inner {
             position: relative;
@@ -289,7 +295,7 @@
             color: var(--text-primary);
         }
         .hero-title-accent {
-            background: linear-gradient(120deg, var(--accent-primary) 0%, var(--cyan) 25%, #A78BFA 50%, var(--cyan) 75%, var(--accent-primary) 100%);
+            background: linear-gradient(120deg, #10B981 0%, #34D399 25%, #059669 50%, #34D399 75%, #10B981 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -432,7 +438,7 @@
             background: conic-gradient(from 0deg, transparent 0%, #f472b6 15%, #a78bfa 30%, transparent 45%, transparent 100%);
         }
         .tool-card.adb::before {
-            background: conic-gradient(from 0deg, transparent 0%, #10D689 15%, #38BDF8 30%, transparent 45%, transparent 100%);
+            background: conic-gradient(from 0deg, transparent 0%, #10B981 15%, #34D399 30%, transparent 45%, transparent 100%);
         }
         .tool-card::after {
             content: '';
@@ -549,7 +555,7 @@
             color: #fff;
         }
         .tool-card.adb .tool-card-cta {
-            background: linear-gradient(135deg, #10D689, #38BDF8);
+            background: linear-gradient(135deg, #10B981, #34D399);
             color: #fff;
         }
         .tool-card-cta .arrow { transition: transform 0.2s ease; }
@@ -683,6 +689,32 @@
         .theme-dark-h, .theme-light-h { display: none; }
         [data-theme="light"] .theme-dark-h  { display: block; }
         [data-theme="dark"]  .theme-light-h { display: block; }
+
+        /* ===== V2 BADGE ===== */
+        .badge-v2 {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            color: var(--emerald);
+            background: var(--emerald-subtle);
+            border: 1px solid rgba(16, 185, 129, 0.20);
+            border-radius: 100px;
+            font-family: 'Inter', sans-serif;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        .tool-feat.v2 {
+            color: var(--emerald);
+            background: var(--emerald-subtle);
+            border-color: rgba(16, 185, 129, 0.20);
+        }
+        .hero-check.v2 .hero-check-dot { background: var(--emerald); }
+        .hero-check.v2 { color: var(--emerald); }
 
         /* ===== TOASTS ===== */
         .toast-container {
@@ -841,6 +873,7 @@
                 <span class="hero-tag">
                     <span class="hero-tag-dot"></span>
                     Unified security analysis · Android + iOS
+                    <span class="badge-v2">v2</span>
                 </span>
 
                 <h1 class="hero-title">
@@ -870,7 +903,7 @@
                     <span class="hero-check"><span class="hero-check-dot"></span>No upload, no telemetry</span>
                     <span class="hero-check"><span class="hero-check-dot"></span>Browser-based, no install</span>
                     <span class="hero-check"><span class="hero-check-dot"></span>SARIF / JSON / CSV / PDF export</span>
-                    <span class="hero-check"><span class="hero-check-dot"></span>ADB WebUSB device auditing</span>
+                    <span class="hero-check v2"><span class="hero-check-dot"></span>ADB WebUSB device auditing</span>
                 </div>
             </div>
 
@@ -905,10 +938,10 @@
                             <span class="tool-feat">Manifest Audit</span>
                             <span class="tool-feat">Certificate Check</span>
                             <span class="tool-feat">Native Libs</span>
-                            <span class="tool-feat">Entropy Scanner</span>
+                            <span class="tool-feat v2">Entropy Scanner</span>
                             <span class="tool-feat">MASVS Mapping</span>
                             <span class="tool-feat">OWASP Coverage</span>
-                            <span class="tool-feat">SARIF Export</span>
+                            <span class="tool-feat v2">SARIF Export</span>
                         </div>
                         <div class="tool-card-cta">
                             Launch APK Auditor <span class="arrow">→</span>
@@ -934,7 +967,7 @@
                             <span class="tool-feat">ATS Audit</span>
                             <span class="tool-feat">Privacy Checks</span>
                             <span class="tool-feat">Framework Scan</span>
-                            <span class="tool-feat">SARIF Export</span>
+                            <span class="tool-feat v2">SARIF Export</span>
                         </div>
                         <div class="tool-card-cta">
                             Launch IPA Auditor <span class="arrow">→</span>
@@ -952,15 +985,15 @@
                         <h3>ADB Auditor</h3>
                         <p>Browser-based Android device security auditing over WebUSB. Connect live devices, browse filesystems with root support, run shell commands, analyze app storage and permissions, capture screenshots, and run OWASP MASTG-aligned security scans in real time.</p>
                         <div class="tool-feats">
-                            <span class="tool-feat">WebUSB + ADB</span>
-                            <span class="tool-feat">App Analysis</span>
-                            <span class="tool-feat">File Browser</span>
-                            <span class="tool-feat">Shell Access</span>
-                            <span class="tool-feat">Root Mode</span>
-                            <span class="tool-feat">Screenshot</span>
-                            <span class="tool-feat">Security Audit</span>
-                            <span class="tool-feat">Logcat Viewer</span>
-                            <span class="tool-feat">SARIF Export</span>
+                            <span class="tool-feat v2">WebUSB + ADB</span>
+                            <span class="tool-feat v2">App Analysis</span>
+                            <span class="tool-feat v2">File Browser</span>
+                            <span class="tool-feat v2">Shell Access</span>
+                            <span class="tool-feat v2">Root Mode</span>
+                            <span class="tool-feat v2">Screenshot</span>
+                            <span class="tool-feat v2">Security Audit</span>
+                            <span class="tool-feat v2">Logcat Viewer</span>
+                            <span class="tool-feat v2">SARIF Export</span>
                         </div>
                         <div class="tool-card-cta">
                             Launch ADB Auditor <span class="arrow">→</span>
