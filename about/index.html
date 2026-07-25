@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="color-scheme" content="dark light">
     <title>About · mSAS — Mobile Security Analysis Suite</title>
-    <meta name="description" content="Comprehensive capability reference for mSAS — APK Auditor, IPA Auditor, and ADB Auditor. Every analysis rule, scanner, and feature documented.">
+    <meta name="description" content="mSAS is a browser-based mobile security analysis suite for Android APKs and iOS IPA files. 100% client-side, zero uploads. Learn how it works.">
     <meta name="author" content="mravtechinfo">
     <meta name="theme-color" content="#FCFCFD" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#07080B" media="(prefers-color-scheme: dark)">
@@ -14,14 +14,14 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; worker-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 
     <meta property="og:title" content="About · mSAS — Mobile Security Analysis Suite">
-    <meta property="og:description" content="Comprehensive capability reference — every analysis rule, scanner, and feature documented.">
+    <meta property="og:description" content="Browser-based mobile security analysis. 100% client-side, zero uploads.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="mSAS">
     <meta property="og:locale" content="en_US">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="About · mSAS — Mobile Security Analysis Suite">
-    <meta name="twitter:description" content="Every analysis rule, scanner, and feature of mSAS documented in exhaustive detail.">
+    <meta name="twitter:title" content="About · mSAS">
+    <meta name="twitter:description" content="Browser-based mobile security analysis. 100% client-side, zero uploads.">
 
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="mask-icon" href="../mask-icon.svg" color="#3B82F6">
@@ -32,23 +32,22 @@
 
     <style>
         /* ===== DESIGN SYSTEM ===== */
-        :root,
-        [data-theme="dark"] {
+        :root, [data-theme="dark"] {
             --bg-primary: #07080B;
             --bg-secondary: #0C0E13;
             --bg-tertiary: #11141B;
             --bg-card: #0E1117;
             --bg-elevated: #161A22;
-            --border-subtle: rgba(255, 255, 255, 0.06);
-            --border-default: rgba(255, 255, 255, 0.10);
-            --border-hover: rgba(255, 255, 255, 0.22);
+            --border-subtle: rgba(255,255,255,0.06);
+            --border-default: rgba(255,255,255,0.10);
+            --border-hover: rgba(255,255,255,0.22);
             --text-primary: #F6F8FA;
             --text-secondary: #9CA3AF;
             --text-muted: #6B7280;
             --accent-primary: #3B82F6;
             --accent-secondary: #2563EB;
-            --accent-glow: rgba(59, 130, 246, 0.30);
-            --accent-subtle: rgba(59, 130, 246, 0.10);
+            --accent-glow: rgba(59,130,246,0.30);
+            --accent-subtle: rgba(59,130,246,0.10);
             --cyan: #38BDF8;
             --green: #10D689;
             --red: #F43F5E;
@@ -64,23 +63,22 @@
             --radius-lg: 14px;
             --radius-xl: 20px;
         }
-
         [data-theme="light"] {
             --bg-primary: #EEF1F6;
             --bg-secondary: #DFE4EC;
             --bg-tertiary: #FFFFFF;
             --bg-card: #FFFFFF;
             --bg-elevated: #FFFFFF;
-            --border-subtle: rgba(17, 24, 39, 0.08);
-            --border-default: rgba(17, 24, 39, 0.14);
-            --border-hover: rgba(17, 24, 39, 0.28);
+            --border-subtle: rgba(17,24,39,0.08);
+            --border-default: rgba(17,24,39,0.14);
+            --border-hover: rgba(17,24,39,0.28);
             --text-primary: #0B0E14;
             --text-secondary: #3F4757;
             --text-muted: #6B7280;
             --accent-primary: #2563EB;
             --accent-secondary: #1D4ED8;
-            --accent-glow: rgba(37, 99, 235, 0.24);
-            --accent-subtle: rgba(37, 99, 235, 0.10);
+            --accent-glow: rgba(37,99,235,0.24);
+            --accent-subtle: rgba(37,99,235,0.10);
             --cyan: #0E7CB1;
             --green: #047857;
             --red: #BE123C;
@@ -88,7 +86,6 @@
             --pink: #BE185D;
             --purple: #7C3AED;
             --code-bg: #E5E9F0;
-            --focus: #2563EB;
             --shadow-card: 0 1px 2px rgba(17,24,39,0.06), 0 8px 24px rgba(17,24,39,0.08);
             --shadow-elev: 0 16px 40px rgba(17,24,39,0.14);
         }
@@ -114,6 +111,11 @@
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
         a { color: inherit; text-decoration: none; }
         :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+        button { font: inherit; color: inherit; }
+
+        .theme-light, .theme-dark { display: none; }
+        [data-theme="light"] .theme-dark { display: block; }
+        [data-theme="dark"] .theme-light { display: block; }
 
         /* ===== HEADER ===== */
         .site-header {
@@ -165,113 +167,84 @@
         /* ===== HAMBURGER ===== */
         .hamburger {
             display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 4px;
+            flex-direction: column; justify-content: center;
+            align-items: center; gap: 4px;
             width: 36px; height: 36px;
-            background: transparent;
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            cursor: pointer;
-            padding: 8px;
-            transition: all 0.15s ease;
-            flex-shrink: 0;
+            background: transparent; border: 1px solid var(--border-subtle);
+            border-radius: 8px; cursor: pointer; padding: 8px;
+            transition: all 0.15s ease; flex-shrink: 0;
             touch-action: manipulation;
         }
         .hamburger:hover { background: var(--accent-subtle); border-color: var(--border-default); }
         .hamburger-line {
-            display: block;
-            width: 18px; height: 2px;
-            background: var(--text-secondary);
-            border-radius: 2px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block; width: 18px; height: 2px;
+            background: var(--text-secondary); border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
         }
         .hamburger.open .hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
         .hamburger.open .hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
         .hamburger.open .hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
         .hamburger-menu {
-            display: none;
-            position: fixed;
+            display: none; position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 99;
-            pointer-events: none;
+            z-index: 99; pointer-events: none;
         }
         .hamburger-menu.open { display: block; pointer-events: auto; }
         .hamburger-menu::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
+            content: ''; position: absolute; inset: 0;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            opacity: 0; transition: opacity 0.3s ease;
         }
         .hamburger-menu.open::before { opacity: 1; }
         .hamburger-menu-inner {
-            position: absolute;
-            top: 62px; right: 12px;
-            width: 260px;
-            max-width: calc(100vw - 24px);
+            position: absolute; top: 62px; right: 12px;
+            width: 260px; max-width: calc(100vw - 24px);
             background: var(--bg-elevated);
             border: 1px solid var(--border-default);
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-elev);
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            transform: translateY(-8px);
-            opacity: 0;
-            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--shadow-elev); padding: 8px;
+            display: flex; flex-direction: column; gap: 2px;
+            transform: translateY(-8px); opacity: 0;
+            transition: all 0.2s cubic-bezier(0.22,1,0.36,1);
         }
         .hamburger-menu.open .hamburger-menu-inner { transform: translateY(0); opacity: 1; }
         .hamburger-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 11px 12px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            background: transparent;
-            border: none;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.12s ease;
-            width: 100%;
-            text-align: left;
+            display: flex; align-items: center; gap: 10px;
+            padding: 11px 12px; font-size: 14px; font-weight: 500;
+            color: var(--text-secondary); background: transparent;
+            border: none; border-radius: var(--radius-sm); cursor: pointer;
+            text-decoration: none; font-family: 'Inter', sans-serif;
+            transition: all 0.12s ease; width: 100%; text-align: left;
         }
         .hamburger-link:hover { color: var(--text-primary); background: var(--accent-subtle); }
         .hamburger-link svg { flex-shrink: 0; }
-        .hamburger-divider {
-            height: 1px;
-            background: var(--border-subtle);
-            margin: 4px 8px;
-        }
+        .hamburger-divider { height: 1px; background: var(--border-subtle); margin: 4px 8px; }
         .theme-dark-h, .theme-light-h { display: none; }
-        [data-theme="light"] .theme-dark-h  { display: block; }
-        [data-theme="dark"]  .theme-light-h { display: block; }
+        [data-theme="light"] .theme-dark-h { display: block; }
+        [data-theme="dark"] .theme-light-h { display: block; }
 
         /* ===== ABOUT HERO ===== */
         .about-hero {
             position: relative;
-            padding: 80px 24px 40px;
+            padding: 80px 24px 60px;
             text-align: center;
             overflow: hidden;
         }
         .about-hero-bg {
             position: absolute; inset: 0; pointer-events: none; overflow: hidden;
         }
-        .about-hero-bg .orb {
+        .orb {
             position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.35;
         }
-        .about-hero-bg .orb.o1 { width: 500px; height: 500px; top: -200px; left: 10%; background: radial-gradient(circle, #3B82F6 0%, transparent 70%); }
-        .about-hero-bg .orb.o2 { width: 400px; height: 400px; bottom: -180px; right: 15%; background: radial-gradient(circle, #A78BFA 0%, transparent 70%); opacity: 0.20; }
-        .about-hero-inner { position: relative; max-width: 800px; margin: 0 auto; }
-        .about-hero-inner > * { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+        .orb.o1 { width: 500px; height: 500px; top: -200px; left: 5%; background: radial-gradient(circle,#3B82F6 0%,transparent 70%); }
+        .orb.o2 { width: 400px; height: 400px; bottom: -180px; right: 10%; background: radial-gradient(circle,#A78BFA 0%,transparent 70%); opacity: 0.20; }
+        .about-hero-inner {
+            position: relative; max-width: 800px; margin: 0 auto;
+        }
+        .about-hero-inner > * {
+            animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) backwards;
+        }
         .about-hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
         .about-hero-inner > *:nth-child(2) { animation-delay: 0.12s; }
         .about-hero-inner > *:nth-child(3) { animation-delay: 0.18s; }
@@ -288,14 +261,14 @@
             background: var(--accent-subtle);
             border: 1px solid rgba(59,130,246,0.15);
             border-radius: 100px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         .about-hero h1 {
-            font-size: clamp(32px, 5vw, 48px);
+            font-size: clamp(36px, 5.5vw, 56px);
             font-weight: 800;
-            letter-spacing: -1.6px;
+            letter-spacing: -2px;
             line-height: 1.1;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         .about-hero h1 span {
             background: linear-gradient(135deg, var(--accent-primary), var(--cyan));
@@ -306,255 +279,251 @@
         .about-hero p {
             font-size: 16px;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 620px;
             margin: 0 auto;
             line-height: 1.7;
         }
 
-        /* ===== NAV TABS ===== */
-        .tool-tabs {
-            position: sticky; top: 72px; z-index: 50;
-            display: flex; justify-content: center; gap: 4px;
-            padding: 12px 16px;
-            background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        .tool-tab {
-            padding: 10px 18px;
-            font-size: 13px; font-weight: 600;
-            color: var(--text-muted);
-            background: transparent;
-            border: 1px solid transparent;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.15s ease;
-            display: inline-flex; align-items: center; gap: 8px;
-            font-family: 'Inter', sans-serif;
-        }
-        .tool-tab:hover { color: var(--text-secondary); background: var(--accent-subtle); border-color: var(--border-subtle); }
-        .tool-tab.active { color: var(--text-primary); background: var(--bg-elevated); border-color: var(--border-default); box-shadow: var(--shadow-card); }
-        .tool-tab .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
-        .tool-tab .dot.apk { background: var(--accent-primary); }
-        .tool-tab .dot.ipa { background: #f472b6; }
-        .tool-tab .dot.adb { background: #10D689; }
-
-        /* ===== TOOL SECTION ===== */
-        .tool-section {
-            max-width: 1100px;
+        /* ===== CONTENT SECTIONS ===== */
+        .content-section {
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 60px 24px 40px;
-            scroll-margin-top: 140px;
+            padding: 0 24px 80px;
         }
-        .tool-section-header {
-            display: flex; align-items: flex-start; gap: 20px;
-            margin-bottom: 40px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        .tool-section-icon {
-            width: 64px; height: 64px;
-            border-radius: 16px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 28px;
-            flex-shrink: 0;
-        }
-        .tool-section-icon.apk { background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(56,189,248,0.15)); }
-        .tool-section-icon.ipa { background: linear-gradient(135deg, rgba(244,114,182,0.15), rgba(167,139,250,0.15)); }
-        .tool-section-icon.adb { background: linear-gradient(135deg, rgba(16,214,137,0.15), rgba(56,189,248,0.15)); }
-        .tool-section-title h2 {
-            font-size: 28px; font-weight: 700; letter-spacing: -0.6px;
-            margin-bottom: 4px;
-        }
-        .tool-section-title .apk-title { color: var(--accent-primary); }
-        .tool-section-title .ipa-title { color: #f472b6; }
-        .tool-section-title .adb-title { color: #10D689; }
-        .tool-section-title p { color: var(--text-secondary); font-size: 14px; }
-        .tool-actions { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
-        .tool-actions .btn {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 8px 14px; font-size: 13px; font-weight: 600;
-            border-radius: var(--radius-sm); cursor: pointer;
-            border: 1px solid transparent; transition: all 0.15s ease;
-            text-decoration: none; line-height: 1.2;
-        }
-        .tool-actions .btn-primary {
-            background: var(--accent-primary); color: #fff;
-            box-shadow: var(--shadow-card);
-        }
-        .tool-actions .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-elev); }
-        .tool-actions .btn-outline {
-            background: transparent;
-            border-color: var(--border-default);
-            color: var(--text-secondary);
-        }
-        .tool-actions .btn-outline:hover { border-color: var(--border-hover); color: var(--text-primary); }
-        .tool-actions .btn-ipa {
-            background: linear-gradient(135deg, #f472b6, #a78bfa); color: #fff;
-            box-shadow: var(--shadow-card);
-        }
-        .tool-actions .btn-ipa:hover { transform: translateY(-1px); box-shadow: var(--shadow-elev); }
-        .tool-actions .btn-adb {
-            background: linear-gradient(135deg, #10D689, #38BDF8); color: #fff;
-            box-shadow: var(--shadow-card);
-        }
-        .tool-actions .btn-adb:hover { transform: translateY(-1px); box-shadow: var(--shadow-elev); }
+        .content-section:last-of-type { padding-bottom: 100px; }
 
-        /* ===== CAPABILITY GRID ===== */
-        .cap-grid {
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            margin-bottom: 10px;
+        }
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ===== What is mSAS ===== */
+        .intro-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 20px;
             margin-bottom: 24px;
         }
-        .cap-card {
+        .intro-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-lg);
-            padding: 24px;
+            padding: 28px 24px;
             transition: all 0.2s ease;
         }
-        .cap-card:hover { border-color: var(--border-default); box-shadow: var(--shadow-card); }
-        .cap-card-header {
-            display: flex; align-items: flex-start; gap: 12px;
+        .intro-card:hover { border-color: var(--border-default); box-shadow: var(--shadow-card); }
+        .intro-card-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
             margin-bottom: 14px;
         }
-        .cap-card-icon {
-            width: 36px; height: 36px;
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
+        .intro-card-icon.blue { background: var(--accent-subtle); }
+        .intro-card-icon.pink { background: rgba(244,114,182,0.12); }
+        .intro-card-icon.green { background: rgba(16,214,137,0.12); }
+        .intro-card-icon.purple { background: rgba(167,139,250,0.12); }
+        .intro-card-icon.cyan { background: rgba(56,189,248,0.12); }
+        .intro-card-icon.orange { background: rgba(251,146,60,0.12); }
+        .intro-card-icon.red { background: rgba(244,63,94,0.12); }
+        .intro-card h3 {
+            font-size: 16px; font-weight: 600;
+            margin-bottom: 6px;
         }
-        .cap-card-icon.blue { background: var(--accent-subtle); }
-        .cap-card-icon.pink { background: rgba(244,114,182,0.12); }
-        .cap-card-icon.green { background: rgba(16,214,137,0.12); }
-        .cap-card-icon.purple { background: rgba(167,139,250,0.12); }
-        .cap-card-icon.orange { background: rgba(251,146,60,0.12); }
-        .cap-card-icon.cyan { background: rgba(56,189,248,0.12); }
-        .cap-card-icon.red { background: rgba(244,63,94,0.12); }
-        .cap-card-icon.yellow { background: rgba(251,191,36,0.12); }
-        .cap-card-title {
-            flex: 1;
+        .intro-card p {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
-        .cap-card-title h3 {
-            font-size: 15px; font-weight: 600;
-            margin-bottom: 2px;
-        }
-        .cap-card-title .cap-count {
-            font-size: 11px; font-weight: 500;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .cap-card ul {
-            list-style: none;
+
+        /* ===== How It Works ===== */
+        .flow-steps {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 12px;
+            max-width: 700px;
+            margin: 0 auto 32px;
         }
-        .cap-card ul li {
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+        .flow-step:hover { border-color: var(--border-default); box-shadow: var(--shadow-card); }
+        .flow-step-num {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--accent-subtle);
+            color: var(--accent-primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 700;
+            flex-shrink: 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .flow-step-content { flex: 1; }
+        .flow-step-content h4 {
+            font-size: 14px; font-weight: 600;
+            margin-bottom: 3px;
+        }
+        .flow-step-content p {
             font-size: 13px;
             color: var(--text-secondary);
-            padding: 3px 0;
-            padding-left: 16px;
-            position: relative;
-            line-height: 1.5;
+            line-height: 1.6;
         }
-        .cap-card ul li::before {
-            content: '';
-            position: absolute;
-            left: 2px;
-            top: 11px;
-            width: 5px; height: 5px;
-            border-radius: 50%;
-            background: var(--text-muted);
-            opacity: 0.4;
-        }
-        .cap-card ul li strong { color: var(--text-primary); font-weight: 600; }
-        .cap-card ul li code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            padding: 1px 5px;
-            background: var(--bg-secondary);
-            border-radius: 4px;
-            color: var(--accent-primary);
-        }
-        .cap-card ul li .badge-inline {
-            display: inline-block;
-            padding: 1px 6px;
-            font-size: 10px; font-weight: 600;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-        .badge-inline.owasp { background: rgba(59,130,246,0.12); color: var(--accent-primary); }
-        .badge-inline.cwe { background: rgba(167,139,250,0.12); color: var(--purple); }
-        .badge-inline.masvs { background: rgba(16,214,137,0.12); color: var(--green); }
-        .badge-inline.mastg { background: rgba(251,146,60,0.12); color: var(--orange); }
 
-        /* ===== SUMMARY ROW ===== */
-        .tool-summary {
-            background: var(--bg-elevated);
+        /* ===== Tools Grid ===== */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .tool-card {
+            background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-lg);
-            padding: 20px 24px;
-            margin-bottom: 24px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+        .tool-card:hover { border-color: var(--border-default); box-shadow: var(--shadow-card); transform: translateY(-2px); }
+        .tool-card-top {
+            padding: 20px 20px 0;
+        }
+        .tool-card-icon {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        .tool-card-icon.apk-icon { background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(56,189,248,0.15)); }
+        .tool-card-icon.ipa-icon { background: linear-gradient(135deg, rgba(244,114,182,0.15), rgba(167,139,250,0.15)); }
+        .tool-card-icon.adb-icon { background: linear-gradient(135deg, rgba(16,214,137,0.15), rgba(56,189,248,0.15)); }
+        .tool-card h3 {
+            font-size: 18px; font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: -0.3px;
+        }
+        .tool-card .apk-title { color: var(--accent-primary); }
+        .tool-card .ipa-title { color: #f472b6; }
+        .tool-card .adb-title { color: #10D689; }
+        .tool-card .card-subtitle {
+            font-size: 12px; color: var(--text-muted);
+            margin-bottom: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .tool-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .tool-card-tags {
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
+            gap: 6px;
+            padding: 16px 20px 20px;
+            border-top: 1px solid var(--border-subtle);
+            margin-top: 16px;
+            background: var(--bg-secondary);
         }
-        .tool-stat {
-            display: flex; flex-direction: column; gap: 2px;
-        }
-        .tool-stat-value {
-            font-size: 20px; font-weight: 700;
-            font-family: 'JetBrains Mono', monospace;
-            letter-spacing: -0.5px;
-        }
-        .tool-stat-value.apk-stat { color: var(--accent-primary); }
-        .tool-stat-value.ipa-stat { color: #f472b6; }
-        .tool-stat-value.adb-stat { color: #10D689; }
-        .tool-stat-label {
+        .tool-tag {
+            padding: 4px 10px;
             font-size: 11px; font-weight: 500;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
+            color: var(--text-secondary);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-default);
+            border-radius: 100px;
         }
 
-        /* ===== SHARED FEATURES ===== */
-        .shared-section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px 60px;
-            scroll-margin-top: 140px;
-        }
-        .shared-grid {
+        /* ===== Feature Cards ===== */
+        .features-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 16px;
         }
-        .shared-card {
+        .feat-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
             padding: 20px;
             text-align: center;
+            transition: all 0.2s ease;
         }
-        .shared-card-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
+        .feat-card:hover { border-color: var(--border-default); box-shadow: var(--shadow-card); }
+        .feat-card-icon { font-size: 22px; margin-bottom: 8px; }
+        .feat-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .feat-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ===== Privacy Section ===== */
+        .privacy-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
         }
-        .shared-card h4 {
-            font-size: 14px; font-weight: 600;
-            margin-bottom: 4px;
+        .privacy-box-icon { font-size: 36px; margin-bottom: 12px; }
+        .privacy-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .privacy-box p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 520px; margin: 0 auto; }
+        .privacy-badges {
+            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+            margin-top: 20px;
         }
-        .shared-card p {
-            font-size: 12px;
-            color: var(--text-secondary);
-            line-height: 1.6;
+        .privacy-badge {
+            padding: 6px 14px;
+            font-size: 12px; font-weight: 600;
+            border-radius: 100px;
+        }
+        .privacy-badge.green { background: rgba(16,214,137,0.12); color: var(--green); border: 1px solid rgba(16,214,137,0.2); }
+        .privacy-badge.blue { background: var(--accent-subtle); color: var(--accent-primary); border: 1px solid rgba(59,130,246,0.15); }
+        .privacy-badge.purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+        .privacy-badge.orange { background: rgba(251,146,60,0.12); color: var(--orange); border: 1px solid rgba(251,146,60,0.2); }
+
+        /* ===== Stats ===== */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-subtle);
+        }
+        .stat-item { text-align: center; }
+        .stat-value {
+            font-size: 28px; font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label {
+            font-size: 11px; font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
         }
 
         /* ===== FOOTER ===== */
@@ -575,20 +544,13 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
-            .about-hero h1 { font-size: clamp(28px, 4.5vw, 40px); }
-            .shared-grid { grid-template-columns: 1fr 1fr; }
+            .tools-grid { grid-template-columns: 1fr 1fr; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 860px) {
-            .cap-grid { grid-template-columns: 1fr; }
-            .cap-card { padding: 20px; }
-            .cap-card ul li { font-size: 12.5px; line-height: 1.5; }
-            .cap-card ul li code { font-size: 11.5px; word-break: break-word; overflow-wrap: anywhere; }
-            .tool-section-header { flex-direction: column; }
-            .tool-section-header h2 { font-size: 24px; }
-            .about-hero { padding: 50px 20px 30px; }
-            .tool-section { padding: 40px 20px 28px; }
-            .tool-summary { padding: 16px 20px; gap: 12px; }
-            .tool-stat-value { font-size: 17px; }
+            .about-hero { padding: 50px 20px 40px; }
+            .about-hero h1 { font-size: clamp(28px, 4.5vw, 38px); }
+            .intro-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
             .site-header { padding: 10px 12px; }
@@ -600,83 +562,29 @@
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
-                gap: 4px;
-                flex-shrink: 1;
-                min-width: 0;
+                gap: 4px; flex-shrink: 1; min-width: 0;
             }
             .nav-links::-webkit-scrollbar { display: none; }
-            .nav-link,
-            .nav-link.nav-sibling {
-                white-space: nowrap;
-                font-size: 12px;
-                padding: 5px 10px;
-                gap: 4px;
-                flex-shrink: 0;
+            .nav-link, .nav-link.nav-sibling {
+                white-space: nowrap; font-size: 12px;
+                padding: 5px 10px; gap: 4px; flex-shrink: 0;
             }
             .nav-link.icon { padding: 6px; }
             .nav-link.nav-sibling svg { width: 12px; height: 12px; }
             .hamburger-menu-inner { top: 56px; }
-            .tool-tabs {
-                top: 58px;
-                justify-content: flex-start;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                padding: 10px 12px;
-                gap: 4px;
-            }
-            .tool-tabs::-webkit-scrollbar { display: none; }
-            .tool-tab {
-                white-space: nowrap;
-                padding: 8px 14px;
-                font-size: 12px;
-                flex-shrink: 0;
-            }
-            .tool-tab .dot { width: 5px; height: 5px; }
-            .shared-grid { grid-template-columns: 1fr; }
-            .shared-card { padding: 16px; }
-            .shared-card p { font-size: 12px; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .content-section { padding: 0 16px 50px; }
+            .stats-row { gap: 20px; }
+            .stat-value { font-size: 22px; }
             .site-footer-inner { flex-direction: column; text-align: center; font-size: 12px; }
-            .tool-summary { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px; }
-            .tool-stat { flex: 1; min-width: 80px; }
-            .tool-stat-value { font-size: 16px; }
-            .tool-stat-label { font-size: 10px; }
+            .privacy-box { padding: 24px 16px; }
+            .about-hero { padding: 36px 14px 28px; }
         }
         @media (max-width: 400px) {
             .nav-links { display: none; }
             .hamburger { display: flex; }
             .hamburger-menu-inner { top: 56px; }
-        }
-        @media (max-width: 480px) {
-            .about-hero { padding: 28px 14px 20px; }
-            .about-hero h1 { font-size: 24px; letter-spacing: -1px; }
-            .about-hero p { font-size: 13.5px; }
-            .about-tag { font-size: 10px; padding: 4px 8px; }
-            .tool-section { padding: 24px 12px 16px; }
-            .tool-tabs { top: 52px; padding: 8px 10px; gap: 3px; }
-            .tool-tab { padding: 6px 12px; font-size: 11px; }
-            .tool-section-header { gap: 12px; margin-bottom: 24px; padding-bottom: 16px; }
-            .tool-section-icon { width: 44px; height: 44px; font-size: 20px; border-radius: 12px; }
-            .tool-section-header h2 { font-size: 20px; }
-            .tool-section-title p { font-size: 13px; }
-            .tool-actions .btn { font-size: 12px; padding: 6px 12px; }
-            .cap-card { padding: 16px; border-radius: var(--radius-md); }
-            .cap-card-header { gap: 10px; margin-bottom: 10px; }
-            .cap-card-icon { width: 30px; height: 30px; font-size: 14px; border-radius: 8px; }
-            .cap-card-title h3 { font-size: 13.5px; }
-            .cap-card-title .cap-count { font-size: 10px; }
-            .cap-card ul { gap: 2px; }
-            .cap-card ul li { font-size: 12px; padding: 2px 0 2px 14px; }
-            .cap-card ul li code { font-size: 11px; padding: 0 4px; word-break: break-word; overflow-wrap: anywhere; }
-            .cap-card ul li .badge-inline { font-size: 9px; padding: 1px 4px; }
-            .tool-summary { padding: 10px 14px; gap: 6px; }
-            .tool-stat { min-width: 60px; }
-            .tool-stat-value { font-size: 14px; }
-            .tool-stat-label { font-size: 9px; }
-            .shared-section { padding: 0 12px 32px; }
-            .shared-card { padding: 14px; }
-            .shared-card h4 { font-size: 13px; }
-            .shared-card p { font-size: 11px; }
         }
     </style>
 </head>
@@ -760,621 +668,282 @@
     </header>
 
     <main>
+        <!-- ===== HERO ===== -->
         <section class="about-hero">
             <div class="about-hero-bg" aria-hidden="true">
                 <div class="orb o1"></div>
                 <div class="orb o2"></div>
             </div>
             <div class="about-hero-inner">
-                <span class="about-tag">📋 Capability Reference</span>
-                <h1>Everything <span>mSAS</span> Can Do</h1>
-                <p>An exhaustive inventory of every analysis engine, security rule, scanner, parser, and export format across all three tools — APK Auditor, IPA Auditor, and ADB Auditor.</p>
+                <span class="about-tag">🛡️ About mSAS</span>
+                <h1>Mobile Security,<br><span>Entirely in Your Browser</span></h1>
+                <p>mSAS is a comprehensive, browser-based mobile security analysis suite. It analyzes Android APKs, iOS IPA files, and audits live Android devices — all 100% client-side with zero data uploads.</p>
             </div>
         </section>
 
-        <!-- ===== NAV TABS (scrolling) ===== -->
-        <nav class="tool-tabs" aria-label="Tool navigation">
-            <a href="#apk" class="tool-tab"><span class="dot apk"></span>APK Auditor</a>
-            <a href="#ipa" class="tool-tab"><span class="dot ipa"></span>IPA Auditor</a>
-            <a href="#adb" class="tool-tab"><span class="dot adb"></span>ADB Auditor</a>
-            <a href="#shared" class="tool-tab">Shared Features</a>
-        </nav>
+        <!-- ===== WHAT IS mSAS ===== -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>What Is mSAS?</h2>
+                <p>A unified platform for mobile application security testing, combining static analysis for both major mobile platforms with live device auditing.</p>
+            </div>
 
-        <!-- ===================================================================== -->
-        <!-- APK AUDITOR                                                          -->
-        <!-- ===================================================================== -->
-        <section id="apk" class="tool-section">
-            <div class="tool-section-header">
-                <div class="tool-section-icon apk">📱</div>
-                <div class="tool-section-title">
-                    <h2 class="apk-title">APK Auditor</h2>
-                    <p>Deep static analysis for Android applications. Parses DEX bytecode, AndroidManifest.xml, certificates, and applies 150+ OWASP-aligned security rules — all client-side.</p>
-                    <div class="tool-actions">
-                        <a href="../apk-auditor/" class="btn btn-primary">Launch APK Auditor →</a>
-                        <a href="https://github.com/mravtechinfo/mobile-pentest-suite" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Source Code</a>
-                    </div>
+            <div class="intro-grid">
+                <div class="intro-card">
+                    <div class="intro-card-icon blue">🔬</div>
+                    <h3>Deep Static Analysis</h3>
+                    <p>Parses real DEX bytecode, Mach-O binaries, AndroidManifest.xml, Info.plist, certificates, provisioning profiles, and more. Over <strong>230 security rules</strong> mapped to OWASP MASVS, CWE, and MSTG references.</p>
+                </div>
+                <div class="intro-card">
+                    <div class="intro-card-icon green">🔐</div>
+                    <h3>100% Private &amp; Secure</h3>
+                    <p>Every analysis runs inside a Web Worker in your browser. <strong>No files are ever uploaded</strong> to any server. You can disconnect from the internet after the page loads — the analysis works entirely offline.</p>
+                </div>
+                <div class="intro-card">
+                    <div class="intro-card-icon pink">🍎</div>
+                    <h3>Cross-Platform Coverage</h3>
+                    <p>Analyze <strong>Android APKs</strong> (DEX, AXML, certificates) and <strong>iOS IPAs</strong> (Mach-O, plist, entitlements, ATS) side by side. One suite, both platforms.</p>
+                </div>
+                <div class="intro-card">
+                    <div class="intro-card-icon cyan">📊</div>
+                    <h3>Rich Reporting</h3>
+                    <p>Export findings in <strong>SARIF 2.1</strong>, JSON, CSV, or PDF. Interactive dashboards with CVSS 3.1 scoring, risk matrices, severity trends, and evidence attachments.</p>
                 </div>
             </div>
 
-            <div class="tool-summary">
-                <div class="tool-stat"><span class="tool-stat-value apk-stat">150+</span><span class="tool-stat-label">Security Rules</span></div>
-                <div class="tool-stat"><span class="tool-stat-value apk-stat">DEX</span><span class="tool-stat-label">Bytecode Analysis</span></div>
-                <div class="tool-stat"><span class="tool-stat-value apk-stat">AXML</span><span class="tool-stat-label">Manifest Parser</span></div>
-                <div class="tool-stat"><span class="tool-stat-value apk-stat">SARIF</span><span class="tool-stat-label">Export Format</span></div>
-                <div class="tool-stat"><span class="tool-stat-value apk-stat">5</span><span class="tool-stat-label">Export Types</span></div>
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-item"><div class="stat-value">230+</div><div class="stat-label">Security Rules</div></div>
+                <div class="stat-item"><div class="stat-value">3</div><div class="stat-label">Analysis Tools</div></div>
+                <div class="stat-item"><div class="stat-value">5</div><div class="stat-label">Export Formats</div></div>
+                <div class="stat-item"><div class="stat-value">100%</div><div class="stat-label">Client-Side</div></div>
+                <div class="stat-item"><div class="stat-value">180+</div><div class="stat-label">Unit Tests</div></div>
+            </div>
+        </section>
+
+        <!-- ===== THE THREE TOOLS ===== -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>The Three Tools</h2>
+                <p>mSAS combines three powerful security analysis tools into a single unified interface.</p>
             </div>
 
-            <div class="cap-grid">
-                <!-- Binary & Bytecode Parsing -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon blue"><span>🔬</span></div>
-                        <div class="cap-card-title">
-                            <h3>Binary &amp; Bytecode Parsing</h3>
-                            <span class="cap-count">6 parsers</span>
-                        </div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon apk-icon">📱</div>
+                        <h3 class="apk-title">APK Auditor</h3>
+                        <div class="card-subtitle">Android Static Analysis</div>
+                        <p>Deep static analysis for Android applications. Inspects DEX bytecode, AndroidManifest.xml, signing certificates, resources, and native libraries. Detects cryptography flaws, insecure storage, code execution risks, hardcoded secrets, and 150+ other vulnerability patterns.</p>
                     </div>
-                    <ul>
-                        <li><strong>DEX bytecode reader</strong> — parses <code>classes.dex</code>, <code>classes2.dex</code>+ (multi-dex support), extracts opcodes, string references, type IDs, method/field references, and proto IDs</li>
-                        <li><strong>AXML (Android XML) decoder</strong> — binary XML to human-readable format for manifest, layout, and resource XML files</li>
-                        <li><strong>ARSC parser</strong> — decodes <code>resources.arsc</code> for app resource table analysis (string pools, packages, types, configs)</li>
-                        <li><strong>AndroidManifest.xml extractor</strong> — decompiles binary manifest to structured JSON, extracts all elements and attributes</li>
-                        <li><strong>Native library detector</strong> — identifies <code>.so</code> files packaged for <code>armeabi-v7a</code>, <code>arm64-v8a</code>, <code>x86</code>, <code>x86_64</code></li>
-                        <li><strong>APK entry lister</strong> — full inventory of all files inside APK, organized by directory</li>
-                    </ul>
+                    <div class="tool-card-tags">
+                        <span class="tool-tag">150+ Rules</span>
+                        <span class="tool-tag">DEX Bytecode</span>
+                        <span class="tool-tag">Manifest Audit</span>
+                        <span class="tool-tag">Certificate Check</span>
+                        <span class="tool-tag">Entropy Scanner</span>
+                        <span class="tool-tag">OWASP MASVS</span>
+                        <span class="tool-tag">SARIF Export</span>
+                    </div>
                 </div>
 
-                <!-- Certificate & Signature Analysis -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon orange"><span>🔐</span></div>
-                        <div class="cap-card-title">
-                            <h3>Certificate &amp; Signature Analysis</h3>
-                            <span class="cap-count">4 checks</span>
-                        </div>
+                <div class="tool-card">
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon ipa-icon">🍎</div>
+                        <h3 class="ipa-title">IPA Auditor</h3>
+                        <div class="card-subtitle">iOS Static Analysis</div>
+                        <p>Deep static analysis for iOS applications. Parses Mach-O binaries, Info.plist, provisioning profiles, entitlements, and App Transport Security (ATS) configuration. Detects 80+ security issues across privacy, data storage, and network security domains.</p>
                     </div>
-                    <ul>
-                        <li><strong>JAR signing (v1) verification</strong> — validates <code>META-INF/MANIFEST.MF</code>, <code>.SF</code>, <code>.RSA</code>/<code>.DSA</code>/<code>.EC</code> signature files</li>
-                        <li><strong>APK Signature Scheme v2/v3</strong> — verifies block-based signature scheme with APK Signing Block parsing</li>
-                        <li><strong>Certificate chain extraction</strong> — issuer, subject, serial number, validity period (notBefore/notAfter), signature algorithm</li>
-                        <li><strong>Signing method detection</strong> — identifies JAR, v2, v3, and v4 signature schemes and their combinations</li>
-                    </ul>
+                    <div class="tool-card-tags">
+                        <span class="tool-tag">80+ Rules</span>
+                        <span class="tool-tag">Mach-O Binary</span>
+                        <span class="tool-tag">Plist Analysis</span>
+                        <span class="tool-tag">Provisioning</span>
+                        <span class="tool-tag">Entitlements</span>
+                        <span class="tool-tag">ATS Audit</span>
+                        <span class="tool-tag">Privacy Checks</span>
+                    </div>
                 </div>
 
-                <!-- Manifest Analysis -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon cyan"><span>📋</span></div>
-                        <div class="cap-card-title">
-                            <h3>AndroidManifest.xml Analysis</h3>
-                            <span class="cap-count">12+ checks</span>
-                        </div>
+                <div class="tool-card">
+                    <div class="tool-card-top">
+                        <div class="tool-card-icon adb-icon">🤖</div>
+                        <h3 class="adb-title">ADB Auditor</h3>
+                        <div class="card-subtitle">Live Device Auditing</div>
+                        <p>Browser-based Android device security auditing over WebUSB. Connect live devices, browse filesystems (with root support), run shell commands, analyze app storage and permissions, capture screenshots, and run OWASP-aligned security scans in real time.</p>
                     </div>
-                    <ul>
-                        <li><strong>Permission audit</strong> — lists all <code>&lt;uses-permission&gt;</code> and <code>&lt;permission&gt;</code> declarations, flags dangerous/ signature/privileged permissions</li>
-                        <li><strong>Component enumeration</strong> — extract all <code>&lt;activity&gt;</code>, <code>&lt;service&gt;</code>, <code>&lt;receiver&gt;</code>, <code>&lt;provider&gt;</code> with their attributes</li>
-                        <li><strong>Exported component detection</strong> — flags components with <code>android:exported="true"</code> or intent filters without explicit export=false</li>
-                        <li><strong>Intent filter analysis</strong> — extracts all intent actions, categories, MIME types, data schemes, and authorities</li>
-                        <li><strong>Debuggable flag check</strong> — detects <code>android:debuggable="true"</code></li>
-                        <li><strong>Backup flag detection</strong> — identifies <code>android:allowBackup="true"</code> (data exfiltration risk)</li>
-                        <li><strong>Network security config</strong> — detects <code>android:networkSecurityConfig</code> attribute and parses referenced config</li>
-                        <li><strong>Extract native flag</strong> — checks <code>android:extractNativeLibs</code></li>
-                        <li><strong>Full backup check</strong> — identifies <code>android:fullBackupContent</code></li>
-                        <li><strong>Min/target SDK version</strong> — extracts and evaluates min &amp; target SDK version against best practices</li>
-                        <li><strong>App component alias</strong> — resolves <code>&lt;activity-alias&gt;</code> declarations</li>
-                        <li><strong>Custom permissions</strong> — detects app-defined permissions with their protection levels</li>
-                    </ul>
-                </div>
-
-                <!-- Security Rules Engine -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon purple"><span>🛡️</span></div>
-                        <div class="cap-card-title">
-                            <h3>Security Rules Engine</h3>
-                            <span class="cap-count">150+ rules · OWASP MASVS</span>
-                        </div>
+                    <div class="tool-card-tags">
+                        <span class="tool-tag">WebUSB + ADB</span>
+                        <span class="tool-tag">File Browser</span>
+                        <span class="tool-tag">Shell Access</span>
+                        <span class="tool-tag">Root Mode</span>
+                        <span class="tool-tag">Screenshot</span>
+                        <span class="tool-tag">Logcat Viewer</span>
+                        <span class="tool-tag">Security Audit</span>
                     </div>
-                    <ul>
-                        <li><strong>OWASP MASVS L1+L2 coverage</strong> — rules mapped to OWASP Mobile Application Security Verification Standard <span class="badge-inline masvs">MASVS</span></li>
-                        <li><strong>CWE mapping</strong> — each finding references Common Weakness Enumeration IDs <span class="badge-inline cwe">CWE</span></li>
-                        <li><strong>MSTG references</strong> — linked to OWASP Mobile Security Testing Guide test cases <span class="badge-inline mastg">MSTG</span></li>
-                        <li><strong>Multi-severity system</strong> — findings classified as <span style="color:var(--red)">Critical</span>, <span style="color:var(--orange)">High</span>, <span style="color:var(--green)">Medium</span>, <span style="color:var(--text-muted)">Low</span>, or Info</li>
-                        <li><strong>Scoped patterns</strong> — rules define applicable file patterns (e.g., <code>*.dex</code>, <code>AndroidManifest.xml</code>, <code>*.xml</code>, <code>*.so</code>)</li>
-                        <li><strong>String-level scanning</strong> — matches regex patterns against DEX string pool entries</li>
-                        <li><strong>Configurable severity</strong> — rules have configurable severity levels</li>
-                        <li><strong>Rule deduplication</strong> — intelligent de-dupe of same rule across multi-dex</li>
-                    </ul>
-                </div>
-
-                <!-- Vulnerability Categories (APK) -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon red"><span>⚠️</span></div>
-                        <div class="cap-card-title">
-                            <h3>Detected Vulnerability Categories</h3>
-                            <span class="cap-count">15 categories</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>Cryptography flaws</strong> — weak algorithms (MD5, SHA1, RC4, DES), hardcoded keys/IVs, ECB mode, custom crypto implementations</li>
-                        <li><strong>Insecure storage</strong> — SQLite databases, SharedPreferences, internal storage with world-readable/writable flags, getDir() calls</li>
-                        <li><strong>Code execution</strong> — Runtime.exec(), ProcessBuilder, WebView addJavascriptInterface() with JS enabled, URLClassLoader, DexClassLoader</li>
-                        <li><strong>Network &amp; TLS</strong> — cleartext traffic allowed, WebView ignoring SSL errors (onReceivedSslError), hostname verification disabled, custom TrustManager, X509TrustManager</li>
-                        <li><strong>Logging &amp; debug</strong> — Log.v/d/i/w/e calls, System.out/err, android.util.Log, debug certificate detection, debuggable manifest flag</li>
-                        <li><strong>Intent &amp; IPC</strong> — implicit intents, PendingIntent misuse, exported content providers, service leaks, broadcast theft scenarios</li>
-                        <li><strong>File operations</strong> — world-readable/writable file creation, MODE_WORLD_READABLE, MODE_WORLD_WRITABLE, openFileOutput with public modes</li>
-                        <li><strong>WebView risks</strong> — JavaScript enabled, file:// access, remote webpage loading, addJavascriptInterface bridge, WebChromeClient</li>
-                        <li><strong>Backup &amp; data leaks</strong> — allowBackup enabled, fullBackupContent, clipboard access, screenshot blocking (FLAG_SECURE)</li>
-                        <li><strong>Native code</strong> — System.loadLibrary() calls, JNI functions, native library detection, potentially unsafe native functions</li>
-                        <li><strong>Hardcoded secrets</strong> — API keys, tokens, passwords, secret keys, authentication tokens in DEX strings via entropy scanner</li>
-                        <li><strong>Binder/Service</strong> — AIDL interface exposure, bound service leaks</li>
-                        <li><strong>Notification abuse</strong> — NotificationListenerService, accessibility service risks</li>
-                        <li><strong>Account &amp; auth</strong> — AccountManager usage, OAuth token handling, authentication bypass patterns</li>
-                        <li><strong>Provider injection</strong> — SQL injection via content providers, directory traversal in providers</li>
-                    </ul>
-                </div>
-
-                <!-- Entropy Scanner -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon green"><span>🎲</span></div>
-                        <div class="cap-card-title">
-                            <h3>Entropy-Based Secrets Detection</h3>
-                            <span class="cap-count">Shannon entropy engine</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>String pool scanning</strong> — extracts all strings from DEX bytecode and applies entropy analysis</li>
-                        <li><strong>Shannon entropy calculation</strong> — computes per-string entropy; flags strings with entropy &gt; 4.5 (high probability of being secrets)</li>
-                        <li><strong>Context-aware filtering</strong> — skips low-value strings (short strings, common English, file paths, XML fragments)</li>
-                        <li><strong>Pattern-based candidate scoring</strong> — scores candidates by entropy value + character class distribution</li>
-                        <li><strong>API key / token / password detection</strong> — identifies base64-encoded, hex-encoded, and raw high-entropy strings matching secret patterns</li>
-                        <li><strong>False positive reduction</strong> — ignores strings containing common keywords, JSON/XML fragments, and natural language text</li>
-                        <li><strong>Severity tagging</strong> — high-entropy secrets flagged as High/Critical severity</li>
-                    </ul>
-                </div>
-
-                <!-- Export Formats -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon cyan"><span>📤</span></div>
-                        <div class="cap-card-title">
-                            <h3>Export &amp; Reporting</h3>
-                            <span class="cap-count">5 formats</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>SARIF 2.1.0</strong> — Standardized OASIS Static Analysis Results Interchange Format for CI/CD pipeline integration</li>
-                        <li><strong>JSON</strong> — structured findings with rule metadata, severity, CWE, file location, and code snippets</li>
-                        <li><strong>CSV</strong> — tabular export for spreadsheet analysis and filtering</li>
-                        <li><strong>PDF</strong> — styled report with executive summary, finding breakdown by severity, rule details, timestamp, and tool metadata</li>
-                        <li><strong>Inline HTML display</strong> — findings rendered directly on page with severity badges, rule descriptions, and code location links</li>
-                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- ===================================================================== -->
-        <!-- IPA AUDITOR                                                          -->
-        <!-- ===================================================================== -->
-        <section id="ipa" class="tool-section">
-            <div class="tool-section-header">
-                <div class="tool-section-icon ipa">🍎</div>
-                <div class="tool-section-title">
-                    <h2 class="ipa-title">IPA Auditor</h2>
-                    <p>Deep static analysis for iOS applications. Inspects Mach-O binaries, property lists, provisioning profiles, entitlements, and ATS configurations with 80+ security rules.</p>
-                    <div class="tool-actions">
-                        <a href="../ipa-auditor/" class="btn btn-ipa">Launch IPA Auditor →</a>
-                        <a href="https://github.com/mravtechinfo/mobile-pentest-suite" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Source Code</a>
-                    </div>
-                </div>
+        <!-- ===== HOW IT WORKS ===== -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>From uploading a file to getting a full security report — all within your browser.</p>
             </div>
 
-            <div class="tool-summary">
-                <div class="tool-stat"><span class="tool-stat-value ipa-stat">80+</span><span class="tool-stat-label">Security Rules</span></div>
-                <div class="tool-stat"><span class="tool-stat-value ipa-stat">Mach-O</span><span class="tool-stat-label">Binary Parser</span></div>
-                <div class="tool-stat"><span class="tool-stat-value ipa-stat">Plist</span><span class="tool-stat-label">Metadata Analysis</span></div>
-                <div class="tool-stat"><span class="tool-stat-value ipa-stat">ATS</span><span class="tool-stat-label">Transport Security</span></div>
-                <div class="tool-stat"><span class="tool-stat-value ipa-stat">8</span><span class="tool-stat-label">Export Types</span></div>
-            </div>
-
-            <div class="cap-grid">
-                <!-- Mach-O Binary Analysis -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon pink"><span>⚙️</span></div>
-                        <div class="cap-card-title">
-                            <h3>Mach-O Binary Analysis</h3>
-                            <span class="cap-count">Fat binary + slice parsing</span>
-                        </div>
+            <div class="flow-steps">
+                <div class="flow-step">
+                    <div class="flow-step-num">1</div>
+                    <div class="flow-step-content">
+                        <h4>Upload or Connect</h4>
+                        <p>Drag and drop an APK or IPA file, or connect an Android device via WebUSB. No server upload — files are processed entirely in your browser.</p>
                     </div>
-                    <ul>
-                        <li><strong>Fat binary header parsing</strong> — detects universal (fat) binaries with 32/64-bit slice enumeration</li>
-                        <li><strong>Architecture detection</strong> — identifies <code>armv7</code>, <code>arm64</code>, <code>arm64e</code>, <code>x86_64</code> slices</li>
-                        <li><strong>Mach-O header decoding</strong> — parses magic bytes, CPU type/subtype, file type (<code>MH_EXECUTE</code>, <code>MH_DYLIB</code>, <code>MH_BUNDLE</code>), ncmds, flags</li>
-                        <li><strong>Load command enumeration</strong> — extracts all load commands (<code>LC_SEGMENT_64</code>, <code>LC_SYMTAB</code>, <code>LC_CODE_SIGNATURE</code>, <code>LC_ENCRYPTION_INFO</code>, etc.)</li>
-                        <li><strong>Encryption info extraction</strong> — parses <code>LC_ENCRYPTION_INFO_64</code> to detect encrypted vs unencrypted binaries, crypt ID/offset/size</li>
-                        <li><strong>Segment &amp; section listing</strong> — enumerates <code>__TEXT</code>, <code>__DATA</code>, <code>__LINKEDIT</code> segments with section details (<code>__objc_classlist</code>, <code>__cfstring</code>, <code>__cstring</code>, <code>__const</code>, etc.)</li>
-                        <li><strong>Shared library dependencies</strong> — extracts <code>LC_LOAD_DYLIB</code> commands for linked frameworks/libraries</li>
-                        <li><strong>Symbol table parsing</strong> — reads <code>LC_SYMTAB</code> for exported and imported symbol listing</li>
-                        <li><strong>Routine enumeration</strong> — lists <code>LC_ROUTINES_64</code> for entry point analysis</li>
-                        <li><strong>Source version extraction</strong> — reads <code>LC_SOURCE_VERSION</code> load command</li>
-                    </ul>
                 </div>
-
-                <!-- Info.plist Analysis -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon blue"><span>📄</span></div>
-                        <div class="cap-card-title">
-                            <h3>Info.plist Analysis</h3>
-                            <span class="cap-count">15+ keys parsed</span>
-                        </div>
+                <div class="flow-step">
+                    <div class="flow-step-num">2</div>
+                    <div class="flow-step-content">
+                        <h4>Extract &amp; Parse</h4>
+                        <p>JSZip extracts the archive contents. Platform-specific parsers decode binary formats — DEX bytecode for Android, Mach-O for iOS, plus XML, plist, and certificate formats.</p>
                     </div>
-                    <ul>
-                        <li><strong>Bundle identification</strong> — extracts <code>CFBundleIdentifier</code>, <code>CFBundleName</code>, <code>CFBundleDisplayName</code>, <code>CFBundleVersion</code>, <code>CFBundleShortVersionString</code></li>
-                        <li><strong>SDK &amp; deployment target</strong> — parses <code>DTPlatformVersion</code>, <code>DTSDKName</code>, <code>MinimumOSVersion</code>, <code>UIDeviceFamily</code></li>
-                        <li><strong>URL scheme enumeration</strong> — extracts all <code>CFBundleURLTypes</code> → <code>CFBundleURLSchemes</code> for custom URL handlers</li>
-                        <li><strong>Query scheme detection</strong> — reads <code>LSApplicationQueriesSchemes</code> for canOpenURL: usage</li>
-                        <li><strong>Document type identification</strong> — parses <code>CFBundleDocumentTypes</code> and <code>UTImportedTypeDeclarations</code> for supported file types/UTIs</li>
-                        <li><strong>Background mode analysis</strong> — enumerates <code>UIBackgroundModes</code> (audio, location, voip, fetch, remote-notification, processing, etc.)</li>
-                        <li><strong>Privacy permission keys</strong> — detects all <code>NS*UsageDescription</code> keys (camera, photos, location, contacts, microphone, calendar, reminders, bluetooth, Siri, health, home, motion, face ID, media library, nearby interaction, tracking, etc.)</li>
-                        <li><strong>App transport security</strong> — reads <code>NSAppTransportSecurity</code> dictionary</li>
-                        <li><strong>Supported orientations</strong> — extracts <code>UISupportedInterfaceOrientations</code> (iPad + iPhone specific)</li>
-                        <li><strong>Status bar &amp; UI settings</strong> — parses <code>UIStatusBarStyle</code>, <code>UIViewControllerBasedStatusBarAppearance</code>, <code>UIRequiresFullScreen</code></li>
-                        <li><strong>iCloud &amp; storage</strong> — detects <code>NSUbiquitousContainers</code>, <code>UIFileSharingEnabled</code>, <code>LSSupportsOpeningDocumentsInPlace</code></li>
-                        <li><strong>Watch &amp; extension detection</strong> — identifies WatchKit app references, <code>WKCompanionAppBundleIdentifier</code></li>
-                        <li><strong>Font &amp; accessory setup</strong> — lists <code>UIAppFonts</code> and <code>UIAccessoryProtocols</code></li>
-                    </ul>
                 </div>
-
-                <!-- Provisioning Profile & Entitlements -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon orange"><span>📜</span></div>
-                        <div class="cap-card-title">
-                            <h3>Provisioning Profile &amp; Entitlements</h3>
-                            <span class="cap-count">6 analysis areas</span>
-                        </div>
+                <div class="flow-step">
+                    <div class="flow-step-num">3</div>
+                    <div class="flow-step-content">
+                        <h4>Scan with 230+ Rules</h4>
+                        <p>All security rules run against extracted strings, metadata, and binary data. Each finding is mapped to OWASP MASVS, CWE, and severity levels. Everything runs in a background Web Worker.</p>
                     </div>
-                    <ul>
-                        <li><strong>Profile metadata</strong> — extracts Name, UUID, AppIDName, TeamName, TeamIdentifier, CreationDate, ExpirationDate</li>
-                        <li><strong>Platform support</strong> — identifies target platform (iOS, tvOS, watchOS, macOS)</li>
-                        <li><strong>Certificate chain</strong> — enumerates DeveloperCertificates (DER-encoded X.509 certs) with SHA-1 fingerprint</li>
-                        <li><strong>Provisioned devices</strong> — lists device UDIDs for development profiles; flags when absent (App Store distribution)</li>
-                        <li><strong>Entitlements extraction</strong> — parses the full entitlements dictionary embedded in the provisioning profile</li>
-                        <li><strong>Expiry monitoring</strong> — calculates days until expiration; flags expired or expiring profiles as warning</li>
-                    </ul>
                 </div>
-
-                <!-- ATS & Network Security -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon red"><span>🌐</span></div>
-                        <div class="cap-card-title">
-                            <h3>ATS &amp; Network Security Audit</h3>
-                            <span class="cap-count">10+ checks</span>
-                        </div>
+                <div class="flow-step">
+                    <div class="flow-step-num">4</div>
+                    <div class="flow-step-content">
+                        <h4>Score &amp; Report</h4>
+                        <p>Findings are weighted by severity and computed into a security score (0–1000) with a letter grade (A+ through F). Explore results across categorized tabs and export as SARIF, JSON, CSV, or PDF.</p>
                     </div>
-                    <ul>
-                        <li><strong>NSAppTransportSecurity analysis</strong> — full ATS dictionary parsing and evaluation</li>
-                        <li><strong>ATS disabled detection</strong> — flags <code>NSAllowsArbitraryLoads = true</code> (critical finding)</li>
-                        <li><strong>Per-domain exceptions</strong> — enumerates <code>NSExceptionDomains</code> with per-domain ATS settings</li>
-                        <li><strong>Minimum TLS version</strong> — checks <code>NSExceptionMinimumTLSVersion</code> against best practices (TLS 1.2+)</li>
-                        <li><strong>Forward secrecy requirement</strong> — evaluates <code>NSExceptionRequiresForwardSecrecy</code></li>
-                        <li><strong>Arbitrary loads in web views</strong> — flags <code>NSAllowsArbitraryLoadsInWebContent</code> when enabled</li>
-                        <li><strong>Local network exemptions</strong> — detects <code>NSAllowsLocalNetworking</code> for local network access</li>
-                        <li><strong>Third-party cookie exceptions</strong> — checks <code>NSExceptionAllowsInsecureHTTPLoads</code> per domain</li>
-                        <li><strong>Certificate transparency</strong> — evaluates <code>NSRequiresCertificateTransparency</code> settings</li>
-                        <li><strong>ATS Pinning requirements</strong> — checks if NSExceptionDomains use <code>NSRequiresCertificateTransparency</code></li>
-                    </ul>
-                </div>
-
-                <!-- Security Rules (IPA) -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon purple"><span>🛡️</span></div>
-                        <div class="cap-card-title">
-                            <h3>iOS Security Rules Engine</h3>
-                            <span class="cap-count">80+ rules</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>OWASP MASVS coverage</strong> — rules mapped to iOS-specific MASVS requirements <span class="badge-inline masvs">MASVS</span></li>
-                        <li><strong>CWE reference</strong> — every rule tagged with applicable CWE IDs <span class="badge-inline cwe">CWE</span></li>
-                        <li><strong>Multi-severity system</strong> — Critical, High, Medium, Low, Info severity classification</li>
-                        <li><strong>Plist-sourced rules</strong> — rules that inspect Info.plist values against security best practices</li>
-                        <li><strong>Mach-O-sourced rules</strong> — rules that analyze binary properties (encryption, architecture, entitlements)</li>
-                        <li><strong>ATS-sourced rules</strong> — network security transport rules from NSAppTransportSecurity</li>
-                        <li><strong>Entitlement-based rules</strong> — security checks on embedded entitlements (keychain access groups, iCloud, push notifications, etc.)</li>
-                        <li><strong>Provisioning-based rules</strong> — profile integrity and expiry checks</li>
-                        <li><strong>Privacy compliance rules</strong> — detects missing or incomplete privacy usage descriptions</li>
-                    </ul>
-                </div>
-
-                <!-- IPA Vulnerability Categories -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon red"><span>⚠️</span></div>
-                        <div class="cap-card-title">
-                            <h3>Detected Vulnerability Categories</h3>
-                            <span class="cap-count">12 categories</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>ATS bypass</strong> — arbitrary network loads allowed, insecure HTTP loads permitted</li>
-                        <li><strong>Insecure TLS configuration</strong> — weak TLS versions, missing forward secrecy, missing certificate transparency</li>
-                        <li><strong>Missing encryption</strong> — unencrypted binary (no FairPlay encryption detected), exposing binary analysis surface</li>
-                        <li><strong>Privacy compliance</strong> — missing or incomplete NS*UsageDescription keys required for privacy-sensitive APIs</li>
-                        <li><strong>Insecure data storage</strong> — UIFileSharingEnabled, supports opening documents in place without proper safeguards</li>
-                        <li><strong>Exposed URL schemes</strong> — custom URL schemes that could be intercepted or invoked by malicious apps</li>
-                        <li><strong>Excessive background modes</strong> — unnecessary background modes draining battery and increasing attack surface</li>
-                        <li><strong>Expired provisioning</strong> — expired or soon-to-expire provisioning profiles</li>
-                        <li><strong>Jailbreak detection gaps</strong> — absence of jailbreak detection checks</li>
-                        <li><strong>Keychain accessibility</strong> — keychain access group analysis, detecting weak accessibility constraints</li>
-                        <li><strong>Third-party SDK risks</strong> — identification of known vulnerable or data-collecting SDKs from linked frameworks</li>
-                        <li><strong>Insecure plist values</strong> — misconfigured plist key/values that weaken security posture</li>
-                    </ul>
-                </div>
-
-                <!-- IPA Entropy + Export -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon green"><span>🎲</span></div>
-                        <div class="cap-card-title">
-                            <h3>Entropy Analysis &amp; Export</h3>
-                            <span class="cap-count">Entropy + 5 export formats</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>Entropy-based string analysis</strong> — Shannon entropy scanning of extracted strings from Mach-O <code>__cstring</code> and <code>__cfstring</code> sections</li>
-                        <li><strong>High-entropy candidate identification</strong> — flags potential API tokens, encryption keys, and hardcoded secrets in binary strings</li>
-                        <li><strong>SARIF 2.1.0 export</strong> — standardized OASIS format for CI integration</li>
-                        <li><strong>JSON export</strong> — structured findings with full rule metadata, severity, CWE, and location</li>
-                        <li><strong>CSV export</strong> — flat table for spreadsheet and data analysis workflows</li>
-                        <li><strong>PDF report</strong> — styled multi-page report with severity breakdown, finding details, and audit metadata</li>
-                        <li><strong>Inline results</strong> — on-page rendering with severity-colored badges, expandable findings, and rule documentation</li>
-                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- ===================================================================== -->
-        <!-- ADB AUDITOR                                                          -->
-        <!-- ===================================================================== -->
-        <section id="adb" class="tool-section">
-            <div class="tool-section-header">
-                <div class="tool-section-icon adb">🤖</div>
-                <div class="tool-section-title">
-                    <h2 class="adb-title">ADB Auditor</h2>
-                    <p>Browser-based Android device security auditing over WebUSB. Connect live devices, browse filesystems, run shell commands, and execute OWASP-aligned security scans — all from your browser.</p>
-                    <div class="tool-actions">
-                        <a href="../adb-auditor/" class="btn btn-adb">Launch ADB Auditor →</a>
-                        <a href="https://github.com/mravtechinfo/mobile-pentest-suite" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Source Code</a>
-                    </div>
-                </div>
+        <!-- ===== KEY FEATURES ===== -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Key Features</h2>
+                <p>What makes mSAS different from other mobile security tools.</p>
             </div>
 
-            <div class="tool-summary">
-                <div class="tool-stat"><span class="tool-stat-value adb-stat">WebUSB</span><span class="tool-stat-label">Device Connection</span></div>
-                <div class="tool-stat"><span class="tool-stat-value adb-stat">ADB</span><span class="tool-stat-label">Protocol Engine</span></div>
-                <div class="tool-stat"><span class="tool-stat-value adb-stat">Shell</span><span class="tool-stat-label">Command Execution</span></div>
-                <div class="tool-stat"><span class="tool-stat-value adb-stat">Audit</span><span class="tool-stat-label">Security Scanner</span></div>
-                <div class="tool-stat"><span class="tool-stat-value adb-stat">PDF</span><span class="tool-stat-label">Report Export</span></div>
-            </div>
-
-            <div class="cap-grid">
-                <!-- WebUSB ADB Protocol -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon green"><span>🔌</span></div>
-                        <div class="cap-card-title">
-                            <h3>WebUSB ADB Protocol Engine</h3>
-                            <span class="cap-count">Full ADB implementation</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>WebUSB device enumeration</strong> — browser-based discovery of Android devices over USB via <code>navigator.usb.requestDevice()</code></li>
-                        <li><strong>ADB protocol implementation</strong> — complete ADB wire protocol (version 1.0.32) including framing, checksum, magic bytes</li>
-                        <li><strong>Authentication handshake</strong> — RSA public key authentication with OpenSSL-compatible key generation, token signing, and retry logic</li>
-                        <li><strong>Shell protocol (v2)</strong> — implements the ADB shell protocol with PTY allocation, exit code retrieval, and unbuffered I/O</li>
-                        <li><strong>Multi-device management</strong> — enumerates and manages connections to multiple ADB devices simultaneously</li>
-                        <li><strong>Connection health monitoring</strong> — keepalive, reconnection, and timeout handling for stable long-running sessions</li>
-                        <li><strong>Service command routing</strong> — dispatches ADB service commands (shell, transport, framebuffer, sync, reboot, remount, root, etc.)</li>
-                    </ul>
+            <div class="features-grid">
+                <div class="feat-card">
+                    <div class="feat-card-icon">🔒</div>
+                    <h4>Zero Upload Privacy</h4>
+                    <p>All processing happens client-side via Web Workers. Your files never leave your machine.</p>
                 </div>
-
-                <!-- Device & App Analysis -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon blue"><span>📊</span></div>
-                        <div class="cap-card-title">
-                            <h3>Device &amp; App Analysis</h3>
-                            <span class="cap-count">10+ analysis areas</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>Device info retrieval</strong> — model, manufacturer, Android version, SDK level, build fingerprint, serial, security patch level</li>
-                        <li><strong>Installed package listing</strong> — enumerates all <code>pm list packages</code> with filterable output (system vs third-party, disabled, etc.)</li>
-                        <li><strong>App permission analysis</strong> — extracts <code>dumpsys package &lt;pkg&gt;</code> permission groups, granted/denied permissions, runtime permissions</li>
-                        <li><strong>APK path resolution</strong> — locates base APK and split APK paths for any installed package</li>
-                        <li><strong>App version extraction</strong> — versionName, versionCode, firstInstallTime, lastUpdateTime from package manager</li>
-                        <li><strong>Process listing</strong> — enumerates running processes via <code>ps</code> with PID, user, and memory info</li>
-                        <li><strong>Storage analysis</strong> — internal storage vs SD card, app data directory sizes, cache sizes</li>
-                        <li><strong>Network connection audit</strong> — lists active TCP/UDP connections with <code>netstat</code> or <code>proc/net</code></li>
-                        <li><strong>Service &amp; broadcast receiver enumeration</strong> — dumps registered services and receivers per package</li>
-                    </ul>
+                <div class="feat-card">
+                    <div class="feat-card-icon">📡</div>
+                    <h4>Works Offline</h4>
+                    <p>PWA-enabled with service worker caching. After the first load, analyses work without internet.</p>
                 </div>
-
-                <!-- File System Browser -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon cyan"><span>📁</span></div>
-                        <div class="cap-card-title">
-                            <h3>File System Browser</h3>
-                            <span class="cap-count">Interactive file manager</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>Directory listing</strong> — <code>ls -la</code> style output with file permissions, owner/group, size, modification time</li>
-                        <li><strong>File content reading</strong> — <code>cat</code> for text files, with size limit protection for large files</li>
-                        <li><strong>Navigation with breadcrumbs</strong> — interactive path traversal with clickable directory hierarchy</li>
-                        <li><strong>Root-mode file access</strong> — when device is rooted, switches to <code>su</code>-based file access for protected paths (<code>/data/data</code>)</li>
-                        <li><strong>Application data directory scanning</strong> — browses <code>/data/data/&lt;pkg&gt;/</code> for databases, shared preferences, cache, files, code cache</li>
-                        <li><strong>File permission analysis</strong> — flags world-readable/writable files and directories with permission string decoding</li>
-                        <li><strong>File type identification</strong> — distinguishes directories, regular files, symlinks, sockets, and named pipes</li>
-                        <li><strong>Quick-access shortcuts</strong> — predefined paths for common security-relevant locations (<code>/data/system</code>, <code>/data/local/tmp</code>, storage, etc.)</li>
-                    </ul>
+                <div class="feat-card">
+                    <div class="feat-card-icon">🎯</div>
+                    <h4>230+ OWASP Rules</h4>
+                    <p>Mapped to OWASP MASVS L1+L2, CWE, and MSTG. Covers crypto, storage, network, code, and AI/ML.</p>
                 </div>
-
-                <!-- Shell & System Access -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon purple"><span>💻</span></div>
-                        <div class="cap-card-title">
-                            <h3>Shell &amp; System Access</h3>
-                            <span class="cap-count">Interactive + command execution</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>Interactive shell terminal</strong> — full interactive shell session over WebUSB with command history, PTY allocation</li>
-                        <li><strong>Pre-built command palette</strong> — one-click commands: <code>id</code>, <code>uname -a</code>, <code>getprop</code>, <code>mount</code>, <code>df -h</code>, <code>ps -A</code>, <code>netstat -tlnp</code>, <code>dmesg</code>, <code>logcat</code>, <code>pm list packages</code></li>
-                        <li><strong>Root mode toggle</strong> — attempts <code>su -c</code> prefix for commands requiring elevated privileges; shows root availability status</li>
-                        <li><strong>Command output capture</strong> — captures stdout/stderr with proper encoding handling and large output truncation</li>
-                        <li><strong>Screenshot capture</strong> — executes <code>screencap</code> via ADB, retrieves raw framebuffer, and renders as PNG in browser</li>
-                        <li><strong>Logcat viewer</strong> — captures and filters <code>logcat</code> output with buffer selection (main, system, events, crash)</li>
-                        <li><strong>Bugreport generation</strong> — triggers <code>bugreport</code> for comprehensive device diagnostic dump</li>
-                        <li><strong>Package installation/deletion</strong> — <code>pm install</code> and <code>pm uninstall</code> commands via shell</li>
-                    </ul>
+                <div class="feat-card">
+                    <div class="feat-card-icon">📊</div>
+                    <h4>CVSS 3.1 Scoring</h4>
+                    <p>Full CVSS 3.1 base/temporal/environmental scoring with vector parsing and risk heatmaps.</p>
                 </div>
-
-                <!-- Security Audit Engine -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon red"><span>🛡️</span></div>
-                        <div class="cap-card-title">
-                            <h3>Device Security Audit Engine</h3>
-                            <span class="cap-count">OWASP MASTG aligned</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>ADB over network check</strong> — detects if device is listening on TCP port 5555 for remote ADB connections</li>
-                        <li><strong>Root/jailbreak detection</strong> — checks for <code>su</code> binary presence, <code>/system/xbin/su</code>, Magisk, and test-keys build fingerprint</li>
-                        <li><strong>USB debugging status</strong> — verifies ADB debugging is enabled/disabled and evaluates risk context</li>
-                        <li><strong>Screen lock assessment</strong> — checks if device has active screen lock (PIN, pattern, password, or biometric)</li>
-                        <li><strong>Encryption status</strong> — verifies full-disk encryption or file-based encryption is active</li>
-                        <li><strong>Developer options check</strong> — flags when developer options and USB debugging are enabled</li>
-                        <li><strong>Unknown sources / sideloading</strong> — checks if <code>install_non_market_apps</code> or similar is enabled</li>
-                        <li><strong>Security patch level</strong> — evaluates <code>ro.build.version.security_patch</code> against current date for patch age</li>
-                        <li><strong>Verified boot status</strong> — checks <code>ro.boot.verifiedbootstate</code> (green/yellow/orange/red)</li>
-                        <li><strong>ADB over network port scanning</strong> — probes TCP 5555 from device-side to detect if remote ADB is exposed</li>
-                        <li><strong>SELinux mode</strong> — checks <code>getenforce</code> output (Enforcing vs Permissive mode)</li>
-                        <li><strong>Dangerous permission audit</strong> — identifies apps holding SMS, Contacts, Location, Camera, Microphone, and Calendar permissions</li>
-                        <li><strong>Verification summary</strong> — risk-scored per check with detailed remediation advice</li>
-                    </ul>
+                <div class="feat-card">
+                    <div class="feat-card-icon">📤</div>
+                    <h4>Multiple Export Formats</h4>
+                    <p>SARIF 2.1 for CI/CD pipelines, JSON, CSV, and styled PDF reports with executive summaries.</p>
                 </div>
-
-                <!-- ADB Export & Reports -->
-                <div class="cap-card">
-                    <div class="cap-card-header">
-                        <div class="cap-card-icon green"><span>📤</span></div>
-                        <div class="cap-card-title">
-                            <h3>Export &amp; Reporting</h3>
-                            <span class="cap-count">PDF · JSON · CSV · SARIF</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li><strong>PDF security report</strong> — comprehensive styled report with device info summary, audit finding breakdown by severity, MASTG reference mapping, and timestamp</li>
-                        <li><strong>JSON export</strong> — structured device audit results with all findings, metadata, and rule references</li>
-                        <li><strong>CSV export</strong> — tabular findings suitable for spreadsheet analysis and team workflows</li>
-                        <li><strong>SARIF 2.1.0</strong> — integrated into OASIS standard format for CI/CD security pipeline integration</li>
-                        <li><strong>Screenshot capture &amp; display</strong> — live device screenshot with automatic refresh capability</li>
-                        <li><strong>Clipboard-aware exports</strong> — copy findings as formatted text with one-click copy buttons</li>
-                    </ul>
+                <div class="feat-card">
+                    <div class="feat-card-icon">📱</div>
+                    <h4>PWA Installable</h4>
+                    <p>Install as a standalone app on desktop and mobile. Full offline support with service worker.</p>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-card-icon">🔎</div>
+                    <h4>Entropy Secrets Scanner</h4>
+                    <p>Shannon entropy analysis finds hardcoded API keys, tokens, and passwords in binary strings.</p>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-card-icon">🏭</div>
+                    <h4>Batch Analysis</h4>
+                    <p>Queue multiple files for sequential analysis with aggregate stats, comparison tables, and combined reports.</p>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-card-icon">⚙️</div>
+                    <h4>Custom Rule Editor</h4>
+                    <p>Enable/disable rules, adjust priorities, create custom rules, and save profiles for different projects.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ===================================================================== -->
-        <!-- SHARED FEATURES                                                      -->
-        <!-- ===================================================================== -->
-        <section id="shared" class="shared-section">
-            <div class="tool-section-header" style="border-bottom-color: var(--border-subtle); margin-bottom: 32px;">
-                <div class="tool-section-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));">🔗</div>
-                <div class="tool-section-title">
-                    <h2 style="font-size:28px;font-weight:700;letter-spacing:-0.6px;">Shared <span style="color:var(--accent-primary);">Features</span></h2>
-                    <p>Capabilities common to all three tools that unify the mSAS experience.</p>
-                </div>
+        <!-- ===== PRIVACY ===== -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Privacy &amp; Security</h2>
+                <p>Your data stays where it belongs — on your machine.</p>
             </div>
 
-            <div class="shared-grid">
-                <div class="shared-card">
-                    <div class="shared-card-icon">🌙</div>
-                    <h4>Dark/Light Theme</h4>
-                    <p>Persistent theme toggle with system preference detection. Smooth transitions and full design system variant for both modes.</p>
-                </div>
-                <div class="shared-card">
-                    <div class="shared-card-icon">📱</div>
-                    <h4>Fully Responsive</h4>
-                    <p>Adaptive layout from phone to ultrawide. Touch-friendly controls, proper viewport handling, and accessible tap targets.</p>
-                </div>
-                <div class="shared-card">
-                    <div class="shared-card-icon">🔒</div>
-                    <h4>100% Client-Side</h4>
-                    <p>Zero data leaves your device. All analysis, parsing, and scanning happens in your browser via Web Workers. No servers, no uploads, no telemetry.</p>
-                </div>
-                <div class="shared-card">
-                    <div class="shared-card-icon">⚡</div>
-                    <h4>Web Worker Architecture</h4>
-                    <p>Heavy computation offloaded to background Web Workers. UI stays responsive during analysis. Multi-worker parallel processing where applicable.</p>
-                </div>
-                <div class="shared-card">
-                    <div class="shared-card-icon">📦</div>
-                    <h4>No Installation Required</h4>
-                    <p>Open in any modern browser and start analyzing. No downloads, no dependencies, no command-line tools needed (except ADB WebUSB requires Chrome).</p>
-                </div>
-                <div class="shared-card">
-                    <div class="shared-card-icon">📜</div>
-                    <h4>SARIF 2.1 Export</h4>
-                    <p>All three tools export findings in standardized OASIS SARIF 2.1.0 format, ready for integration with GitHub Code Scanning, Azure DevOps, or any SARIF-compatible tool.</p>
-                </div>
-                <div class="shared-card">
-                    <div class="shared-card-icon">📋</div>
-                    <h4>Accessible UI</h4>
-                    <p>Keyboard navigation, screen reader support with ARIA labels, focus-visible indicators, reduced motion support, and skip-to-content links.</p>
-                </div>
-                <div class="shared-card">
-                    <div class="shared-card-icon">🔍</div>
-                    <h4>Comprehensive CWE/MASVS Mapping</h4>
-                    <p>Every security finding cross-referenced to CWE, OWASP MASVS, and MSTG. Built-in documentation for each rule with mitigation guidance.</p>
-                </div>
-                <div class="shared-card">
-                    <div class="shared-card-icon">🔄</div>
-                    <h4>Multi-Format Export</h4>
-                    <p>PDF (styled reports), JSON (structured data), CSV (spreadsheets), SARIF 2.1 (CI/CD). Download or copy findings with one click.</p>
+            <div class="privacy-box">
+                <div class="privacy-box-icon">🛡️</div>
+                <h3>No Server, No Uploads, No Telemetry</h3>
+                <p>Every analysis runs entirely within a Web Worker in your browser tab. The files you analyze are never transmitted over the network. You can disconnect from the internet once the page has loaded and still run a complete analysis.</p>
+                <div class="privacy-badges">
+                    <span class="privacy-badge green">✓ 100% Client-Side</span>
+                    <span class="privacy-badge blue">✓ No Upload Required</span>
+                    <span class="privacy-badge purple">✓ No Telemetry</span>
+                    <span class="privacy-badge orange">✓ Offline Capable</span>
                 </div>
             </div>
+        </section>
 
-            <div style="text-align:center;margin-top:40px">
-                <a href="../" class="btn" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;font-size:14.5px;font-weight:600;border-radius:var(--radius-md);background:var(--text-primary);color:var(--bg-primary);text-decoration:none;box-shadow:var(--shadow-card);transition:all 0.15s ease;">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    Back to Dashboard
-                </a>
+        <!-- ===== ARCHITECTURE ===== -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Architecture</h2>
+                <p>Built with vanilla JavaScript — no frameworks, no build steps, maximum transparency.</p>
+            </div>
+
+            <div class="intro-grid">
+                <div class="intro-card">
+                    <div class="intro-card-icon blue">🧩</div>
+                    <h3>Modular Scanner Design</h3>
+                    <p>Each security scanner is an independent IIFE module registered on the <code>MSAS</code> global namespace. Scanners are loaded dynamically by auditor pages and orchestrated by Web Workers for non-blocking analysis.</p>
+                </div>
+                <div class="intro-card">
+                    <div class="intro-card-icon green">⚡</div>
+                    <h3>Web Worker Processing</h3>
+                    <p>All analysis runs in a background Web Worker to keep the UI responsive. The worker loads scanner modules, executes them against extracted data, and posts results back to the main thread.</p>
+                </div>
+                <div class="intro-card">
+                    <div class="intro-card-icon cyan">📦</div>
+                    <h3>No External Dependencies</h3>
+                    <p>Core analysis engines are written from scratch — DEX parser, Mach-O parser, binary plist decoder, AXML decoder, entropy calculator. Only JSZip (ZIP extraction) and jsPDF (PDF export) are external.</p>
+                </div>
+                <div class="intro-card">
+                    <div class="intro-card-icon purple">📐</div>
+                    <h3>OWASP MASVS-Aligned</h3>
+                    <p>All 230+ rules are mapped to the OWASP Mobile Application Security Verification Standard (MASVS), Common Weakness Enumeration (CWE), and Mobile Security Testing Guide (MSTG) references.</p>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
         <div class="site-footer-inner">
-            <div>
+            <div class="footer-brand">
                 <span>mSAS — Mobile Security Analysis Suite</span>
                 <span class="footer-divider">·</span>
                 <a href="https://github.com/mravtechinfo/mobile-pentest-suite" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <span class="footer-divider">·</span>
                 <a href="../downloads/" rel="nofollow">Download ZIP</a>
+                <span class="footer-divider">·</span>
+                <a href="../robots.txt" rel="noindex">robots.txt</a>
             </div>
-            <div>
+            <div class="footer-copyright">
                 by <a href="https://github.com/mravtechinfo" target="_blank" rel="noopener noreferrer">mravtechinfo</a>
             </div>
         </div>
@@ -1416,7 +985,8 @@
                 document.body.style.overflow = '';
             }
             hamToggle.addEventListener('click', () => {
-                hamMenu.classList.contains('open') ? closeHam() : openHam();
+                if (hamMenu.classList.contains('open')) closeHam();
+                else openHam();
             });
             hamMenu.addEventListener('click', (e) => {
                 if (e.target === hamMenu) closeHam();
@@ -1432,23 +1002,6 @@
             hamTheme.addEventListener('click', () => {
                 themeToggle.click();
             });
-        }
-
-        // Highlight current tab on scroll
-        const tabs = document.querySelectorAll('.tool-tab');
-        const sections = document.querySelectorAll('.tool-section, #shared');
-        if (tabs.length && sections.length) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.id;
-                        tabs.forEach(tab => tab.classList.remove('active'));
-                        const match = document.querySelector(`.tool-tab[href="#${id}"]`);
-                        if (match) match.classList.add('active');
-                    }
-                });
-            }, { rootMargin: '-40% 0px -55% 0px' });
-            sections.forEach(s => observer.observe(s));
         }
     </script>
 </body>

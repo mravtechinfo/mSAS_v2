@@ -65,6 +65,7 @@ function loadCore(filename) {
 // ── Phase 0: Foundation ───────────────────────────────────────
 loadLib('test-result.js');   // MSAS.TestResult
 loadLib('utils.js');         // MSAS.Utils
+loadLib('state-store.js');   // MSAS.StateStore (BASE-3)
 
 // ── Phase 1: Storage scanners ─────────────────────────────────
 loadLib('storage-scanner.js');
