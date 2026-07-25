@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="color-scheme" content="dark light">
-    <title>About · mSAS — Mobile Security Analysis Suite</title>
-    <meta name="description" content="mSAS is a browser-based mobile security analysis suite for Android APKs and iOS IPA files. 100% client-side, zero uploads. Learn how it works.">
+    <title>About · mSAS v2 — Mobile Security Analysis Suite</title>
+    <meta name="description" content="mSAS v2 is a browser-based mobile security analysis suite for Android APKs and iOS IPA files. 100% client-side, zero uploads. Learn how it works.">
     <meta name="author" content="mravtechinfo">
     <meta name="theme-color" content="#FCFCFD" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#07080B" media="(prefers-color-scheme: dark)">
-    <meta name="application-name" content="mSAS — Mobile Security Analysis Suite">
+    <meta name="application-name" content="mSAS v2 — Mobile Security Analysis Suite">
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; worker-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 
-    <meta property="og:title" content="About · mSAS — Mobile Security Analysis Suite">
+    <meta property="og:title" content="About · mSAS v2 — Mobile Security Analysis Suite">
     <meta property="og:description" content="Browser-based mobile security analysis. 100% client-side, zero uploads.">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="mSAS">
+    <meta property="og:site_name" content="mSAS v2">
     <meta property="og:locale" content="en_US">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="About · mSAS">
+    <meta name="twitter:title" content="About · mSAS v2">
     <meta name="twitter:description" content="Browser-based mobile security analysis. 100% client-side, zero uploads.">
 
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
@@ -101,6 +101,7 @@
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation: none !important; transition: none !important; }
             html { scroll-behavior: auto; }
+            .tagline, .tagline-block, .tagline-sm, .tagline-sm .dot { animation: none !important; box-shadow: none !important; }
         }
         body {
             font-family: 'Inter', ui-sans-serif, -apple-system, system-ui, sans-serif;
@@ -230,6 +231,87 @@
         [data-theme="light"] .theme-dark-h { display: block; }
         [data-theme="dark"] .theme-light-h { display: block; }
 
+        /* ===== TAGLINES ===== */
+        .tagline {
+            display: inline-block;
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+            color: var(--accent-primary);
+            padding: 6px 14px 6px 10px;
+            background: var(--accent-subtle);
+            border: 1px solid rgba(16, 185, 129, 0.20);
+            border-radius: 100px;
+            line-height: 1.3;
+            animation: taglineGlow 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        .tagline:hover {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.40);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+        .tagline::before {
+            content: '⚡';
+            font-size: 11px;
+            margin-right: 6px;
+            opacity: 0.8;
+        }
+        @keyframes taglineGlow {
+            0%, 100% { box-shadow: 0 0 0px rgba(16, 185, 129, 0); }
+            50% { box-shadow: 0 0 12px rgba(16, 185, 129, 0.12); }
+        }
+        .tagline-block {
+            display: block;
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: -0.2px;
+            color: var(--accent-primary);
+            margin-top: 12px;
+            padding: 10px 16px;
+            background: var(--accent-subtle);
+            border: 1px solid rgba(16, 185, 129, 0.20);
+            border-radius: var(--radius-md);
+            line-height: 1.4;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .tagline-block:hover {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.40);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+        .tagline-block::before {
+            content: '▸ ';
+            opacity: 0.7;
+        }
+        .tagline-sm {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent-primary);
+            padding: 4px 12px 4px 8px;
+            background: var(--accent-subtle);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 100px;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+        .tagline-sm:hover {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.35);
+        }
+        .tagline-sm .dot {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            animation: tagPulse 2s ease-in-out infinite;
+        }
         /* ===== ABOUT HERO ===== */
         .about-hero {
             position: relative;
@@ -628,7 +710,7 @@
                         <path d="M13 19l4-4 4 4" stroke="var(--accent-primary)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <span class="logo-text"><span class="logo-prefix">mSAS</span><span class="logo-suffix">About</span></span>
+                <span class="logo-text"><span class="logo-prefix">mSAS v2</span><span class="logo-suffix">About</span></span>
             </a>
             <nav class="nav-links" aria-label="Main">
                 <a href="../" class="nav-link nav-sibling" title="Dashboard">
@@ -703,9 +785,10 @@
                 <div class="orb o2"></div>
             </div>
             <div class="about-hero-inner">
-                <span class="about-tag">🛡️ About mSAS <span class="badge-v2">v2</span></span>
+                <span class="about-tag">🛡️ About mSAS v2 <span class="badge-v2">v2</span></span>
                 <h1>Mobile Security,<br><span>Entirely in Your Browser</span></h1>
-                <p>mSAS is a comprehensive, browser-based mobile security analysis suite. It analyzes Android APKs, iOS IPA files, and audits live Android devices — all 100% client-side with zero data uploads.</p>
+                <p>mSAS v2 is a comprehensive, browser-based mobile security analysis suite. It analyzes Android APKs, iOS IPA files, and audits live Android devices — all 100% client-side with zero data uploads.</p>
+                <div style="margin-top:18px"><span class="tagline">Your app's worst 5 minutes.</span></div>
             </div>
         </section>
 
@@ -818,6 +901,7 @@
             <div class="section-header">
                 <h2>How It Works</h2>
                 <p>From uploading a file to getting a full security report — all within your browser.</p>
+                <div class="tagline-block" style="max-width:380px;margin:0 auto;margin-top:12px">Built to find what they tried to hide.</div>
             </div>
 
             <div class="flow-steps">
@@ -919,6 +1003,7 @@
                 <div class="privacy-box-icon">🛡️</div>
                 <h3>No Server, No Uploads, No Telemetry</h3>
                 <p>Every analysis runs entirely within a Web Worker in your browser tab. The files you analyze are never transmitted over the network. You can disconnect from the internet once the page has loaded and still run a complete analysis.</p>
+                <div class="tagline-block" style="max-width:550px;margin:16px auto 0">mSAS v2 — Because "we don't log anything" shouldn't be a lie.</div>
                 <div class="privacy-badges">
                     <span class="privacy-badge green">✓ 100% Client-Side</span>
                     <span class="privacy-badge blue">✓ No Upload Required</span>
@@ -963,7 +1048,7 @@
     <footer class="site-footer">
         <div class="site-footer-inner">
             <div class="footer-brand">
-                <span>mSAS — Mobile Security Analysis Suite</span>
+                <span>mSAS v2 — Mobile Security Analysis Suite</span>
                 <span class="footer-divider">·</span>
                 <a href="https://github.com/mravtechinfo/mobile-pentest-suite" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <span class="footer-divider">·</span>

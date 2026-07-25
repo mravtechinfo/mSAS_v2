@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="color-scheme" content="dark light">
-    <title>mSAS — Mobile Security Analysis Suite for APK, IPA &amp; ADB</title>
-    <meta name="description" content="mSAS — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based, zero uploads. Detect vulnerabilities, misconfigurations, and privacy issues.">
+    <title>mSAS v2 — Mobile Security Analysis Suite · APK, IPA &amp; ADB</title>
+    <meta name="description" content="mSAS v2 — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based, zero uploads. Detect vulnerabilities, misconfigurations, and privacy issues.">
     <meta name="author" content="mravtechinfo">
     <meta name="theme-color" content="#FCFCFD" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#07080B" media="(prefers-color-scheme: dark)">
-    <meta name="application-name" content="mSAS">
+    <meta name="application-name" content="mSAS v2">
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; worker-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
 
-    <meta property="og:title" content="mSAS — Mobile Security Analysis Suite">
-    <meta property="og:description" content="mSAS — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based.">
+    <meta property="og:title" content="mSAS v2 — Mobile Security Analysis Suite">
+    <meta property="og:description" content="mSAS v2 — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based.">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="mSAS">
+    <meta property="og:site_name" content="mSAS v2">
     <meta property="og:locale" content="en_US">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="mSAS — Mobile Security Analysis Suite">
-    <meta name="twitter:description" content="mSAS — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based.">
+    <meta name="twitter:title" content="mSAS v2 — Mobile Security Analysis Suite">
+    <meta name="twitter:description" content="mSAS v2 — comprehensive mobile security analysis for Android APKs, iOS IPA files, and ADB device auditing. 100% browser-based.">
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="mask-icon" href="/mask-icon.svg" color="#10B981">
@@ -100,6 +100,7 @@
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation: none !important; transition: none !important; }
             html { scroll-behavior: auto; }
+            .tagline, .tagline-block, .tagline-sm, .tagline-sm .dot { animation: none !important; box-shadow: none !important; }
         }
         body {
             font-family: 'Inter', ui-sans-serif, -apple-system, system-ui, sans-serif;
@@ -691,6 +692,88 @@
         [data-theme="dark"]  .theme-light-h { display: block; }
 
         /* ===== V2 BADGE ===== */
+        /* ===== TAGLINES ===== */
+        .tagline {
+            display: inline-block;
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+            color: var(--accent-primary);
+            padding: 6px 14px 6px 10px;
+            background: var(--accent-subtle);
+            border: 1px solid rgba(16, 185, 129, 0.20);
+            border-radius: 100px;
+            line-height: 1.3;
+            white-space: nowrap;
+            animation: taglineGlow 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        .tagline:hover {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.40);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+        .tagline::before {
+            content: '⚡';
+            font-size: 11px;
+            margin-right: 6px;
+            opacity: 0.8;
+        }
+        @keyframes taglineGlow {
+            0%, 100% { box-shadow: 0 0 0px rgba(16, 185, 129, 0); }
+            50% { box-shadow: 0 0 12px rgba(16, 185, 129, 0.12); }
+        }
+        .tagline-block {
+            display: block;
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: -0.2px;
+            color: var(--accent-primary);
+            margin-top: 12px;
+            padding: 10px 16px;
+            background: var(--accent-subtle);
+            border: 1px solid rgba(16, 185, 129, 0.20);
+            border-radius: var(--radius-md);
+            line-height: 1.4;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .tagline-block:hover {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.40);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+        .tagline-block::before {
+            content: '▸ ';
+            opacity: 0.7;
+        }
+        .tagline-sm {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent-primary);
+            padding: 4px 12px 4px 8px;
+            background: var(--accent-subtle);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 100px;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+        .tagline-sm:hover {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.35);
+        }
+        .tagline-sm .dot {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            animation: tagPulse 2s ease-in-out infinite;
+        }
         .badge-v2 {
             display: inline-flex;
             align-items: center;
@@ -796,8 +879,8 @@
                     </svg>
                 </div>
                 <div class="logo-text">
-                    <span class="logo-prefix">mSAS</span>
-                    <span class="logo-suffix">— Analysis Suite</span>
+                    <span class="logo-prefix">mSAS v2</span>
+                    <span class="logo-suffix">— Static Analysis Suite</span>
                 </div>
             </a>
             <nav class="nav-links" aria-label="Main">
@@ -877,14 +960,12 @@
                 </span>
 
                 <h1 class="hero-title">
-                    mSAS<br>
+                    mSAS v2<br>
                     <span class="hero-title-accent">Mobile Security Analysis Suite</span>
                 </h1>
 
                 <p class="hero-subtitle">
-                    Comprehensive static analysis for <code>.apk</code> and <code>.ipa</code> files.
-                    Real DEX &amp; Mach-O parsing, manifest analysis, certificate inspection,
-                    entropy-aware secrets detection. All running in your browser.
+                    <span class="tagline">Rip it apart. Locally.</span>
                 </p>
 
                 <div class="hero-cta">
@@ -900,7 +981,7 @@
 
                 <div class="hero-checks">
                     <span class="hero-check"><span class="hero-check-dot"></span>100% client-side</span>
-                    <span class="hero-check"><span class="hero-check-dot"></span>No upload, no telemetry</span>
+                    <span class="hero-check v2"><span class="hero-check-dot"></span>Zero upload. Zero mercy.</span>
                     <span class="hero-check"><span class="hero-check-dot"></span>Browser-based, no install</span>
                     <span class="hero-check"><span class="hero-check-dot"></span>SARIF / JSON / CSV / PDF export</span>
                     <span class="hero-check v2"><span class="hero-check-dot"></span>ADB WebUSB device auditing</span>
@@ -913,6 +994,7 @@
                 <div class="hero-feat"><span class="hero-feat-key">Rules</span><span class="hero-feat-val">230+ · OWASP · MASVS · CWE</span></div>
                 <div class="hero-feat"><span class="hero-feat-key">Export</span><span class="hero-feat-val">SARIF 2.1 · JSON · CSV · PDF</span></div>
                 <div class="hero-feat"><span class="hero-feat-key">ADB</span><span class="hero-feat-val">WebUSB · Shell · Files · Security</span></div>
+                <div class="hero-feat"><span class="hero-feat-key">Tagline</span><span class="hero-feat-val" style="color:var(--accent-primary);font-weight:600;">Local. Lethal. Client-side.</span></div>
             </div>
         </section>
 
@@ -932,6 +1014,7 @@
                         <div class="tool-card-icon">📱</div>
                         <h3>APK Auditor</h3>
                         <p>Deep static analysis for Android applications. Scans DEX bytecode, AndroidManifest.xml, signing certificates, and identifies 150+ security patterns including cryptography flaws, insecure storage, and code execution risks.</p>
+                        <div class="tagline-sm" style="margin-bottom:14px"><span class="dot"></span>Nowhere to hide in the DEX.</div>
                         <div class="tool-feats">
                             <span class="tool-feat">150+ Rules</span>
                             <span class="tool-feat">DEX Bytecode</span>
@@ -958,6 +1041,7 @@
                         <div class="tool-card-icon">🍎</div>
                         <h3>IPA Auditor</h3>
                         <p>Deep static analysis for iOS applications. Inspects Mach-O binaries, Info.plist, provisioning profiles, entitlements, ATS configuration, and detects 80+ security issues across privacy, data storage, and network security domains.</p>
+                        <div class="tagline-sm" style="margin-bottom:14px"><span class="dot"></span>Crack it open. Leave nothing behind — except the report.</div>
                         <div class="tool-feats">
                             <span class="tool-feat">80+ Rules</span>
                             <span class="tool-feat">Mach-O Binary</span>
@@ -1007,7 +1091,7 @@
     <footer class="site-footer">
         <div class="site-footer-inner">
             <div class="footer-brand">
-                <span>mSAS — Mobile Security Analysis Suite</span>
+                <span>mSAS v2 — Mobile Security Analysis Suite</span>
                 <span class="footer-divider">·</span>
                 <a href="https://github.com/mravtechinfo/mobile-pentest-suite" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <span class="footer-divider">·</span>
