@@ -67,6 +67,14 @@ loadLib('test-result.js');   // MSAS.TestResult
 loadLib('utils.js');         // MSAS.Utils
 loadLib('state-store.js');   // MSAS.StateStore (BASE-3)
 
+// ── BASE-1: Shared Modules ───────────────────────────────────────
+loadLib('shared/format.js');      // MSAS.SharedFormat
+loadLib('shared/entropy.js');     // MSAS.SharedEntropy
+loadLib('shared/registry.js');    // MSAS.SharedRegistry
+
+// ── BASE-2: Declarative Rule Engine ───────────────────────────────
+loadLib('rule-engine.js');        // MSAS.RuleEngine
+
 // ── Phase 1: Storage scanners ─────────────────────────────────
 loadLib('storage-scanner.js');
 loadLib('prefs-scanner.js');

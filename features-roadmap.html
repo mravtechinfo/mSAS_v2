@@ -271,9 +271,9 @@
 <script>
 const PHASES = [
   { num: 0, title: 'Shared Foundation', subtitle: 'Core infrastructure to enable all downstream work', color: 'p0', features: [
-    { id: 'BASE-1', title: 'Shared Module System', desc: 'Extract entropy, crypto, hashing, formatting into shared/ directory. Convert from IIFE to ES module pattern with import/export.', mastg: [], state: 'none', impact: 'critical', effort: 'moderate', days: 3 },
-    { id: 'BASE-2', title: 'Declarative Rule Engine', desc: 'Pure-function rule engine that takes context + returns findings. Load rules from data-driven definitions. Enable/disable/prioritize at runtime.', mastg: [], state: 'none', impact: 'critical', effort: 'hard', days: 5 },
-    { id: 'BASE-3', title: 'Event-Driven State Store', desc: 'Lightweight Pub/Sub store so UI reacts to state changes instead of manually updating DOM.', mastg: [], state: 'none', impact: 'high', effort: 'moderate', days: 2 },
+    { id: 'BASE-1', title: 'Shared Module System', desc: 'Shared format, entropy, and registry modules (lib/shared/). IIFE pattern with dual ES module export support.', mastg: [], state: 'yes', impact: 'critical', effort: 'moderate', days: 3 },
+    { id: 'BASE-2', title: 'Declarative Rule Engine', desc: 'Pure-function rule engine (lib/rule-engine.js). Data-driven definitions, enable/disable at runtime, integrates with RuleEditor.', mastg: [], state: 'yes', impact: 'critical', effort: 'hard', days: 5 },
+    { id: 'BASE-3', title: 'Event-Driven State Store', desc: 'Lightweight Pub/Sub store so UI reacts to state changes instead of manually updating DOM.', mastg: [], state: 'yes', impact: 'high', effort: 'moderate', days: 2 },
     { id: 'BASE-4', title: 'Unified PDF Report Builder', desc: 'Merge 3 separate PDF generators into one shared module with consistent branding, MASTG refs, CVSS scores.', mastg: [], state: 'partial', impact: 'high', effort: 'moderate', days: 3 },
     { id: 'BASE-5', title: 'Test Infrastructure', desc: 'Vitest for unit tests, Playwright for E2E, fixture APKs/IPAs. CI pipeline in GitHub Actions.', mastg: [], state: 'yes', impact: 'critical', effort: 'moderate', days: 3 },
     { id: 'BASE-6', title: 'Shared CSS Variables & Theme', desc: 'Consolidate 3 stylesheets into single CSS architecture with design tokens and dark theme.', mastg: [], state: 'yes', impact: 'medium', effort: 'easy', days: 1 },
