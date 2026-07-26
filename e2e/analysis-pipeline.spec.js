@@ -21,6 +21,9 @@ import fs from 'fs';
 const APK_PATH = path.resolve(__dirname, '../../test_app.apk');
 const APK_EXISTS = fs.existsSync(APK_PATH);
 
+const IPA_PATH = path.resolve(__dirname, '../../test_ipa.ipa');
+const IPA_EXISTS = fs.existsSync(IPA_PATH);
+
 // ── Pre-analysis tests (run on fresh page, no APK needed) ─────────────────────
 
 test.describe('APK Analysis Pipeline — Landing & Pre-analysis', () => {
@@ -463,5 +466,193 @@ test.describe.serial('APK Analysis Pipeline — Results', () => {
     await sharedPage.locator('.logo').first().click();
     await expect(sharedPage.locator('#landingContent')).not.toBeHidden();
     await expect(sharedPage.locator('#appContainer')).not.toHaveClass(/active/);
+  });
+});
+
+// ── IPA Analysis Pipeline Tests ─────────────────────────────────────────
+
+test.describe('IPA Analysis Pipeline — Landing & Pre-analysis', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/ipa-auditor/');
+  });
+
+  test('should have dropzone visible and ready before upload', async ({ page }) => {
+    const dropzone = page.locator('#dropZone');
+    await expect(dropzone).toBeVisible();
+    await expect(dropzone).toContainText('Drop');
+  });
+
+  test('should have file input for IPA upload', async ({ page }) => {
+    const fileInput = page.locator('#fileInput');
+    await expect(fileInput).toHaveAttribute('accept', '.ipa,.zip');
+  });
+
+  test('should display hero feature row with security categories', async ({ page }) => {
+    const featRow = page.locator('.hero-feats-row');
+    await expect(featRow).toBeVisible();
+    await expect(featRow.locator('.hero-feat-key')).toHaveCount(4);
+  });
+
+  test('should have theme toggle and cycle between dark and light', async ({ page }) => {
+    const toggle = page.locator('#themeToggle');
+    await expect(toggle).toBeVisible();
+    await toggle.click();
+    const theme = await page.evaluate(() => document.documentElement.dataset.theme);
+    expect(['light', 'dark']).toContain(theme);
+  });
+
+  test('should have header navigation to other auditors', async ({ page }) => {
+    const nav = page.locator('.nav-links');
+    await expect(nav.locator('a[href="../"]')).toBeVisible();
+    await expect(nav.locator('a[href="../apk-auditor/"]')).toBeVisible();
+    await expect(nav.locator('a[href="../adb-auditor/"]')).toBeVisible();
+  });
+});
+
+test.describe.serial('IPA Analysis Pipeline — Results', () => {
+  /** @type {import('@playwright/test').Page} */
+  let sharedPage;
+
+  test.beforeAll(async ({ browser }) => {
+    test.skip(!IPA_EXISTS, 'test_ipa.ipa not found — skip IPA analysis pipeline results tests');
+    test.setTimeout(180000);
+
+    sharedPage = await browser.newPage();
+    await sharedPage.goto('/ipa-auditor/');
+
+    // Use the same approach as the APK test — set up filechooser listener BEFORE clicking
+    const fileChooserPromise = sharedPage.waitForEvent('filechooser', { timeout: 10000 });
+    await sharedPage.locator('#dropZone').click();
+    const fileChooser = await fileChooserPromise;
+    await fileChooser.setFiles(IPA_PATH);
+
+    // Wait for results container to appear
+    await expect(sharedPage.locator('#appContainer')).toBeVisible({ timeout: 70000 });
+  });
+
+  test.afterAll(async () => {
+    if (sharedPage) await sharedPage.close();
+  });
+
+  test.beforeEach(async () => {
+    await sharedPage.locator('.tab').filter({ hasText: 'Overview' }).click();
+  });
+
+  // ── Header ────────────────────────────────────────────────────────
+
+  test('should display app header with name and bundle ID after analysis', async () => {
+    const appName = sharedPage.locator('#appName');
+    await expect(appName).toBeVisible();
+    const text = await appName.textContent();
+    expect(text).toBeTruthy();
+    expect(text).not.toBe('App Name');
+    expect(text.length).toBeGreaterThan(0);
+
+    const bundleId = sharedPage.locator('#bundleId');
+    await expect(bundleId).toBeVisible();
+  });
+
+  // ── Overview panel ───────────────────────────────────────────────
+
+  test('should display security score ring with score value', async () => {
+    const scoreCard = sharedPage.locator('.score-card');
+    await expect(scoreCard).toBeVisible();
+
+    const scoreValue = sharedPage.locator('.score-value');
+    await expect(scoreValue).toBeVisible();
+    const scoreText = await scoreValue.textContent();
+    const score = parseInt(scoreText, 10);
+    expect(score).not.toBeNaN();
+    expect(score).toBeGreaterThanOrEqual(0);
+    expect(score).toBeLessThanOrEqual(100);
+  });
+
+  test('should display findings stat cards with clickable severity filters', async () => {
+    const findingsCard = sharedPage.locator('.findings-card');
+    await expect(findingsCard).toBeVisible();
+    await expect(findingsCard.locator('[data-jumpsev="high"]')).toBeVisible();
+    await expect(findingsCard.locator('[data-jumpsev="info"]')).toBeVisible();
+    await expect(findingsCard.locator('[data-jumpsev="secure"]')).toBeVisible();
+  });
+
+  test('should display application info grid with bundle details', async () => {
+    const infoGrid = sharedPage.locator('#appInfoGrid');
+    await expect(infoGrid).toBeVisible();
+    await expect(infoGrid.locator('.info-item').first()).toBeVisible();
+  });
+
+  // ── Findings panel ───────────────────────────────────────────────
+
+  test('should navigate to Findings tab and display result count', async () => {
+    await sharedPage.locator('.tab').filter({ hasText: 'Findings' }).click();
+
+    const findingsList = sharedPage.locator('#findingsList');
+    await expect(findingsList).toBeVisible();
+
+    const resultCount = sharedPage.locator('#findingsResultCount');
+    await expect(resultCount).toBeVisible();
+    const countText = await resultCount.textContent();
+    expect(countText).toMatch(/\d+/);
+  });
+
+  test('should have search input and sort dropdown in findings', async () => {
+    await sharedPage.locator('.tab').filter({ hasText: 'Findings' }).click();
+    await expect(sharedPage.locator('#findingsSearchInput')).toBeVisible();
+    await expect(sharedPage.locator('#findingsSort')).toBeVisible();
+  });
+
+  test('should expand and collapse finding cards', async () => {
+    await sharedPage.locator('.tab').filter({ hasText: 'Findings' }).click();
+
+    const cards = sharedPage.locator('.finding-card');
+    const cardCount = await cards.count();
+    test.skip(cardCount === 0, 'No findings to test expand/collapse');
+
+    const firstCard = cards.first();
+    const header = firstCard.locator('.finding-header');
+    const body = firstCard.locator('.finding-body');
+
+    await expect(header).toHaveAttribute('aria-expanded', 'false');
+    await expect(body).toBeHidden();
+
+    await header.click();
+    await expect(header).toHaveAttribute('aria-expanded', 'true');
+    await expect(body).not.toBeHidden();
+  });
+
+  // ── Binary panel ─────────────────────────────────────────────────
+
+  test('should navigate to Binary tab and display checksec grid', async () => {
+    await sharedPage.locator('.tab').filter({ hasText: 'Binary' }).click();
+    const checksec = sharedPage.locator('#checksecGrid');
+    await expect(checksec).toBeVisible();
+    await expect(checksec.locator('.checksec-item').first()).toBeVisible();
+  });
+
+  // ── Entitlements panel ──────────────────────────────────────────
+
+  test('should navigate to Entitlements tab and display provisioning info', async () => {
+    await sharedPage.locator('.tab').filter({ hasText: 'Entitlements' }).click();
+    const provCard = sharedPage.locator('#provisioningCard');
+    await expect(provCard).toBeVisible();
+
+    // Should have parsed the embedded.mobileprovision
+    await expect(provCard.locator('.prov-summary, .no-data').first()).toBeVisible();
+  });
+
+  // ── ATS panel ────────────────────────────────────────────────────
+
+  test('should navigate to ATS tab and display ATS verdict', async () => {
+    await sharedPage.locator('.tab').filter({ hasText: 'ATS' }).click();
+    const atsPanel = sharedPage.locator('#atsPanel');
+    await expect(atsPanel).toBeVisible();
+  });
+
+  // ── Explorer panel ───────────────────────────────────────────────
+
+  test('should navigate to Explorer tab with file tree', async () => {
+    await sharedPage.locator('.tab').filter({ hasText: 'Explorer' }).click();
+    await expect(sharedPage.locator('#fileTree')).toBeVisible();
+    await expect(sharedPage.locator('#totalFileCount')).toBeVisible();
   });
 });
