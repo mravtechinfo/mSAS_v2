@@ -75,6 +75,9 @@ loadLib('shared/registry.js');    // MSAS.SharedRegistry
 // ── BASE-2: Declarative Rule Engine ───────────────────────────────
 loadLib('rule-engine.js');        // MSAS.RuleEngine
 
+// ── BASE-4: Unified PDF Builder ───────────────────────────────────
+loadLib('shared/pdf-builder.js'); // MSAS.SharedPdf
+
 // ── Phase 1: Storage scanners ─────────────────────────────────
 loadLib('storage-scanner.js');
 loadLib('prefs-scanner.js');
