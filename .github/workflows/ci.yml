@@ -1,0 +1,118 @@
+# mSAS v2 — CI/CD Pipeline
+#
+# Runs every push/PR to main:
+#   1. Unit tests (Vitest) — 356+ OWASP MASVS rule tests
+#   2. E2E tests (Playwright) — 111+ browser tests across all 3 auditors
+#   3. Deploy to Cloudflare Pages (push to main only)
+#
+# ── Prerequisites ────────────────────────────────────────────────────
+# Set these secrets in your GitHub repo → Settings → Secrets → Actions:
+#   CLOUDFLARE_API_TOKEN   Cloudflare API token with Pages:Read + Write
+#   CLOUDFLARE_ACCOUNT_ID  Your Cloudflare Account ID
+#
+# ── Local equivalent ─────────────────────────────────────────────────
+#   python3 server.py 8080 &
+#   npx vitest run
+#   npx playwright test
+#   npx wrangler pages deploy . --project-name=msas
+
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.x
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium browser
+        run: npx playwright install chromium
+
+      - name: Run unit tests (Vitest)
+        run: npm test
+
+      - name: Start dev server for E2E tests
+        run: |
+          python3 server.py 8080 &
+          echo "SERVER_PID=$!" >> "$GITHUB_ENV"
+          # Poll /api/health until it returns 200 (up to 30 seconds)
+          for i in $(seq 1 30); do
+            if curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/api/health 2>/dev/null | grep -q '200'; then
+              echo "✓ Dev server ready on http://localhost:8080"
+              break
+            fi
+            if [ "$i" -eq 30 ]; then
+              echo "✗ Dev server failed to start within 30 seconds"
+              exit 1
+            fi
+            sleep 1
+          done
+
+      - name: Run E2E tests (Playwright)
+        run: npx playwright test --reporter=list --timeout=30000
+        env:
+          BASE_URL: http://localhost:8080
+
+      - name: Stop dev server
+        if: always()
+        run: kill "$SERVER_PID" || true
+
+      - name: Upload E2E test artifacts (screenshots, videos, traces)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts-${{ github.run_id }}
+          path: test-results/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Deploy to Cloudflare Pages
+        run: npx wrangler pages deploy . --project-name=msas
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,0 +1,13 @@
+# ── mSAS v2 — Cloudflare Pages Redirects ─────────────────────────────
+# See: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# ── SPA fallback ─────────────────────────────────────────────────────
+# Forward unmatched routes to the PWA shell. The app's SW handles
+# client-side routing once loaded.
+/*  /404.html  404
+
+# ── Legacy / old path redirects (if any) ─────────────────────────────
+# /old-path  /new-path  301
+
+# ── Root shortcuts (permanent) ───────────────────────────────────────
+/  /index.html  200

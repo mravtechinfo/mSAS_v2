@@ -1,1 +1,10 @@
 name = "msas"
+compatibility_date = "2024-12-01"
+
+# ── Cloudflare Pages ──────────────────────────────────────────────────
+pages_build_output_dir = "."
+
+# ── Production environment ────────────────────────────────────────────
+[env.production]
+
+# Route rules are managed via _redirects and _headers files
