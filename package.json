@@ -14,7 +14,7 @@
     "dex-parser",
     "macho-analyzer"
   ],
-  "homepage": "https://msas-au8.pages.dev",
+  "homepage": "https://msas.pages.dev",
   "license": "CC-BY-NC-ND-4.0",
   "author": {
     "name": "mravtechinfo",
@@ -22,10 +22,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mravtechinfo/mobile-pentest-suite.git"
+    "url": "git+https://github.com/mravtechinfo/mSAS_v2.git"
   },
   "bugs": {
-    "url": "https://github.com/mravtechinfo/mobile-pentest-suite/issues"
+    "url": "https://github.com/mravtechinfo/mSAS_v2/issues"
   },
   "private": false,
   "files": [
